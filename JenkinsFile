@@ -1,0 +1,81 @@
+pipeline {
+    agent { label 'web-agent' }
+    parameters {
+        string(name: 'branch_name', defaultValue: 'main', description: 'Git branch to use')
+        string(name: 'tag', defaultValue: 'latest', description: 'Version/tag to use for image')
+    }
+    environment {
+        REPO = "jizofront" // the repository created after the git clone
+        DIR_SOURCE = "browser" // the directory for apache server for the source project
+        DIR_JK_ARTIFACT = "/opt/jk_artefacts/jizo-ai/teamweb" // the directory for the image saved to be copied to after build and save
+        IMAGE_FILE = "image-frontend-${params.branch_name}-${params.tag}.tar.gz"
+        IMAGE_NAME = "jizo-frontend:${params.tag}"
+        TGZ_FILE = "sources"
+
+    }
+
+    stages {
+        // Clone the repository and pre-clean
+        // TODO: must check why with cleanWs() sometimes not working properly
+        stage('SCM') {
+            steps {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: "*/${params.branch_name}"]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CleanBeforeCheckout']],
+                userRemoteConfigs: [[
+                    url: "git@srv-jizoai-gitlab-001.jizoai.local:sesame/jizo-ai/${REPO}.git",
+                    credentialsId: 'GitLab'
+                ]]
+            ])
+            }
+        }
+        // Compile the project with production environement
+        // must be done in the directory created when clone is done so the ${REPO}
+        stage('Compiling') {
+            steps {
+                script {
+                    def tar_file = "${TGZ_FILE}_${REPO}.tgz"
+                    echo "File to be compressed >> ${tar_file}"
+                    echo "Compiling Symfony project for ${REPO}"
+                    sh """
+                        export TAR_FILE=${tar_file}
+                        pwd
+                        node -v
+                        npm -v
+                        ng v
+                        npm install
+                        ng build --configuration=production
+                    """
+                }
+            }
+        }
+        // Build docker image and name it with the environment choice using the Dockerfile file
+        stage('Build Docker image') {
+            steps {
+                script {
+                    // to do try find better way to use the parameters in the sh script under
+                    echo "Building Docker image"
+                    echo "Start building image for ${IMAGE_NAME} & pass the filename via the arguments"
+                    sh "docker build --no-cache -f Dockerfile -t ${IMAGE_NAME} ."
+                }
+            }
+        }
+        // Save the docker image
+        stage('Save Docker image') {
+            steps {
+                script {
+                    echo 'Save Docker image'
+                    sh "docker save ${IMAGE_NAME} | gzip > ${IMAGE_FILE}"
+                    sh "cp ${IMAGE_FILE} ${DIR_JK_ARTIFACT}"
+                }
+            }
+        }
+        stage('Artifact') {
+            steps {
+                archiveArtifacts artifacts: "**/*.tgz, **/*.tar.gz", fingerprint: true
+            }
+        }
+    }
+}

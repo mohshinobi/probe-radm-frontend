@@ -1,0 +1,11 @@
+@defer (when chartOptions().series?.length) {
+        
+        <highcharts-chart 
+                [Highcharts]="Highcharts"
+                [options]="chartOptions()"
+                style="display: block; width: 100%; "
+            >
+        </highcharts-chart>
+} @placeholder {
+        <app-skeleton ></app-skeleton>
+}

@@ -1,0 +1,76 @@
+<div class="title">
+  <h2 class="title-section title-tooltip">Configuration Classtype <mat-icon matTooltip="Categorizes rules or alerts into predefined types, helping in organizing, prioritizing, and responding to different security or system events.">help_outline</mat-icon></h2>
+</div>
+ <section class="mg-0" style="align-items: stretch">
+  <div class="adress column-100">
+    <mat-card class="radm-card">
+      <mat-card-content>
+        @if(configurationClassType().length == 0) {
+          <p class="no-data">No ClassType Configuration found</p>
+        }
+        @else {
+          <table mat-table [dataSource]="configurationClassType()" class="file-table">
+            <ng-container matColumnDef="key">
+              <th mat-header-cell *matHeaderCellDef class="label text-center"> Key </th>
+              <td
+                mat-cell
+                *matCellDef="let item"
+                class="file-name-cell text-center label"
+              >
+                {{ item.key }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="classtype">
+              <th mat-header-cell *matHeaderCellDef class="label text-center"> ClassType </th>
+              <td
+                mat-cell
+                *matCellDef="let item"
+                class="file-name-cell text-center"
+              >
+                {{ item.classtype }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="severity">
+              <th mat-header-cell *matHeaderCellDef class="label text-center"> Severity </th>
+              <td
+                mat-cell
+                *matCellDef="let item"
+                [ngClass]="'text-center severity-' + item.severity"
+              >
+                {{ item.severity }}
+              </td>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="label text-center"> Actions </th>
+                <td
+                mat-cell
+                *matCellDef="let item"
+                [ngClass]="'text-center severity-' + item.severity"
+                >
+                      <mat-icon
+                        mat-raised-button
+                        class="cta-btn cta"
+                        (click)="
+                          openDialog(
+                            item,
+                            'Update ' + item.classtype+ ' Severity',
+                            'update_severity',
+                            'classtype'
+                          )
+                        "
+                        matTooltip="Update Severity"
+                        >edit
+                      </mat-icon>
+
+                </td>
+              </ng-container>
+
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['key', 'classtype', 'severity', 'actions']" ></tr>
+            <tr mat-row *matRowDef="let row; columns: ['key', 'classtype', 'severity', 'actions']"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

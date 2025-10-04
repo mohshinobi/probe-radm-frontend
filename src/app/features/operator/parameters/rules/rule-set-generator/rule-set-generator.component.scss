@@ -1,0 +1,170 @@
+:host {
+    display: block;
+    overflow: hidden;
+
+    .layout {
+        display: flex;
+        gap: 16px;
+        min-height: 60vh;
+    }
+
+    .left {
+        flex: 0 0 70%;
+    }
+
+    .right {
+        flex: 0 0 30%;
+        display: flex;
+        justify-content: center;
+        height: fit-content;
+    }
+
+    .chips-card {
+        padding: 8px;
+        border: 1px solid #454443;
+        background: #1f1f1f;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .form-card {
+        width: 100%;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        border-radius: 12px;
+        margin: 16px 16px 0 8px;
+        background-color: #1f1f1f;
+        border: 1px solid #454443;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        color: white;
+    }
+
+    .chips-row {
+        gap: 8px;
+        align-items: center;
+        padding-bottom: 2px;
+    }
+
+    .chip-wrapper {
+        display: inline-flex;
+    }
+
+    .rounded-chip {
+        border-radius: 3px;
+        border: 1px solid #454443;
+        height: 30px;
+        font-size: 14px;
+        margin: 4px;
+        background-color: #313131;
+    }
+
+    .circle-value {
+        width: 160px;
+        height: 160px;
+        border: 2px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+
+    .counting-indicator,
+    .generating-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(222, 238, 83, 0.3);
+        border-top: 3px solid #deee53;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    .spinner-black {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        border-top: 2px solid black;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .ioc-label {
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .ioc-input {
+        width: 120px;
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+            text-align: center;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+    }
+
+    .generate-btn {
+        width: 60%;
+        height: 50px;
+        background: #FFF73F;
+        color: rgba(0, 0, 0, 0.87);
+        border-radius: 12px;
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    }
+
+    .matching-rule-label {
+        font-size: 23px;
+    }
+
+    .validation-errors {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    .error-message {
+        background-color: rgba(244, 67, 54, 0.1);
+        border: 1px solid rgba(244, 67, 54, 0.3);
+        color: #f44336;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+}

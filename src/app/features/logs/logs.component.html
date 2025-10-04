@@ -1,0 +1,166 @@
+<div class="logs-container">
+  <div>
+      <h1 class="main-title" >Logs</h1>
+  </div>
+  <section class="mg-0" style="align-items: stretch">
+    <div class="column-49">
+      <mat-card class="radm-card">
+        <div class="d-flex" style="padding: 2% 2% 3% 3%">
+          <h3 class="card-title">
+            System Logs
+            <mat-icon matTooltip="Central repository for core system logs that track internal operations, API interactions, and system-level diagnostics." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+          </h3>
+        </div>
+        <mat-card-content>
+          @if(systemLogs().length == 0) {
+            <p class="no-data">No System Logs found</p>
+          }
+          @else {
+          <table mat-table [dataSource]="systemLogs()" class="file-table">
+            <ng-container matColumnDef="name">
+              <td
+                mat-cell
+                *matCellDef="let item"
+                class="file-name-cell label column-90"
+              >
+                {{ formatLog(item) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <td mat-cell *matCellDef="let item" class="actions-cell">
+                <div class="row">
+                  <div class="actions">
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="getFileContent('system', item)"
+                      matTooltip="View"
+                      >remove_red_eye
+                    </mat-icon>
+
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="downloadFile('system', item)"
+                      matTooltip="Save"
+                      >save
+                    </mat-icon>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: ['name',  'actions']"></tr>
+          </table>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-49">
+      <mat-card class="radm-card">
+        <div class="d-flex" style="padding: 2% 2% 3% 3%">
+          <h3 class="card-title">
+            Flow Logs
+            <mat-icon matTooltip="Collection of specialized logs focused on security engines, signature matching, and anomaly detection processes." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+          </h3>
+        </div>
+        <mat-card-content>
+          @if(flowLogs().length == 0) {
+            <p class="no-data">No Flow Logs found</p>
+          }
+          @else {
+          <table mat-table [dataSource]="flowLogs()" class="file-table">
+            <ng-container matColumnDef="name">
+              <td
+                mat-cell
+                *matCellDef="let item"
+                class="file-name-cell label column-90"
+              >
+                {{ formatLog(item) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <td mat-cell *matCellDef="let item" class="actions-cell">
+                <div class="row">
+                  <div class="actions">
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="getFileContent('suricata', item)"
+                      matTooltip="View"
+                      >remove_red_eye
+                    </mat-icon>
+
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="downloadFile('suricata', item)"
+                      matTooltip="Save"
+                      >save
+                    </mat-icon>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: ['name',  'actions']"></tr>
+          </table>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <section style="align-items: stretch">
+    <div class="column-49">
+      <mat-card class="radm-card">
+        <div class="d-flex" style="padding: 2% 2% 3% 3%">
+          <h3 class="card-title">
+            User Logs
+            <mat-icon matTooltip="Logs related to user activities, including authentication events and user management operations." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+          </h3>
+        </div>
+        <mat-card-content>
+          @if(usersLogs().length == 0) {
+            <p class="no-data">No User Logs found</p>
+          }
+          @else {
+          <table mat-table [dataSource]="usersLogs()" class="file-table">
+            <ng-container matColumnDef="name">
+              <td
+                mat-cell
+                *matCellDef="let item"
+                class="file-name-cell label column-90"
+              >
+                {{ formatLog(item) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <td mat-cell *matCellDef="let item" class="actions-cell">
+                <div class="row">
+                  <div class="actions">
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="getFileContent('users', item)"
+                      matTooltip="View"
+                      >remove_red_eye
+                    </mat-icon>
+
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="downloadFile('users', item)"
+                      matTooltip="Save"
+                      >save
+                    </mat-icon>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: ['name',  'actions']"></tr>
+          </table>
+          }
+        </mat-card-content>
+      </mat-card> 
+</div>

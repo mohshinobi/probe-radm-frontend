@@ -1,0 +1,235 @@
+:host {
+  --mat-card-border-radius:0;
+  --mat-sidenav-container-background-color: #252525;
+}
+table {
+  width: 100%;
+  // border-collapse: collapse;
+  background-color: #1F1F1F !important;
+  box-shadow: none;
+}
+section {
+  min-height: 704px;
+  background-color: #252525;
+}
+.content {
+  padding: 0;
+  border-left: 1px solid #454443;
+}
+
+.table-container {
+  // Dimensions et positionnement
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+
+  // Gestion du défilement
+  overflow: auto;
+  overflow-x: auto;
+
+  // Style visuel
+  background-color: #1F1F1F !important;
+  border-radius: var(--mat-card-border-radius);
+
+  // Alignement
+  align-items: center;
+  justify-content: center;
+
+  // Style de la table
+  .mat-table {
+    width: 100%;
+  }
+
+  // Style du paginateur
+  .mat-paginator {
+    position: sticky;
+    bottom: 0;
+    background-color: #1e1e1e;
+    z-index: 1;
+  }
+}
+
+
+// .mat-mdc-paginator-container {
+//   background-color: #27293d !important;
+// }
+
+.mat-mdc-header-cell{
+  font-size: medium;
+  font-weight:500;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+// thead {
+//   background-color: #FFF73F !important;
+//   color: #000 !important;
+// }
+
+th.mat-sort-header-sorted {
+  color: black !important;
+}
+
+.mat-form-field {
+  width: 40%;
+}
+
+h2{
+  font-family: Sesame, sans-serif;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: rgba(22, 21, 22, 0.192);
+}
+
+// tr.example-element-row:not(.example-expanded-row):active {
+//   background: #f3f7036e;
+// }
+
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+
+
+
+
+.example-element-detail {
+  overflow: hidden;
+}
+
+.example-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.example-sidenav {
+  padding: 20px;
+  width: 20%;
+  height: 100%;
+}
+
+.select-sidenav {
+  padding: 20px;
+  width: 10%;
+  height: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-aligned {
+  margin-left: auto;
+}
+
+.no-data-cell {
+  padding-top: 20px;
+  text-align: center;
+  font-style:normal;
+  color: rgb(206, 203, 26);
+  font-weight: bold;
+  font-size:larger;
+}
+
+::ng-deep .mat-paginator-container {
+  justify-content: flex-start !important;
+  align-items: center;
+}
+
+::ng-deep .mat-paginator-range-actions {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-paginator-range-label {
+  position: absolute;
+  left: 0;
+  color: #919191;
+  font-size: 14px;
+}
+
+button {
+  margin-left: 20px;
+}
+
+.chip-container {
+  max-width: 1000px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+::ng-deep .green-background {
+  background-color: green !important;
+  color: white !important;
+}
+
+::ng-deep .red-background {
+  background-color: red !important;
+  color: white !important;
+}
+
+.admin-row {
+  background: rgba(124, 124, 124, 1);
+  color: #000;
+  font-weight: bold;
+  &:hover {
+    background: rgba(124, 124, 124, 0.7) !important;
+  }
+}
+
+.centred {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+// Center some values in table header and values
+:host::ng-deep .mat-mdc-header-cell,
+.mat-mdc-cell {
+  flex-wrap: nowrap;
+  text-wrap: nowrap ;
+
+  &.mat-column-proto,
+  &.mat-column-app_proto,
+  &.mat-column-dest_port,
+  &.mat-column-alert_count,
+  &.mat-column-src_port,
+  &.mat-column-threat,
+  &.mat-column-confiance,
+  &.mat-column-confidence,
+  &.mat-column-deviance,
+  &.mat-column-feedback,
+  &.mat-column-robustesse,
+  &.mat-column-criticity,
+  &.mat-column-alert,
+  &.mat-column-alert-severity,
+  &.mat-column-actions {
+
+    text-align: center !important;
+    vertical-align: middle !important;
+    justify-content: center !important;
+    app-cell-table,
+    app-default-cell,
+    app-icon-cell,
+    .mat-sort-header-container {
+      display: flex;
+      justify-content: center !important;
+      align-items: center;
+      text-align: center;
+    }
+
+    button,
+    span,
+    div {
+      margin: 0 auto;
+    }
+  }
+}

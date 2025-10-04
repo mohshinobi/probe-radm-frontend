@@ -1,0 +1,35 @@
+<div class="login-container">
+  <div class="login-content">
+    <h1>Login</h1>
+    <p class="subtitle">Login to your account</p> 
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-login">
+      <mat-form-field class="full-width"  >
+        <mat-label>Username</mat-label>
+        <input  type="text" matInput formControlName="username" autocomplete="username" required>
+
+        @if (usernameErrorMessage) {
+        <mat-error>{{ usernameErrorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width"  >
+        <mat-label>Password</mat-label>
+        <input  [type]="showPassword ? 'text' : 'password'" matInput formControlName="password"
+          autocomplete="current-password" required>
+        <mat-icon matSuffix (click)="togglePasswordVisibility()" class="password-visibility-icon"
+          [matTooltip]="showPassword ? 'Hide Password' : 'Show Password'" role="button" tabindex="0">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+        @if (passwordErrorMessage) {
+        <mat-error>{{ passwordErrorMessage }}</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="button-actions">
+        <button mat-raised-button color="primary" class="login-btn" [disabled]="loginForm.invalid">
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

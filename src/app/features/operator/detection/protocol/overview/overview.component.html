@@ -1,0 +1,194 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [options]="timeFilterOptions"
+      [title]="title"
+      [condition]="condition"
+      (timeChange)="onTimeIntervalChange($event)"
+      (customSelected)="onCustomDateChange($event)">
+      <mat-form-field appearance="outline" class="select-field">
+        <mat-select  value="alert" (selectionChange)="onProtocolChange($event.value)" [(ngModel)]="protocolSelected">
+          @for (proto of protocolSelectFilterOptions; track $index) {
+            <mat-option [value]="proto.value">{{proto.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </app-time-selector>
+  </div>
+</div>
+<div class="content">
+  <section>
+    @if(protocol() === ProtocolIndex.alert) {
+      <div class="column-26">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">
+                  Top alerts by protocol
+                   <mat-icon
+                     matTooltip="Visual representation of network alerts categorized by protocol type.
+                      The bar chart shows the distribution of alerts across different protocols, with exact alert counts for each"
+                     [matTooltipPosition]="'above'">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-stacked-bar [graphOptions]="charts.topProtos()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+    <div [ngClass]="{'column-73': protocol() === ProtocolIndex.alert, 'column-100': protocol() !== ProtocolIndex.alert}">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div style="display: flex">
+            <div style="width: 100%;">
+              <h3 class="card-title" style="font-size: 22px; color: white;">Alerts by proto
+                <mat-icon [matTooltip]="getTooltipText()"
+                 [matTooltipPosition]="'above'" >help_outline</mat-icon></h3>
+            </div>
+          </div>
+          @if (protocol() === ProtocolIndex.alert) {
+            <app-areaspline [graphOptions]="charts.timeintervalline()"></app-areaspline>
+          } @else {
+            <app-area
+              [graphOptions]="charts.timeintervalProto()"
+            ></app-area>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  @switch (protocol()) {
+    @case (ProtocolIndex.ssh) {
+      <app-ssh-template
+        [clientVersions]="sshCharts.clientRequestsByProtoVersions"
+        [clientSoftware]="sshCharts.clientRequestsBySoftwareVersion"
+        [serverVersions]="sshCharts.serverRequestsByProtoVersions"
+        [serverSoftware]="sshCharts.serverRequestsBySoftwareVersion"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.dns) {
+      <app-dns-template
+        [requestsByType]="dnsCharts.requestsByType"
+        [requestsByPort]="dnsCharts.requestsByPort"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.tls) {
+      <app-tls-template
+        [requestsBySource]="tlsCharts.requestsBySource"
+        [requestsByPort]="tlsCharts.requestsByPort"
+        [requestsByVersion]="tlsCharts.requestsByVersion"
+        [requestsByCipherInfo]="tlsCharts.requestsByCipherInfo"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.http) {
+      <app-http-template
+        [requestsByStatus]="httpCharts.requestsByStatus"
+        [requestsByPort]="httpCharts.requestsByPort"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.fileinfo) {
+      <app-file-info-template
+        [requestsByHttpMethode]="fileInfoCharts.requestsByHttpMethode"
+        [requestsByHttpUserAgent]="fileInfoCharts.requestsByHttpUserAgent"
+        [requestsByHttpContentType]="fileInfoCharts.requestsByHttpContentType"
+      />
+    }
+    @case (ProtocolIndex.rdp) {
+      <app-rdp-template
+        [requestsByGeoIp]="rdpCharts.requestsByGeoIp"
+        [requestsByStatus]="rdpCharts.requestsByStatuss"
+        [requestsBySourceIp]="rdpCharts.requestsBySourceIp"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.smb) {
+      <app-smb-template
+        [requestsByStatusCommand]="smbCharts.requestsByStatusCommand"
+        [requestsByStatus]="smbCharts.requestsByStatus"
+        [requestsBySharedResource]="smbCharts.requestsBySharedResources"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+    @case (ProtocolIndex.krb5) {
+      <app-krb5-template
+        [requestsByStatusCname]="krb5Charts.requestsByStatusCname"
+        [mapOptions]="charts.geoIpMap"
+        [mapType]="currentMapType"
+        (mapTypeChange)="onMapTypeChange($event)"
+      />
+    }
+  }
+  <section style="margin-bottom: 1rem;">
+    <div class="column-34">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <h3 class="graph-title card-title">Top IP sources
+             <mat-icon
+                   matTooltip="Most active IP addresses sending traffic to your network, ranked by volume."
+            [matTooltipPosition]="'above'">help_outline</mat-icon>
+          </h3>
+          <app-bar [graphOptions]="charts.top10IpSrc()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-31">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <h3 class="graph-title card-title">IP Relationships
+          <mat-icon matTooltip="Connection patterns between source and destination IPs, showing which IPs communicate with each other"
+            [matTooltipPosition]="'above'">help_outline</mat-icon>
+            </h3>
+          <app-sankey [graphOptions]="charts.srcDestIpRelationship()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-34">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <h3 class="graph-title card-title">Top Ip destination
+              <mat-icon
+                matTooltip="Most frequently contacted destination IP addresses, ranked by incoming traffic volume."
+                [matTooltipPosition]="'above'">help_outline</mat-icon>
+          </h3>
+          <app-bar [graphOptions]="charts.top10IpDest()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+
+  <app-table
+    #tableComponent
+    [tableDataResponse]="alertsByProtocol()"
+    [tableColumns]="ordersTableColumnsByProto"
+    [displayedColumns]="displayedColumnsByProto"
+    [form]="form"
+    [fields]="fields"
+    [length]="length"
+    (tableActions)="tableActions($event)"
+    (cellDatas)="getCellDatas($event)"
+    [expandableDatas]="true"
+    [expandableDetailsDataFunction]="expandableDetailsData"
+  />
+</div>
+

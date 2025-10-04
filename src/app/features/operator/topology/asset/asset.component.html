@@ -1,0 +1,144 @@
+<div class="header-title">
+  <h1 class="main-title">Discovery</h1>
+</div>
+
+  <div>
+    <section>
+      <div class="column-100 radm-card">
+        <h3 class="card-title">Assets Stats
+        <mat-icon matTooltip="Assets Stats"
+              matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+        <div class="cards-container">
+          @for (card of itStats(); track card)
+          {
+            @if(card.key != "Down") {
+              <div class="card card-stats">
+                <div class="card-body">
+                  <div class="col">
+                    <h5 class="card-title">{{card.key | uppercase}}</h5>
+                    <span class="count">{{card.value}}</span>
+                  </div>
+                  <div [ngClass]="'icon icon-shape text-white rounded-circle shadow bg-' + card.key | lowercase">
+                    <i class="icon-stats fa-solid"
+                       [ngClass]="{
+                         'fa-laptop': card.key === 'Total',
+                         'fa-plug-circle-xmark': card.key === 'Offline',
+                         'fa-plug': card.key === 'Connected',
+                         'fa-plus': card.key === 'New'
+                       }"></i>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+    </section>
+
+    <section class="live-section">
+      <div class="chips-live">
+        <span class="live-dot"></span>
+        <span>Last New Assets</span>
+      </div>
+      <div class="live-container">
+      <span class="news-title">
+        @if (lastNew()) {
+          @for (asset of lastNew();track $index) {
+            <div [ngClass]="'item-live ' + (asset.devPresentLastScan == 1 ? 'txt-connected' : 'txt-offline')" (click)="redirectToDetails(asset)">
+              <span [innerHTML]="asset.devIcon | base64"></span>
+              <span>{{ asset.devName }}</span>
+            </div>
+            <span class="live-separator">&#8226;</span>
+          }
+        }
+      </span>
+      </div>
+    </section>
+  <section>
+    <div class="column-24">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">
+              Assets By status
+              <mat-icon matTooltip="Shows the total count of monitored network assets."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+            </h3>
+          </div>
+          <app-pie [graphOptions]="assetByStatus()" />
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="column-75">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">
+              New Assets Count Distribution by Day for the Last 30 DAYS
+               <mat-icon matTooltip="Displays New Assets Count Distribution by Day for the Last 30 Days."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+            </h3>
+          </div>
+          @defer(when histogram().series?.length){
+          <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="histogram()"
+                style="width: 100%; display: block;"
+            ></highcharts-chart>
+          } @placeholder {
+            <app-skeleton ></app-skeleton>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </section>
+
+
+  <!-- {{assetsGraph()}} -->
+  <!-- <section>
+    <div class="asset-table-container column-100">
+      {{devices()|json}}
+      <app-table
+        #tableComponent
+        [tableDataResponse]="assets()"
+        [tableColumns]="ordersTableColumns"
+        [displayedColumns]="displayedColumns"
+        [fields]="fields"
+        [form]="form()"
+        [length]="length()"
+        [expandableDatas]="true"
+        (tableActions)="tableActions($event)"
+        (expandDatas)="getDetailsParams($event)"
+        [expandableDetailsData]="assetDetails()"
+        [seeMore]="false"
+      />
+    </div>
+  </section> -->
+
+
+  <section>
+    <div class="asset-table-container column-100">
+      <app-table
+        #tableComponent
+        [tableDataResponse]="assetsGraph()"
+        [tableColumns]="graphTableColumns"
+        [displayedColumns]="graphDisplayedColumns"
+        [fields]="fields"
+        [form]="form()"
+        [length]="lengthGraph()"
+        [expandableDatas]="true"
+        (tableActions)="tableActions($event)"
+        (expandDatas)="getDetailsParams($event)"
+        [expandableDetailsData]="assetDetails()"
+        (cellDatas)="getCellDatas($event)"
+        [seeMore]="false"
+      />
+    </div>
+  </section>
+</div>
+
+
+

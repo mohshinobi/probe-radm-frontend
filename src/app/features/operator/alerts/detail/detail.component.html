@@ -1,0 +1,411 @@
+<div *ngIf="details$ | async as details;">
+  <div class="container column-99">
+    <div class="column-99">
+      <mat-card class="card">
+        <mat-card-content>
+          <div class="container">
+            <div class="column-5 score {{ scoreClass }}">
+              {{ scoreRisk }}
+            </div>
+            <div class="column-65">
+              <h1>{{ details.alert?.signature || 'AI Alert' }}</h1>
+              @if (type === 'flow'){
+              <h4>{{ details.alert?.category || 'None' }}</h4>
+              <h4>{{ details.threat || 'None' }}</h4>
+              }
+              <p>Started at: {{ details.timestamp | date: 'yyyy-MM-dd HH:mm:ss': 'UTC' }}</p>
+              <p>Severity : {{ details.alert?.severity || details.severity || 'None' }}</p>
+              @if(details.community_id){
+                <a [href]="externalUrl + details.community_id">Community ID: {{ details.community_id}}</a>
+              } @else {
+                <p>Community ID: None</p>
+              }
+              <p>UID: {{ details.zeekData?.uid || 'None' }}</p>
+            </div>
+            <div class="container column-25">
+              <!--              <h4 class="column-70">Part of Usecase Alert-->
+              <!--                <mat-icon style="vertical-align: -6px; margin-left: 10px">remove_red_eye</mat-icon>-->
+              <!--              </h4>-->
+              <!--              <h4 class="column-70">Linked to File Alert-->
+              <!--                <mat-icon style="vertical-align: -6px; margin-left: 10px">remove_red_eye</mat-icon>-->
+              <!--              </h4>-->
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="container column-100">
+      <div class="column-33">
+        <h3>OFFENDER</h3>
+        <mat-card class="card">
+          <mat-card-header class="red"></mat-card-header>
+          <mat-card-content>
+            <div class="container card-body">
+              <div class="column-80">
+                <p><span class="key-offender">HOST_NAME</span> : {{ details.host?.name || 'None' }}</p>
+                <p><span class="key-offender">IP ADDRESS</span> : {{ details.src_ip || 'None' }}</p>
+                <p><span class="key-offender">PORT</span> : {{ details.src_port || 'None' }}</p>
+                <p><span class="key-offender">MAC ADDRESS</span> : {{ details.zeekData?.orig_l2_addr || 'None' }}</p>
+              </div>
+              <div class="column-15">
+                @if (details.src_geoip && details.src_geoip.geo){
+                  <img [src]="'assets/images/' + details.src_geoip.geo.country_iso_code.toLowerCase() + '.svg'"
+                       class="flag" alt="flag" />
+                }
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div id="arrowAnim">
+        <div class="arrowSliding delay0">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay1">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay2">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay3">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay4">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay5">
+          <div class="arrow"></div>
+        </div>
+        <div class="arrowSliding delay6">
+          <div class="arrow"></div>
+        </div>
+      </div>
+
+      <div class="column-33">
+        <h3>VICTIM</h3>
+        <mat-card class="card">
+          <mat-card-header class="blue"></mat-card-header>
+          <mat-card-content>
+            <div class="container card-body">
+              <div class="column-80">
+                <p><span class="key-victim">HOST_NAME</span> : {{ details.host?.name || 'None' }}</p>
+                <p><span class="key-victim">IP ADDRESS</span> : {{ details.dest_ip || 'None' }}</p>
+                <p><span class="key-victim">PORT</span> : {{ details.dest_port || 'None' }}</p>
+                <p><span class="key-victim">MAC ADDRESS</span> : {{ details.zeekData?.resp_l2_addr || 'None' }}</p>
+              </div>
+              <div class="column-15">
+                @if (details.dest_geoip && details.dest_geoip.geo){
+                  <img [src]="'assets/images/' + details.dest_geoip.geo.country_iso_code.toLowerCase() + '.svg'"
+                       class="flag" alt="flag" />
+                }
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="container column-100">
+      <div class="column-33">
+        <mat-card class="card">
+          <mat-card-content>
+            <div class="title-container">
+              <h3>AI Analysis</h3>
+              <button mat-icon-button class="chat-icon" matTooltip="Ask Jizo Advisor about this alert"
+                matTooltipPosition="left" (click)="togglePopup()">
+                <mat-icon class="large-icon">smart_toy</mat-icon>
+              </button>
+            </div>
+            <div class="container">
+              <div class="column-100">
+                <p>Score: <input class="input" [value]="details.aiData?.deviance || '0'" disabled></p>
+                <p>Explanation:</p>
+                <textarea class="textarea explanation-area"
+                  disabled>{{ details.aiData?.translation || 'There is nothing unusual about this communication on the network' }}</textarea>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Composant Mistral -->
+        <app-mistral-analysis [isPopupVisible]="isPopupVisible" [alertDescription]="details.alert?.signature"
+          (closePopup)="togglePopup()"></app-mistral-analysis>
+      </div>
+        <div class="column-33">
+          @if (type === 'flow') {
+            <mat-card class="card">
+              <mat-card-content>
+                <h3>MITRE ATT&CK TTPs</h3>
+                <div class="container">
+                  <div class="column-100 ttp-details">
+                    <p>Techniques:</p>
+                    <textarea class="textarea explanation-area"
+                              disabled>{{ details.mitre_techniques || 'None' }}</textarea>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+    </div>
+
+      <div class="container column-100">
+        <h3 class="column-100">CONNECTION DETAIL</h3>
+        <div class="container-ssl column-48">
+          <div class="column-49">
+            <mat-card class="card">
+              <mat-card-content>
+                <h3>State</h3>
+                <div class="conn-detail">
+                  <div class="column-100 m-auto">
+                    <p><span class="key">Duration</span> : {{ details.zeekData?.duration || 'None' }}</p>
+                    <p><span class="key">Conn. States</span> : {{ details.zeekData?.conn_state || 'None' }}
+                      <mat-icon (click)="openDialog(connStatesTooltip)" style="vertical-align: -6px; margin-left: 10px">
+                        info
+                      </mat-icon>
+                    </p>
+                    <p><span class="key">History</span> : {{ details.zeekData?.history || 'None' }}
+                      <mat-icon (click)="openDialog(historyTooltip)" style="vertical-align: -6px; margin-left: 10px">
+                        info
+                      </mat-icon>
+                    </p>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="column-49">
+            <mat-card class="card">
+              <mat-card-content>
+                <h3>Protocols</h3>
+                <div class="conn-detail">
+                  <div class="column-100 m-auto">
+                    <p><span class="key">Protocol</span> : {{ details.proto || 'None' }}</p>
+                    @if (details.appProto){
+                      <p><span class="key">App proto</span> : {{ details.appProto.app_proto || 'None' }}</p>
+                    } @else {
+                      <p><span class="key">App proto</span> : {{ details.app_proto || 'None' }}</p>
+                    }
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="column-49 container-packets">
+            <div class="column-100 conn-detail">
+              <div class="column-100">
+                <mat-card class="card">
+                  <mat-card-content>
+                    <h3>Packets</h3>
+                    <div class="conn-detail">
+                      <div class="column-100 m-auto">
+                        <p><span class="key">Sent by src</span> : {{ details.zeekData?.orig_pkts || '0' }}</p>
+                        <p><span class="key">Sent by dest </span>: {{ details.zeekData?.resp_pkts || '0' }}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <div class="column-49 container-bytes">
+            <div class="column-100 conn-detail">
+              <div class="column-100">
+                <mat-card class="card">
+                  <mat-card-content>
+                    <h3>Bytes</h3>
+                    <div class="conn-detail">
+                      <div class="column-100 m-auto">
+                        <p><span class="key">Sent by src</span> : {{ details.zeekData?.orig_ip_bytes || '0' }}</p>
+                        <p><span class="key">Sent by dest</span> : {{ details.zeekData?.resp_ip_bytes || '0' }}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-ssl column-48">
+          @if (type === 'flow'){
+          <div class="column-49">
+            <div class="column-100 conn-detail">
+              <div class="column-100">
+                <mat-card class="card">
+                  <mat-card-content>
+                    <h3>Metadata</h3>
+                    <div class="conn-detail">
+                      <div class="column-100 m-auto">
+                        <textarea class="textarea explanation-area"
+                          disabled>{{ JSON.stringify(details.alert?.metadata) || 'None' }}</textarea>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          }
+          <div class="{{ metadataSslClass }}">
+            <div class="column-100 conn-detail">
+              <div class="column-100">
+                <mat-card class="card">
+                  <mat-card-content>
+                    <h3>Ssl Metadata</h3>
+                    <div class="container-ssl conn-detail">
+                      <div class="column-50">
+                        <p><span class="key">Meta 1</span> : {{ details.sslData?.version || 'None' }}</p>
+                        <p><span class="key">Meta 2</span> : {{ details.sslData?.cipher || 'None' }}</p>
+                        <p><span class="key">Meta 3</span> : {{ details.sslData?.ja3 || 'None' }}</p>
+                      </div>
+                      <div class="column-50">
+                        <p><span class="key">Meta 4</span> : {{ details.sslData?.ja3s || 'None' }}</p>
+                        <p><span class="key">Meta 5</span> : {{ details.sslData?.validation_status || 'None' }}</p>
+                        <p><span class="key">Meta 6</span> : {{ details.sslData?.orig_alpn || 'None' }}</p>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+          <div class="column-100 container-payload">
+            <div class="column-100">
+              <mat-card class="card">
+                <mat-card-content>
+                  <h3>Payload</h3>
+                  <textarea class="textarea payload-area"
+                    disabled>{{ details.payload_printable || details.payload || 'None' }}</textarea>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="column-98">
+      <div class="column-80">
+        <h3>RELATED ALERTS</h3>
+      </div>
+
+    </div>
+    <div class="timeline">
+      @if (details.previous) {
+      @for (alert of details.previous;track $index) {
+      <div class="timeline-event click" (click)="navigateToDetail(alert._id)">
+        <div class="date">T {{ details.timestamp | dateDifference: alert.timestamp }}</div>
+        <div class="point point-alert"></div>
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div>
+                <h4 class="threat">{{ alert.threat || 'Alert AI' }}</h4>
+                @if (type === 'ai') {
+                <h4 class="signature">{{ alert.translation || 'Undefined' }}</h4>
+                <p>Severity : {{ alert.severity || 'Undefined' }}</p>
+                } @else {
+                <h4 class="signature">{{ alert.alert?.signature || 'None' }}</h4>
+                }
+                <div class="date">{{ alert.timestamp | date: 'MMM dd HH:mm': 'UTC' }}</div>
+                @if (alert.alert_count) {
+                <p>Alerts: {{ alert.alert_count }}</p>
+                }
+              </div>
+
+            </div>
+            <div class="flip-card-back">
+              <p class="offender"><i class="fa-solid fa-skull"></i> Offender: {{ alert.src_ip || 'None' }}</p>
+              <p class="offender">Port: {{ alert.src_port || 'None' }}</p>
+              <p class="victim">Victim: {{ alert.dest_ip || 'None' }}</p>
+              <p class="victim">Port: {{ alert.dest_port || 'None' }}</p>
+              <p>Protocols: {{ alert.proto || 'None' }}</p>
+              <p>App proto: {{ alert.app_proto || 'None' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      }
+      <div class="timeline-event">
+        <div class="date">Current Alert</div>
+        <div class="current-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div style="margin-top: 52px">
+                <h4 class="threat">{{ details.threat || 'Alert AI' }}</h4>
+                @if (type === 'ai') {
+                <h4 class="signature">{{ details.translation || 'None' }}</h4>
+                <p>Severity : {{ details.severity || 'None' }}</p>
+                } @else {
+                <h4 class="signature">{{ details.alert?.signature || 'None' }}</h4>
+                }
+                <div class="date">{{ details.timestamp | date: 'MMM dd HH:mm': 'UTC' }}</div>
+                @if (details.alert_count) {
+                <p>Alerts: {{ details.alert_count }}</p>
+                }
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div style="margin-top: 52px">
+                <p class="offender"><i class="fa-solid fa-skull"></i> Offender: {{ details.src_ip || 'None' }}</p>
+                <p class="offender">Port: {{ details.src_port || 'None' }}</p>
+                <p class="victim">Victim: {{ details.dest_ip || 'None' }}</p>
+                <p class="victim">Port: {{ details.dest_port || 'None' }}</p>
+                <p>Protocols: {{ details.proto || 'None' }}</p>
+                <p>App proto: {{ details.app_proto || 'None' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @if (details.next) {
+      @for (alert of details.next;track $index) {
+      <div class="timeline-event click" (click)="navigateToDetail(alert._id)">
+        <div class="date">T {{ details.timestamp | dateDifference: alert.timestamp }}</div>
+        <div class="point point-alert"></div>
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div>
+                <h4 class="threat">{{ alert.threat || 'Alert AI' }}</h4>
+                @if (type === 'ai') {
+                <h4 class="signature">{{ alert.translation || 'Undefined' }}</h4>
+                <p>Severity : {{ alert.severity || 'Undefined' }}</p>
+                } @else {
+                <h4 class="signature">{{ alert.alert?.signature || 'None' }}</h4>
+                }
+                <div class="date">{{ alert.timestamp | date: 'MMM dd HH:mm': 'UTC' }}</div>
+                @if (alert.alert_count) {
+                <p>Alerts: {{ alert.alert_count }}</p>
+                }
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <p class="offender"><i class="fa-solid fa-skull"></i> Offender: {{ alert.src_ip || 'None' }}</p>
+              <p class="offender">Port: {{ alert.src_port || 'None' }}</p>
+              <p class="victim">Victim: {{ alert.dest_ip || 'None' }}</p>
+              <p class="victim">Port: {{ alert.dest_port || 'None' }}</p>
+              <p>Protocols: {{ alert.proto || 'None' }}</p>
+              <p>App proto: {{ alert.app_proto || 'None' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      }
+    </div>
+  </div>
+
+  @if (isError){
+  <div class="column-100">
+    <mat-card class="card">
+      <mat-card-content>
+        <h2>No data found</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  }

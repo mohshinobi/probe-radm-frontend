@@ -1,0 +1,11 @@
+
+@defer(when display() ){
+    <highcharts-chart
+        [Highcharts]="HighchartsMap"
+        [constructorType]="'mapChart'"
+        [options]="chartOptions()"
+        class="world-map"
+    ></highcharts-chart>
+} @placeholder {
+    <app-skeleton ></app-skeleton>
+}

@@ -1,0 +1,89 @@
+#otToolBar{
+    display: flex;
+    flex-direction: row;
+    height: 2rem;
+    background-color: transparent;
+    margin-bottom: 0.5rem ;
+}
+
+
+select,
+.inputFilter{
+    margin-right: 1rem !important;
+}
+form{
+    padding: 0;
+    margin: 0;
+}
+#otFilterToolbar{
+    display:flex;
+    flex-direction:row;
+    flex-grow:7;
+    gap:1rem;
+}
+#extraInfos{
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    background-color:#333;
+    box-shadow:  1px 1px black;
+    position:absolute; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index:999;
+    overflow: hidden !important;
+    margin:0.5rem;
+    #header{
+        cursor: grab;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+        background-color: #1e1e1e;
+        align-content: space-between;
+        padding: 0.5rem 0.5rem 0;
+        color: white;
+        flex-wrap: wrap;
+        mat-icon.exit_icon{
+            display: flex;
+            cursor: pointer;
+            color: tomato;
+            position: absolute;
+            right: 0.5rem;
+            &:hover{
+                color: #FFF73F;
+            }
+        }
+    }
+    ul{
+        padding: 1rem;
+        margin: 0;
+        list-style: none;
+        display:  flex;
+        flex-direction: column;
+        width: 100%;
+        list-style: none !important;
+        li{
+            display:  flex;
+            flex-direction: row;
+            label,p{
+                display:  flex;
+                flex: content;
+                color: tomato;
+            }
+            label{
+                color: white ;
+            }
+        }
+    }
+}
+
+.mat-mdc-optgroup-label {
+  .mdc-list-item__primary-text {
+      color:#1e1e1e !important;
+  }
+}
+
+ 

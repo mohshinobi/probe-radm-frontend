@@ -1,0 +1,123 @@
+<div class="container-section p-32 border-section">
+  <h1 class="title">Usecase Alert details</h1>
+  <h2 class="subtitle grey">Detection scenarios from real world attacks</h2>
+</div>
+<section class="bg-dark">
+  <div class="information border-section d-flex">
+    <div class="column-80">
+      <div class="information-content">
+        <div>
+          <h3 class="subtitle white">Name</h3>
+          <p class="content">{{ alert?.usecase_name}}</p>
+        </div>
+        <div>
+          <h3 class="subtitle white">Start of the attack</h3>
+          <p class="content">{{ alert?.starting_date | date: 'dd-MM-yyyy HH:mm:ss': 'UTC'}}</p>
+        </div>
+        <div>
+          <h3 class="subtitle white">Expected end of the attack</h3>
+          <p class="content">{{ alert?.ends_at | date: 'dd-MM-yyyy HH:mm:ss': 'UTC'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="column-20">
+      <mat-card class="column-90 card top">
+        <mat-card-content>
+          <div>
+            <h2 class="key">Timespan</h2>
+            <p class="value">{{alert?.timespan}} hours</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+  <div class="steps">
+    <h3 class="title">Steps</h3>
+    <mat-stepper linear #stepper class="custom-stepper">
+      <ng-template matStepperIcon="edit" let-index="index">
+        <span class="step-index">{{ index + 1 }}</span>
+      </ng-template>
+
+      @for (group of alert?.steps_alerts | keyvalue; track group.key) {
+        <mat-step [label]="group.key">
+          <div class="tables">
+            @for (tool of getTools(group.value); track tool) {
+              <div>
+                <h4 class="subtitle white">{{ tool }}</h4>
+                <ng-container
+                  [ngTemplateOutlet]="ruleTable"
+                  [ngTemplateOutletContext]="{tool: tool, rows: filterByTool(group.value, tool), header: idHeader(tool)}">
+                </ng-container>
+              </div>
+            }
+          </div>
+        </mat-step>
+      }
+    </mat-stepper>
+
+    <!--    <mat-stepper linear="true" #stepper class="custom-stepper">-->
+<!--      <ng-template matStepperIcon="edit" let-index="index">-->
+<!--        <span class="step-index">{{ index + 1 }}</span>-->
+<!--      </ng-template>-->
+
+
+
+<!--      @for (group of alert?.steps_alerts | keyvalue; track group.key) {-->
+<!--        <mat-step >-->
+<!--          <div>-->
+<!--            <h3 class="subtitle white">Description</h3>-->
+<!--            <h3 class="subtitle white">Link rules</h3>-->
+<!--            <div class="tables">-->
+<!--              {{group | json}}-->
+
+<!--              @for (s of group.value; track s.tool_name) {-->
+<!--                <div class="">-->
+<!--                  <ng-container-->
+<!--                    [ngTemplateOutlet]="ruleTable"-->
+<!--                    [ngTemplateOutletContext]="{ type: s.tool_name, values: s.value }">-->
+<!--                  </ng-container>-->
+<!--                </div>-->
+<!--              }-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </mat-step>-->
+<!--      }-->
+<!--    </mat-stepper>-->
+  </div>
+</section>
+
+<ng-template #ruleTable let-tool="tool" let-rows="rows" let-header="header">
+  <div class="mini-mat-table-container">
+    <mat-table [dataSource]="rows" class="mini-mat-table mat-elevation-z1">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>{{ header }}</th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container [ngSwitch]="tool">
+            <span *ngSwitchCase="'suricata'">{{ row.sid }}</span>
+            <span *ngSwitchCase="'usecase'">{{ row.usecase_name }}</span>
+            <span *ngSwitchDefault>{{ row.sid || row.usecase_name || row.key }}</span>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="count">
+        <th mat-header-cell *matHeaderCellDef>Count</th>
+        <td mat-cell *matCellDef="let row">{{ row.alert_count }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button class="icon-btn" aria-label="Edit rule" (click)="onRuleAction(tool, row.sid || row.usecase_name || row.key)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedRuleColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedRuleColumns;"></tr>
+    </mat-table>
+  </div>
+</ng-template>

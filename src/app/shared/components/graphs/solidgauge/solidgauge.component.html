@@ -1,0 +1,9 @@
+@defer(when chartOptions().series?.length ){
+        <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions()"
+                class="solide-gauge"
+        ></highcharts-chart>
+} @placeholder {
+        <app-skeleton ></app-skeleton>
+}

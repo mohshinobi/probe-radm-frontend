@@ -1,0 +1,261 @@
+.mat-typography{
+  font-family: Inter, sans-serif!important;
+}
+
+//button view all
+.b-view {
+  background: #F0EEFC;
+  border: 1px solid #7B5DFF;
+  border-radius: 8px;
+  color: #7B5DFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 32px;
+  width: 85px;
+  padding: 1px 12px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.b-view:hover,
+.b-view:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #F0EEFC;
+}
+
+.b-view:active {
+  opacity: .5;
+}
+
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between
+}
+
+.graph-title {
+  font-size: 20px;
+  color: white;
+  padding: 10px 0 0 1%;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame
+}
+
+//card custom
+.custom-card {
+  background-color: #323231;
+  width: 19.7%;
+  height: 100px;
+  padding: 20px;
+  border-radius: var(--mat-card-border-radius);
+}
+
+.custom-card2 {
+  background-color: #1F1F1F;
+  box-shadow: none;
+}
+
+.card-content {
+  padding: 0!important;
+}
+
+.content-wrapper {
+  display: flex;
+}
+
+.text-section {
+  width: 86%;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.main-number {
+  font-size: 24px;
+  line-height: 16px;
+  color: #FF0000;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.sub-number {
+  font-size: 18px;
+  line-height: 20px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.areaspeline {
+  width: 49.5%;
+}
+
+.main-title {
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 38px;
+}
+
+.card {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
+}
+
+.filter {
+  margin-top: 1%;
+}
+
+mat-button-toggle-group {
+  border-radius: 10px;
+  border: solid 1px #D9D8D2;
+}
+
+mat-button-toggle {
+  color: #C5C4BE;
+  background: transparent;
+  border: none;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: #F0EEFC;
+  color: #7B5DFF;
+}
+
+.bg{
+  background: #27293d;
+}
+.container-map{
+  margin-top: 1%;
+}
+
+
+.details-container {
+  font-family: 'Courier New', Courier, monospace;
+  width: 98%;
+  margin: auto;
+  background-color: #d3d3d3;
+  border: 1px solid #333;
+}
+
+.details-header {
+  background-color: yellow;
+  padding: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.details-content {
+  display: flex;
+  padding: 20px;
+}
+
+.left-section {
+  width: 40%;
+}
+
+.right-section {
+  width: 60%;
+  padding-left: 20px;
+}
+
+.details-itemr {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: inline-block;
+  width: 80px;
+  font-weight: bold;
+  color: black;
+}
+
+.value {
+  font-size: larger;
+  font-weight: bold;
+  color: black;
+}
+
+.input-box {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.input-box.small {
+  width: 120px;
+}
+
+.input-box.smaller {
+  width: 50px;
+}
+
+.flag {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  margin-right:15px;
+}
+
+.info-box {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  height: 150px;
+  overflow: hidden;
+}
+
+.info-box p {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+}
+
+//mat toggle --------------------------
+.custom-toggle-group {
+  height: 32px;
+}
+
+.custom-toggle {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-toggle .mat-button-toggle-label-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+//----------------------------------------
+
+

@@ -1,0 +1,15 @@
+
+<page-header [title]="'Conversations'"  [subtitle]="'Indistrual capture'"/>
+
+<app-table id="table"
+  #tableComponent
+  [tableDataResponse]="data()"
+  [tableColumns]="ordersTableColumns"
+  [displayedColumns]="displayedColumns"
+  [fields]="fields"
+  [form]="form()"
+  [length]="length"
+  (tableActions)="tableActions($event)"
+  (cellDatas)="handelDataSet($event)"
+  [seeMore]="false"
+/>

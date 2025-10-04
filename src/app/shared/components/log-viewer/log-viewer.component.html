@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+    <div class="container-file">
+      <div class="close-btn-container">
+        <button mat-button mat-dialog-close class="close-btn" (click)="onClose()">X</button>
+      </div>
+     <div class="log-content">
+      @for (line of lines; track $index) {
+        <p>{{ line }}</p>
+      }
+    </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+
+.container {
+    background-color: #27293d;
+    border-radius: 2%;
+  }
+  
+  .pie_sank {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .pies, .sankey {
+    background-color: #27293d;
+    border-radius: 2%;
+  }
+  
+  .mat-button-toggle {
+    background-color: #FF0000;
+  }
+  
+  .mat-button-toggle-checked {
+    background-color: #FF0000;
+  }
+  
+  .boutons {
+    display: block;
+    z-index: 10;
+    position: absolute;
+    right: 23px;
+    margin: 5px;
+  }
+  
+  .card {
+    background-color: #27293d !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+  }
+  
+  app-table {
+    padding: 20px;
+  }
+
+  .float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #FFF73F;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+  }
+  .chat-icon{
+    color: #000;
+  }
+
+  .float mat-icon {
+    font-size: 40px;
+    width: 100%;
+    height: 100%;
+    display: contents;
+  }
+
+  .chat-card {
+    position: relative;
+    bottom: 265px;
+    right: 190px;
+    overflow: hidden;
+  }
+
+  

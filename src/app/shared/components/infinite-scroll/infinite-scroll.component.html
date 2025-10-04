@@ -1,0 +1,11 @@
+ <div class="scroll-container" (scroll)="onScroll($event)">
+      <ng-content></ng-content>
+      @if(isLoading){
+      <div class="loading-spinner">Loading...</div>
+
+      }
+      @if(!hasMorePages){
+      <div class="no-more-data">No more data</div>
+
+      }
+    </div>

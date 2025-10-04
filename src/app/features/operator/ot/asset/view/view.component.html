@@ -1,0 +1,124 @@
+<!-- <button mat-fab extended (click)="this._service.navigateToPrevious($event)" aria-label="previous assets">
+    <mat-icon>arrow_left</mat-icon>Previous
+</button> -->
+
+<ng-template #modalContent let-data> <p>{{ data }}</p> </ng-template>
+<page-header [title]="'OT / Asset / Details'" />
+@if(asset$ | async ;as asset){
+<section >
+<div class="container" >
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title-group><mat-card-title>Details </mat-card-title></mat-card-title-group>
+            <button mat-raised-button *ngIf="editMode()" (click)="updateAsset()" ><mat-icon>check_circle</mat-icon>Update</button>
+            <button mat-button *ngIf="!editMode()" (click)="switchMode()"><mat-icon>edit</mat-icon>Edit</button>
+            <button mat-button *ngIf="editMode()" (click)="switchMode()"><mat-icon>visibility</mat-icon>View</button>
+            <button mat-button (click)="deleteAsset()"><mat-icon>delete</mat-icon>Delete</button>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="form"   >
+                <table>
+                    <!-- <code>{{ asset | json }}</code> -->
+                    <tr><td class="first"  >Id :</td><td class="second"><p>{{ asset.id }}</p></td>
+
+                        <td id="asset_zone" >
+                            <div>
+                                <p id="asset_zone_name">{{ asset.belonging_zone }}</p>
+                                <img mat-card-md-image id="asset_image"  mat-card-image src={{getImgUrl(asset)}} alt={{asset.product_commercial_name}} >
+                                <p id="asset_name">{{ asset.nom_client_usuel }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first" >Ip :</td>
+                        <td class="second">{{ asset.ip_address }}</td>
+                    </tr>
+                    <tr><td class="first" >Mac Address :</td><td class="second">{{ asset.mac_address }}</td></tr>
+                    <tr>
+                        <td class="first"> Type :</td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.type }}</td>
+                        <select *ngIf="editMode()" name="type" id="type" formControlName="type">
+                            @for (category of getTypesList(); track category) {
+                                <optgroup [label]="category.key">
+                                    @for (type of category.value; track type) {
+                                        <option [value]="type.key" [selected]="type.key === asset.type.toLowerCase()">
+                                            {{ type.key }}
+                                        </option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </tr>
+
+                    <tr>
+                        <td class="first">Client usual name:</td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.nom_client_usuel }}</td>
+                        <td class="second" *ngIf="editMode()">
+                            <input  value="{{ asset.nom_client_usuel }}" formControlName="nom_client_usuel">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first">Zone : </td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.belonging_zone }}</td>
+
+                        <select class="second custom-select" *ngIf="editMode()" name="type" id="belonging_zone" value="{{asset.belonging_zone}}" formControlName="belonging_zone">
+                            @for( option of listZones() | async; track $index){
+                                <option [value]="option.id" [selected]="asset.belonging_zone === option.id">{{ option.id }}</option>
+                            }
+                        </select >
+                    </tr>
+
+                    <tr>
+                        <td class="first">Commercial Name : </td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.product_commercial_name }}</td>
+                        <td class="second" *ngIf="editMode()">
+
+                                <input  type="text"  value="{{ asset.product_commercial_name }}" formControlName="product_commercial_name">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first">Firmware : </td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.firmware_version }}</td>
+                        <td class="second" *ngIf="editMode()">
+                            <input  value="{{ asset.firmware_version }}" formControlName="firmware_version">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first">Criticity : </td>
+                        <td class="second" *ngIf="!editMode()">{{ asset.criticity }}</td>
+                        <td class="second" *ngIf="editMode()">
+                            <select class="second custom-select" *ngIf="editMode()" name="type" id="criticity" value="{{ asset.criticity }}" formControlName="criticity">
+                                @for( option of criticityList; track option){
+                                    <option [value]="option.key" [selected]="asset.criticity === option.key">{{ option.label }}</option>
+                                }
+                            </select >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first">Robustness : </td>
+                        <td class="second" *ngIf="!editMode()">{{ asset.robustesse }}</td>
+                        <td class="second" *ngIf="editMode()">
+                            <select class="second custom-select" *ngIf="editMode()" name="type" id="robustesse" value="{{ asset.robustesse }}" formControlName="robustesse">
+                                @for( option of robustnessList; track option){
+                                    <option [value]="option.key" [selected]="asset.robustesse === option.key">{{ option.label }}</option>
+                                }
+                            </select >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="first">Description : </td>
+                        <td class="second" *ngIf="!editMode()"> {{ asset.champs_descriptif }}</td>
+                        <td class="second" *ngIf="editMode()">
+                            <textarea  value="{{ asset.champs_descriptif }}" formControlName="champs_descriptif" cols="21" rows="5"></textarea>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </form>
+            </mat-card-content>
+    </mat-card>
+</div>
+</section>
+}

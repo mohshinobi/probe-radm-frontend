@@ -1,0 +1,139 @@
+<mat-toolbar color="primary" class="container-header">
+  <div class="navbar-brand txt-sesame">
+    <button mat-icon-button (click)="toggleNav()" style="border-radius: 4px !important;">
+      <mat-icon [ngClass]="{'rotate-icon': isNavOpen}">
+        {{ isNavOpen ? 'keyboard_double_arrow_right' : 'keyboard_double_arrow_left' }}
+      </mat-icon>
+    </button>
+    <a href="{{ homePage }}"><img src="assets/images/logo-jizo-white.png" alt="logo" class="img-fluid img-logo" /></a>
+    <span class="navbar-version">V{{version}}</span>
+  </div>
+  <div class="actions">
+    <div>
+      <app-notification-bell></app-notification-bell>
+    </div>
+    <button mat-menu-item [matMenuTriggerFor]="menu" class="nav-button logout-button">
+      <mat-icon>arrow_drop_down</mat-icon>
+      <mat-icon>account_circle</mat-icon>
+      <small>{{userName}}</small>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openChangePasswordModal()">
+        <mat-icon>keyq</mat-icon>change Password
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>Logout
+      </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="menuParams" aria-label="Example icon-button with a menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menuParams="matMenu">
+      <button mat-menu-item routerLink="/{{roleUser}}/parameters/healthcheck">Healthcheck</button>
+      <!-- <button mat-menu-item routerLink="/{{roleUser}}/parameters/metrics">Metrics</button> -->
+      <button mat-menu-item routerLink="/{{roleUser}}/parameters/logs">Logs</button>
+      <button mat-menu-item routerLink="/{{roleUser}}/parameters/configuration">Configuration</button>
+      @if (roleUser == 'operator') {
+        <button mat-menu-item routerLink="/{{roleUser}}/parameters/rules">Rules Management</button>
+        <button mat-menu-item routerLink="/{{roleUser}}/parameters/ot">OT Management</button>
+      }
+      <!-- <button mat-menu-item routerLink="/{{roleUser}}/parameters/traffic">Traffic Observability</button> -->
+      <button mat-menu-item routerLink="/{{roleUser}}/parameters/traffic_licence">Traffic & Licence Management</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<!-- Template pour le formulaire de changement de mot de passe -->
+<ng-template #changePasswordTemplate let-data>
+  <form [formGroup]="changePasswordForm">
+    <!-- Current Password -->
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Current Password</mat-label>
+        <input matInput [type]="showCurrentPassword ? 'text' : 'password'" formControlName="currentPassword"
+          placeholder="Enter your current password" required />
+        <button mat-icon-button matSuffix type="button" (click)="showCurrentPassword = !showCurrentPassword"
+          [attr.aria-label]="'Toggle current password visibility'" [attr.aria-pressed]="showCurrentPassword">
+          <mat-icon>{{ showCurrentPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      @if(changePasswordForm.get('currentPassword')?.invalid && changePasswordForm.get('currentPassword')?.touched) {
+      <mat-error>
+        @if(changePasswordForm.get('currentPassword')?.errors?.['required']) {
+        <ng-container>Current Password is required.</ng-container>
+        }
+        @if(changePasswordForm.get('currentPassword')?.errors?.['minlength']) {
+        <ng-container>Current Password must be at least 15 characters.</ng-container>
+        }
+        @if(changePasswordForm.get('currentPassword')?.errors?.['pattern']) {
+        <ng-container>Current Password must contain at least one uppercase letter, one lowercase letter, one number, and
+          one special character (excluding ';' and '~').</ng-container>
+        }
+      </mat-error>
+      }
+    </div>
+
+    <!-- New Password -->
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>New Password</mat-label>
+        <input matInput [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword"
+          placeholder="Enter a new password" required />
+        <button mat-icon-button matSuffix type="button" (click)="generatePassword()"
+          [attr.aria-label]="'Generate new password'" [attr.aria-pressed]="showNewPassword">
+          <mat-icon>key_vpn</mat-icon>
+        </button>
+        <button mat-icon-button matSuffix type="button" (click)="showNewPassword = !showNewPassword"
+          [attr.aria-label]="'Toggle new password visibility'" [attr.aria-pressed]="showNewPassword">
+          <mat-icon>{{ showNewPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      @if(changePasswordForm.get('newPassword')?.invalid && changePasswordForm.get('newPassword')?.touched) {
+      <mat-error>
+        @if(changePasswordForm.get('newPassword')?.errors?.['required']) {
+        <ng-container>New Password is required.</ng-container>
+        }
+        @if(changePasswordForm.get('newPassword')?.errors?.['minlength']) {
+        <ng-container>New Password must be at least 15 characters.</ng-container>
+        }
+        @if(changePasswordForm.get('newPassword')?.errors?.['pattern']) {
+        <ng-container>New Password must contain at least one uppercase letter, one lowercase letter, one number, and one
+          special character (excluding ';' and '~').</ng-container>
+        }
+      </mat-error>
+      }
+    </div>
+
+    <!-- Confirm New Password -->
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Confirm New Password</mat-label>
+        <input matInput [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword"
+          placeholder="Confirm your new password" required />
+        <button mat-icon-button matSuffix type="button" (click)="showConfirmPassword = !showConfirmPassword"
+          [attr.aria-label]="'Toggle confirm password visibility'" [attr.aria-pressed]="showConfirmPassword">
+          <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+      @if(changePasswordForm.get('confirmPassword')?.invalid && changePasswordForm.get('confirmPassword')?.touched) {
+      <mat-error>
+        @if(changePasswordForm.get('confirmPassword')?.errors?.['required']) {
+        <ng-container>Password Confirmation is required.</ng-container>
+        }
+        @if(changePasswordForm.get('confirmPassword')?.errors?.['minlength']) {
+        <ng-container>Password Confirmation must be at least 15 characters.</ng-container>
+        }
+        @if(changePasswordForm.get('confirmPassword')?.errors?.['pattern']) {
+        <ng-container>Password Confirmation must contain at least one uppercase letter, one lowercase letter, one
+          number, and one special character (excluding ';' and '~').</ng-container>
+        }
+        @if(changePasswordForm.get('confirmPassword')?.hasError('mismatch') && changePasswordForm.get('confirmPassword')?.touched) {
+           <ng-container>Passwords do not match!</ng-container>
+        }
+         @if(changePasswordForm.get('confirmPassword') != changePasswordForm.get('confirmPassword')) {
+           <ng-container>Passwords do not match!</ng-container>
+        }
+      </mat-error>
+      }
+    </div>
+  </form>
+</ng-template>

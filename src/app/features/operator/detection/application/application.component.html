@@ -1,0 +1,65 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [options]="timeFilterOptions"
+      [title]="title"
+      [selectedTime]="currentTime()"
+      (timeChange)="onTimeChange($event)"
+      (customSelected)="onCustomSelected($event)">
+    </app-time-selector>
+  </div>
+</div>
+<div class="content">
+  <section style="margin:0;">
+    <div class="column-50">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Threats By Application<mat-icon matTooltip="Time-based visualization showing security threat trends across different applicationsTop Applications :Ranking of
+              applications generating the most network traffic or security events" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <app-areaspline
+            [graphOptions]="alertsByAppProtoAreaChartOption()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-24">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Top Applications<mat-icon matTooltip="Top applications generating the most network traffic or security events." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <app-bar [graphOptions]="topPortBarChartOption()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-24">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Requests By Port<mat-icon matTooltip="Distribution of network traffic analyzed by destination port numbers." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <app-pie [graphOptions]="alertsByPortPieChartOption()"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <section>
+    <div class="column-100">
+      <app-table
+        [tableDataResponse]="alerts()"
+        [tableColumns]="ordersTableColumns"
+        [displayedColumns]="displayedColumns"
+        [checkField]="'_id'"
+        [fields]="fields"
+        [form]="form()"
+        [length]="length"
+        (tableActions)="tableActions($event)"
+        (cellDatas)="getCellDatas($event)">
+        <button slot="delete-button" (click)="openDeleteModal()" mat-button class="button-action"> <mat-icon>delete</mat-icon> Delete</button>
+      </app-table>
+    </div>
+  </section>
+</div>
+
+

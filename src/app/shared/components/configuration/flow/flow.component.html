@@ -1,0 +1,201 @@
+<h2 class="title-tooltip">
+  Configuration Flows
+  <mat-icon
+    matTooltip="Management interface for defining and organizing network flows, traffic patterns, and security rules.">
+    help_outline
+  </mat-icon>
+</h2>
+
+<section class="mg-0" style="align-items: stretch;">
+  <!-- Address Groups Section -->
+  <div class="adress column-49">
+    <mat-card class="radm-card">
+      <div class="d-flex card-header">
+        <h3 class="card-title">
+          Address Groups
+          <mat-icon
+            matTooltip="Collections of IP addresses or network ranges that can be referenced together in security policies and filtering rules.">
+            help_outline
+          </mat-icon>
+        </h3>
+        <div class="buttons">
+          <button
+            mat-raised-button
+            class="btn btn-color"
+            (click)="openDialog('', 'New Address Group', 'add', 'address-groups')"
+            matTooltip="Add new address group">
+            <mat-icon class="btn-icon">add</mat-icon>
+          </button>
+
+          @if (getListOfExtraConfigs('address-groups').length > 0) {
+            <button
+              mat-raised-button
+              class="btn btn-color"
+              (click)="openDialog(getListOfExtraConfigs('address-groups'), 'Delete Multiple Address Group', 'multi_delete', 'address-groups')"
+              matTooltip="Delete Multiple Address Group">
+              <mat-icon class="btn-icon">delete</mat-icon>
+            </button>
+          }
+
+          <button
+            mat-raised-button
+            class="btn btn-color"
+            (click)="openDialog(defaultAddressesConfig(), 'Restore Address Group to default', 'reset_all', 'address-groups')"
+            matTooltip="Reset all configurations for Address Group">
+            <mat-icon class="btn-icon">restore</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <mat-card-content>
+        @if (addresses().length == 0) {
+          <p class="no-data">No Address Configuration found</p>
+        } @else {
+          <table mat-table [dataSource]="addresses()" class="file-table">
+            <ng-container matColumnDef="name">
+              <td mat-cell *matCellDef="let item" class="file-name-cell label">
+                {{ item.configuration }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="default">
+              <td mat-cell *matCellDef="let item" class="file-name-cell ">
+                {{ item.value }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <td mat-cell *matCellDef="let item" class="actions-cell ">
+                <div class="actions">
+                  <mat-icon
+                    mat-raised-button
+                    class="cta-btn cta"
+                    (click)="openDialog(item, 'Update ' + item.configuration, 'update', 'address-groups')"
+                    [matTooltip]="'Edit ' + item.configuration">
+                    edit
+                  </mat-icon>
+
+                  @if (!item.deletable) {
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="openDialog(item, 'Reset ' + item.configuration, 'reset', 'address-groups')"
+                      [matTooltip]="'Reset ' + item.configuration">
+                      restore
+                    </mat-icon>
+                  } @else {
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="openDialog(item, 'Delete ' + item.configuration, 'delete', 'address-groups')"
+                      [matTooltip]="'Delete ' + item.configuration">
+                      delete
+                    </mat-icon>
+                  }
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: ['name', 'default', 'actions']"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Ports Group Section -->
+  <div class="port column-49">
+    <mat-card class="radm-card">
+      <div class="d-flex card-header">
+        <h3 class="card-title">
+          Ports Group
+          <mat-icon
+            matTooltip="Defined sets of network ports grouped by service type or function for simplified rule creation and management.">
+            help_outline
+          </mat-icon>
+        </h3>
+        <div class="buttons">
+          <button
+            mat-raised-button
+            class="btn btn-color"
+            (click)="openDialog('', 'New Ports Group', 'add', 'port-groups')"
+            matTooltip="Add new ports group">
+            <mat-icon class="btn-icon">add</mat-icon>
+          </button>
+
+          @if (getListOfExtraConfigs('port-groups').length > 0) {
+            <button
+              mat-raised-button
+              class="btn btn-color"
+              (click)="openDialog(getListOfExtraConfigs('port-groups'), 'Delete Multiple Ports Group', 'multi_delete', 'port-groups')"
+              matTooltip="Delete Multiple Ports Group">
+              <mat-icon class="btn-icon">delete</mat-icon>
+            </button>
+          }
+
+          <button
+            mat-raised-button
+            class="btn btn-color"
+            (click)="openDialog(defaultPortsConfig(), 'Restore Ports Group to default', 'reset_all', 'port-groups')"
+            matTooltip="Reset all configuration for Ports Group">
+            <mat-icon class="btn-icon">restore</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <mat-card-content>
+        @if (ports().length == 0) {
+          <p class="no-data">No Ports Group found</p>
+        } @else {
+          <table mat-table [dataSource]="ports()" class="file-table">
+            <ng-container matColumnDef="name">
+              <td mat-cell *matCellDef="let item" class="file-name-cell  label">
+                {{ item.configuration }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="default">
+              <td mat-cell *matCellDef="let item" class="file-name-cell ">
+                {{ item.value }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <td mat-cell *matCellDef="let item" class="actions-cell ">
+                <div class="actions">
+                  <mat-icon
+                    mat-raised-button
+                    class="cta-btn cta"
+                    (click)="openDialog(item, 'Update ' + item.configuration, 'update', 'port-groups')"
+                    [matTooltip]="'Edit ' + item.configuration">
+                    edit
+                  </mat-icon>
+
+                  @if (!item.deletable) {
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="openDialog(item, 'Reset ' + item.configuration, 'reset', 'port-groups')"
+                      [matTooltip]="'Reset ' + item.configuration">
+                      restore
+                    </mat-icon>
+                  } @else {
+                    <mat-icon
+                      mat-raised-button
+                      class="cta-btn cta"
+                      (click)="openDialog(item, 'Delete ' + item.configuration, 'delete', 'port-groups')"
+                      [matTooltip]="'Delete ' + item.configuration">
+                      delete
+                    </mat-icon>
+                  }
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: ['name', 'default', 'actions']"></tr>
+          </table>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+<div class="wrap">
+    <mat-card appearance="outlined" class="stats-card top-rules">
+        <mat-card-header>Rules sets (Past{{ this.lastHour() + 1 }} hours)
+            <mat-icon matTooltip=" Represents the names of the Rule flows taken into account in the last 2 hours."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+        </mat-card-header>
+        <mat-card-content>
+            @if(this.statsTopsAlerts().ruleSets.length > 0){
+            <ul>
+                @for(rule of this.statsTopsAlerts().ruleSets; track rule){
+                <li>{{ rule.signature}}</li>
+                }
+            </ul>
+            }@else{
+            <ul>
+                <li class="muted-text">No data available.</li>
+            </ul>
+            }
+        </mat-card-content>
+    </mat-card>
+    <mat-card appearance="outlined" class="stats-card top-trending">
+        <mat-card-header>Alerts statistics (Past {{ this.textHeader() }})
+            <mat-icon
+                matTooltip="shows how many alerts there have been in the last hour, and in the hour before the last hour, as well as the change between these 2 periods."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-card class="stats-card alert">
+                <mat-card-subtitle>Previous</mat-card-subtitle>
+                <mat-card-content class="alert">{{ statsTopsAlerts().previous }}</mat-card-content>
+            </mat-card>
+            <mat-card class="stats-card alert">
+                <mat-card-subtitle>Current</mat-card-subtitle>
+                <mat-card-content class="alert">{{ statsTopsAlerts().current }}</mat-card-content>
+            </mat-card>
+            <mat-card class="stats-card alert">
+                <mat-card-subtitle>Trend</mat-card-subtitle>
+                <mat-card-content
+                    class="alert {{ statsTopsAlerts().trend.charAt(0) === '-' ? 'trend-minus' : 'trend-bonus' }}">
+                    {{ statsTopsAlerts().trend }}%
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>
+<mat-card appearance="outlined" class="chart-card">
+    <div class="highcharts-dark">
+        <h2>
+            Rule activity - LAST {{ this.lastHour() }} hour
+            <mat-icon matTooltip="Graphically presents the evolution of the number of alerts."
+                matTooltipPosition="above" matTooltipDelay="500">
+                help_outline
+            </mat-icon>
+        </h2>
+
+        @if (this.chartOptions()) {
+        <highcharts-chart id="chart-content" [Highcharts]="Highcharts" [options]="chartOptions()"></highcharts-chart>
+        } @else {
+        <div id="chart-content">
+            <p class="muted-text">No data available</p>
+        </div>
+        }
+    </div>
+</mat-card>
+
+<mat-card appearance="outlined" class="stats-card top-20-rules">
+    <mat-card-header>Top {{ this.topSize() }} alerts (Past {{ this.textHeader() }})
+        <mat-icon matTooltip="Shows the TOP 20 rules that were most involved in alerts." matTooltipPosition="above"
+            matTooltipDelay="500">help_outline</mat-icon>
+    </mat-card-header>
+    <mat-card-content>
+
+        @if(this.statsTopsAlerts().alertSets.length > 0){
+        <table>
+            <thead>
+                <th>Sid</th>
+                <th>Signature</th>
+                <th>Category</th>
+                <th>Severity</th>
+                <th>Hits</th>
+            </thead>
+
+            @for(rule of this.statsTopsAlerts().alertSets; track rule){
+            <tr>
+                <td><a [routerLink]="['/operator/parameters/rules/edit-rule', { sid: rule.sid }]"
+                        class="no-decoration">{{ rule.sid }}</a></td>
+                <td>{{ rule.signature }}</td>
+                <td>{{ rule.category }}</td>
+                <td style="text-align:center;" class="color-severity-{{ rule.severity }}">{{ rule.severity }}</td>
+                <td style="text-align:center;">{{ rule.hits }}</td>
+            </tr>
+            }
+        </table>
+        }@else{
+        <tr>
+            <td colspan="4" class="muted-text">No data available.</td>
+        </tr>
+
+        }
+
+    </mat-card-content>
+</mat-card>

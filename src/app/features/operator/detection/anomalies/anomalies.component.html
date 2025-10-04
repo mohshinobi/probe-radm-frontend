@@ -1,0 +1,118 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [options]="timeFilterOptions"
+      [title]="title"
+      [selectedTime]="currentTime()"
+      (timeChange)="onTimeChange($event)"
+      (customSelected)="onCustomSelected($event)">
+    </app-time-selector>
+  </div>
+</div>
+<div class="content">
+  <section style="margin:0;">
+    <div class="column-19">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Anomalies distribution <mat-icon matTooltip="Distribution of anomalies detected" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <div>
+            <app-pie [graphOptions]="anoamliesPieChartOptions()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-34">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div style="display: flex">
+            <div class="column-80">
+              <h3 class="card-title" style="padding: 1.5% 0 0 1%">Anomalies Map
+                <mat-icon matTooltip="World map visualization showing traffic sources/destinations"
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div style="margin-top: 1%">
+              <mat-button-toggle-group class="custom-toggle-group" (change)="onMapChange($event.value)" hideSingleSelectionIndicator="true">
+                @for (option of originOptions; track $index) {
+                  <mat-button-toggle
+                    class="custom-toggle"
+                    [value]="option.value"
+                    [checked]="option.value === currentMapType()">
+                    {{ option.label }}
+                  </mat-button-toggle>
+                }
+              </mat-button-toggle-group>
+            </div>
+          </div>
+          <div>
+            <app-world-map [graphOptions]="mapChartOptions()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-45">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div style="display: flex">
+            <div style="width: 70%;">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 5px 0 0 5px ;">Anomalies Detection <mat-icon
+                matTooltip="Distribution of abnormal traffic detected over the last week."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+          </div>
+          <div>
+            <app-areaspline [graphOptions]="anomaliesAreaSplineChartOptions()" style="margin-top: 50px; flex-grow:1;"></app-areaspline>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <section>
+    <div class="column-49">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Ip Notice Anomalies Relationship in the last 3 hours<mat-icon matTooltip="Distribution of anomalies detected" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <div>
+            <app-sankey [graphOptions]="anomaliesNoticeSankeyChartOptions()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-50">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div style="display: flex">
+            <div style="width: 70%;">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 5px 0 0 5px ;">Ip Weird Anomalies Relationship in the last 3 hours <mat-icon
+                matTooltip="Distribution of abnormal traffic detected over the last week."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+          </div>
+          <div>
+            <app-sankey [graphOptions]="anomaliesWeirdSankeyChartOptions()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <section>
+    <div class="column-100">
+      <app-table
+        [tableDataResponse]="anomalies()"
+        [tableColumns]="ordersTableColumns"
+        [displayedColumns]="displayedColumns"
+        [fields]="fields"
+        [form]="form()"
+        [length]="length()"
+        [expandableDatas]="true"
+        [expandableDetailsDataFunction]="anomaliesDetails"
+        (tableActions)="tableActions($event)"
+        [seeMore]="false"
+      />
+    </div>
+  </section>
+</div>
+

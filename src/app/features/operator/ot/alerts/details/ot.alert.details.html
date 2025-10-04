@@ -1,0 +1,240 @@
+
+<div class="container-section p-32 border-section">
+  <app-breadcrumb></app-breadcrumb>
+  <h1 class="title">OT Alert details</h1>
+    <h2 class="subtitle">{{ alert()?.alert_title || alert()?.detection?.toUpperCase() }}</h2>
+</div>
+@if( alert() ; as alert ){
+
+  <section class="section pb-10 pt-0">
+  <div class="card-container pb-0">
+    <mat-card class="card">
+      <mat-card-content>
+        <div class="wrap-block">
+          <div class="block">
+            <ul>
+              <li><h2 class="card-title">Source</h2></li>
+              <li><span class="">Asset</span><span class="long-value"> {{ alert?.asset_src}}</span></li>
+              <li><span class="">Ip</span><span class=""> {{ alert?.ip_src}}</span></li>
+              <li><span class="">Mac</span><span class=""> {{ alert?.mac_src}}</span></li>
+            </ul>
+          </div>
+          <div class="block graph">
+            @if( infos() ; as infos ){
+            <div class="block"><app-asset-img [asset]="infos?.asset_src"></app-asset-img></div>
+            <div class="block arrow_animation">
+              <span class="arrow arrow-1"></span>
+              <span class="arrow arrow-2"></span>
+              <span class="arrow arrow-3 mr-9"></span>
+              <p class="text" id="{{ alert?.protocol }}">{{ alert?.protocol }}</p>
+              <span class="arrow arrow-4 m-0"></span>
+              <span class="arrow arrow-5"></span>
+              <span class="arrow arrow-6"></span>
+            </div>
+            <div class="block"><app-asset-img [asset]="infos?.asset_dst"></app-asset-img></div>
+          }
+          </div>
+
+          <div class="block">
+            <ul>
+              <li><h2 class="card-title">Destination</h2></li>
+              <li><span class="">Asset</span><span class="long-value"> {{ alert?.asset_dst}}</span></li>
+              <li><span class="">Ip</span><span class=""> {{ alert?.ip_dst}}</span></li>
+              <li><span class="">Mac</span><span class=""> {{ alert?.mac_dst}}</span></li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+<section class="section pb-10 pt-30">
+  <div class="card-container">
+    <mat-card class="card ">
+      <mat-card-content>
+        <div><h2 class="card-title">Initial Seen</h2><p class="key"> {{ parseDateBack(alert?.initial_seen)}}</p></div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card ">
+      <mat-card-content>
+        <div>
+          <h2 class="card-title">Last Seen</h2>
+          <p class="key"> {{ parseDateBack(alert?.last_seen) }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    @if(alert?.is_deviant){
+      <mat-card class="card">
+        <mat-card-content>
+          <div>
+            <h2 class="card-title">Deviance Score</h2>
+            <p class="key"> {{ alert?.asset_analysis?.final_deviance_score }} %</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      @if(alert.asset_analysis?.total_related_conversations){
+        <mat-card class="card">
+          <mat-card-content>
+            <div>
+              <h2 class="card-title">Surrounding Assets Conversations</h2>
+              <p class="key"> {{ alert.asset_analysis?.total_related_conversations}}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+      @if(alert.asset_analysis?.suspicious_related_conversations){
+        <mat-card class="card">
+          <mat-card-content>
+            <div>
+              <h2 class="card-title">Deviant among them</h2>
+              <p class="key"> {{ alert.asset_analysis?.suspicious_related_conversations}}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+
+      }
+      <mat-card class="card col-6 severity sev-{{ alert?.severity }}">
+        <mat-card-content>
+          <div><h2 class="card-title">Severity</h2><p>{{ alert?.severity}}</p></div>
+        </mat-card-content>
+      </mat-card>
+  </div>
+</section>
+
+<section class="section pb-10 pt-0">
+    <div class="card-container" >
+      @if( alert?.predicted_labels ){
+        <mat-card class="card">
+          <mat-card-content>
+            <div><h2 class="card-title">Relevant Attack Techniques</h2></div>
+            <ul>
+              @for( label of alert?.predicted_labels; track label){
+                <li class="block"><span>{{  label.key  }}</span>  <span>{{  label.value  }}%</span> </li>
+              }
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      }
+      <mat-card class="card">
+        <mat-card-content>
+          <div><h2 class="card-title">Description</h2><p class="key"> {{ alert?.description}}</p></div>
+        </mat-card-content>
+      </mat-card>
+      @if(alert.detection !== "Detected By AI"){
+        <mat-card class="card mt-10" >
+          <mat-card-content>
+            <div><h2 class="card-title">Rule</h2><p class="key"> {{ alert?.Rule}}</p></div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+</section>
+
+<!-- if the minimun one is true then show  has_predecessor_techniques or has_successor_techniques -->
+@if(alert?.adjustment_summary?.has_predecessor_techniques || alert?.adjustment_summary?.has_successor_techniques ){
+<section class="section pb-10 pt-30">
+  <div class="card-container" id="svgContainer">
+      <!-- the svg to draw later the link or arc -->
+      <svg #svg  class="svg-overlay" [attr.viewBox]="viewBox" preserveAspectRatio="none" width="100%" height="100%">
+          <defs>
+            <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="0" refY="3"orient="auto" markerUnits="strokeWidth">
+              <path d="M0,3 L6,0 L6,6 Z" [attr.fill]=linkColor />
+            </marker>
+
+            <marker id="arrow-end" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L6,3 L0,6 Z" [attr.fill]=linkColor />
+            </marker>
+          </defs>
+      </svg>
+      <!-- show the predecessor if exist  -->
+      @if(alert?.adjustment_summary?.has_predecessor_techniques ){
+        <mat-card class="card" id="predecessorConv">
+          <mat-card-header><h2 class="card-title">Predecessor</h2></mat-card-header>
+          <mat-card-content>
+            <div class="wrap-block">
+                <div class="block"><app-asset-img class="assetConv source" [asset]="alert?.correlations?.predecessor?.asset_src" id="{{ alert?.correlations?.predecessor?.asset_src?.id }}" ></app-asset-img></div>
+                <div class="block arrow_animation">
+                  <span class="arrow arrow-1"></span>
+                  <span class="arrow arrow-2 mr-9"></span>
+                  <p class="text protocol" id="{{ alert?.correlations?.predecessor?.protocol }}" >{{ alert?.correlations?.predecessor?.protocol }}</p>
+                  <span class="arrow arrow-3"></span>
+                  <span class="arrow arrow-4"></span>
+                </div>
+              <div class="block"><app-asset-img class="assetConv destination"[asset]="alert?.correlations?.predecessor?.asset_dst" id="{{ alert?.correlations?.predecessor?.asset_dst?.id }}" ></app-asset-img></div>
+            </div>
+          </mat-card-content>
+          <!-- if we have the list of successor techniques  -->
+          @if(alert?.temporal_analysis?.predecessor_techniques){
+            <mat-card-footer>
+                <ul>
+                  @for( label of alert?.temporal_analysis?.predecessor_techniques; track label){
+                    <li class="block"> <span>{{  label  }}</span> </li>
+                  }
+                </ul>
+
+            </mat-card-footer>
+          }
+        </mat-card>
+      }
+      <!-- show the current conversation  -->
+        @if(alert?.is_deviant){
+
+            <mat-card class="card" id="currentConv">
+              <mat-card-header><h2 class="card-title">Conversation</h2></mat-card-header>
+              <mat-card-content>
+                <div class="wrap-block">
+                @if(infos(); as infos){
+                  <div class="block"><app-asset-img class="assetConv source" [asset]="infos?.asset_src" id="{{ infos?.asset_src?.id }}"></app-asset-img></div>
+                }
+                <div class="block arrow_animation">
+                  <span class="arrow arrow-1"></span>
+                  <span class="arrow arrow-2 mr-9"></span>
+                  <p class="text protocol" id="{{ alert?.protocol }}">{{ alert?.protocol }}</p>
+                  <span class="arrow arrow-3"></span>
+                  <span class="arrow arrow-4"></span>
+                </div>
+                @if(infos(); as infos){
+                  <div class="block"><app-asset-img class="assetConv destination" [asset]="infos?.asset_dst" id="{{ infos?.asset_dst?.id }}"></app-asset-img></div>
+                }
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+        }
+      <!-- show the successor if exist  -->
+      @if(alert?.adjustment_summary?.has_successor_techniques){
+          <mat-card class="card" id="successorConv">
+            <mat-card-header><h2 class="card-title">Successor</h2></mat-card-header>
+            <mat-card-content>
+              <div class="wrap-block">
+              <div class="block"><app-asset-img class="assetConv source" [asset]="alert?.correlations?.successor?.asset_src" id="{{ alert?.correlations?.successor?.asset_src?.id }}"></app-asset-img></div>
+              <div class="block arrow_animation">
+                <span class="arrow arrow-1"></span>
+                <span class="arrow arrow-2 mr-9"></span>
+                <p class="text protocol" id="{{ alert?.correlations?.successor?.protocol }}">{{ alert?.correlations?.successor?.protocol }}</p>
+                <span class="arrow arrow-3"></span>
+                <span class="arrow arrow-4"></span>
+              </div>
+              <div class="block"><app-asset-img class="assetConv destination" [asset]="alert?.correlations?.successor?.asset_dst" id="{{ alert?.correlations?.successor?.asset_dst?.id }}"></app-asset-img></div>
+            </div>
+            </mat-card-content>
+            <!-- if we have the list of successor techniques  -->
+            @if(alert?.temporal_analysis?.successor_techniques){
+              <mat-card-footer>
+                <ul>
+                  @for( label of alert?.temporal_analysis?.successor_techniques; track label){
+                    <li class="block"> <span>{{  label  }}</span> </li>
+                  }
+                </ul>
+              </mat-card-footer>
+            }
+          </mat-card>
+        }
+    </div>
+  </section>
+  }
+
+
+}

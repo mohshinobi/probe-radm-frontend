@@ -1,0 +1,10 @@
+@defer(when chartOptions().series?.length){
+<highcharts-chart
+        [Highcharts]="Highcharts"
+        [options]="chartOptions()"
+        style="font-family:Sesame !important; display: block;"
+></highcharts-chart>
+}
+@placeholder {
+        <app-skeleton></app-skeleton>
+}

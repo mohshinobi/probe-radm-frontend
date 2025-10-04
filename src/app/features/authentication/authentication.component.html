@@ -1,0 +1,23 @@
+<div class="container-login">
+  <div class="column-left">
+    <div class="container-api">
+      <h1>Welcome to</h1>
+      <div class="logo">
+         <h1 class="logo-big">RADM</h1>
+        <span class="version">{{version()?.full_version}}</span>
+      </div>
+      <div class="pings">      
+        <p [class]="ping()?.status === 200 ? 'apiUp' : 'apiDown'"><mat-icon>circle</mat-icon>API</p> 
+        @if (ldapStatus()?.enabled) {
+          <p class="apiUp"><mat-icon>circle</mat-icon>LDAP</p>
+        }
+      </div>
+      @if (ldapStatus()?.enabled) {
+        <p class="infos">LDAP is enabled for all users except the account admin</p>
+      }
+    </div>
+  </div>
+  <div class="column-right">
+    <router-outlet></router-outlet>
+  </div>
+</div>

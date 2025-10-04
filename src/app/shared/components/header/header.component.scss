@@ -1,0 +1,164 @@
+.rotate-icon {
+  transform: rotate(360deg); /* Pivoter de 180 degrés */
+  transition: transform 0.5s ease-in-out; /* Animation douce */
+}
+
+mat-icon {
+  transition: transform 0.5s ease-in-out; /* Transition pour l'animation */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  gap: 3px;
+}
+
+.img-logo {
+  height: 2rem;
+}
+
+.menu-mat{
+  margin-top: 10px;
+}
+
+.navbar-version {
+  font-size: 0.7rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.mat-toolbar{
+  background-color: #1F1F1F;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 ;
+  margin: 0;
+  width: auto;
+}
+.actions {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.high{
+  color: #ff0505;
+  display: flex;
+  justify-content:space-between;
+}
+.medium{
+  color: #ff5b00;
+  display: flex;
+  justify-content:space-between;
+}
+.low{
+  color: #ff8f00;
+  display: flex;
+  justify-content:space-between;
+}
+.warning{
+  color: #FFC302;
+  display: flex;
+  justify-content:space-between;
+}
+
+.title-notification{
+  font-size: 12px;
+  font-family: Sesame;
+  color: #fff;
+  margin-left: 10px;
+}
+.slide{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 6px;
+}
+
+.menu-content {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1F1F1F;
+  li {
+    font-size: 12px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    font-family: Sesame;
+    .icon{
+      transform: scale(0.5);
+    }
+  }
+  li:hover {
+    color: #fff;
+  }
+}
+mat-slide-toggle.my-slide {
+  .mat-slide-toggle-bar {
+    background-color: #1F1F1F;
+  }
+  --mdc-form-field-label-text-font: Sesame;
+  --mdc-form-field-label-text-size: 12px;
+}
+
+
+// .nav-button {
+//   color: white;
+//   background-color: transparent;
+//   border: none;
+//   font-family: Sesame;
+//   cursor: pointer;
+//   transition: background-color 0.2s ease;
+// }
+
+// .nav-button:hover {
+//   background-color: #FFF73F;
+//   color: #1F1F1F;
+// }
+
+// .nav-button .mat-icon {
+//   font-size: 20px;
+//   vertical-align: middle;
+// }
+// .container-header{
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 0 20px;
+
+// }
+
+
+// // .logout-button {
+// //   position: absolute;
+// //   right: 0;
+// //   margin-right: 15px;
+// //   ::before {
+// //     content: 'toto';
+// //     display: block;
+// //     position: absolute;
+// //     top: 0;
+// //     right: 0;
+// //     bottom: 0;
+// //     left: 0;
+// //     background-color: #FFF73F;
+// //     border-radius: 5px;
+// //     opacity: 0;
+// //     transition: opacity 0.2s ease;
+// //   }
+// // }
+
+.full-width {
+  width: 100%;
+}
+

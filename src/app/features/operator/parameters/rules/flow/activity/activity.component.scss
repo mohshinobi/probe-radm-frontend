@@ -1,0 +1,132 @@
+$width:100%;
+mat-card{
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #1e1e1e;
+    h2{
+        font-family: Sesame;
+    }
+}
+h2{
+    margin-top: 2rem;
+    margin-left: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+}
+.wrap{
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+}
+.chart-card{
+    display: flex;
+    width: $width;
+    margin: 0.5rem;
+    #chart-content{
+        width: 100%;
+        display: flex;
+        flex-direction:column;
+        p{
+            margin: auto !important;
+            text-align: center;
+            align-items: center;
+        }
+    }
+}
+
+.stats-card {
+    margin: 0.5rem;
+    mat-card-header{
+        font-family: Sesame;
+        font-size: 1.5rem;
+        width: 100%;
+    }
+    mat-card-content{
+        width: 100%;
+    }
+    &.top-trending{
+        width: 50%;
+        display: block;
+        align-items: center;
+        align-content: center;
+    }
+    &.top-rules{
+        width: 50%;
+        display: block;
+        max-height: 15rem;
+        overflow-y: scroll;
+    }
+    &.top-20-rules{
+        width: 100%;
+        table{
+            width: 98%;
+            margin-top: 1rem;
+            background-color: transparent;
+            thead{
+                th{
+
+                    color: #1e1e1e;
+                    background-color: #ff0;
+                    padding: 0.5rem 1rem;
+                }
+            }
+        }
+    }
+
+    &.alert{
+        margin: 0.5rem;
+        padding: 0 0.5rem;
+        display: inline-block;
+        flex: 1;
+        mat-card-content{
+            max-height: 10rem !important;
+            min-width: 6rem ;
+            border-radius: 0.2rem;
+            background-color: #eee;
+            margin: 0.5rem;
+            color: #333;
+            text-align: center;
+            align-items: center;
+            line-height: 1rem;
+            padding-top: 1rem;
+        }
+    }
+
+}
+mat-card-content.trend-minus{
+    background-color: tomato  !important;
+}
+mat-card-content.trend-bonus{
+    background-color: greenyellow !important;
+}
+
+.muted-text {
+    color: gray;
+}
+
+.disabled-text {
+    color: lightgray;
+    opacity: 0.6;
+    pointer-events: none;
+}
+$sev-colors: ('#F44949', '#FF6633', '#F89200', '#FFC080');
+.color-severity-1{
+    background-color: #F44949;
+}
+.color-severity-2{
+    background-color: #FF6633;
+}
+.color-severity-3{
+    background-color: #F89200;
+}
+.color-severity-4{
+    background-color: #FFC080;
+}
+
+.no-decoration {
+    text-decoration: none;
+    color: inherit;
+}
+

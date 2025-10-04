@@ -1,0 +1,80 @@
+<page-header [title]="title || ''"  [subtitle]="subTitle || ''">
+<div class="time-selector">
+    @if(condition){
+    <ng-content></ng-content>
+  }
+<div>
+    <div class="time-selector-content">
+      <div [ngClass]="'selected-dates '+ (showDates ? 'show' : 'd-none')">
+        <div class="date-range">
+          <span class="label-date">Start Date : </span>
+          <!-- {{beginDate}} -->
+          @if (beginDate.toString() != 'Invalid Date') {
+            <span class="txt-dates">{{beginDate|date: 'yyyy-MM-dd HH:mm' }}</span>
+          }
+        </div>
+        <div class="date-range">
+          <span class="label-date">End Date : </span>
+          @if (endDate.toString() != 'Invalid Date') {
+            <span class="txt-dates">{{endDate|date: 'yyyy-MM-dd HH:mm'}}</span>
+          }
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: row;">
+        @if(options){
+          <mat-button-toggle-group [ngClass]="'custom-toggle-group'+ (showCustomForm ? ' custom-show' : '')" (change)="onTimeChange($event.value)" hideSingleSelectionIndicator="true">
+            <mat-button-toggle
+              class="custom-toggle"
+              *ngFor="let option of options"
+              [value]="option.value"
+              [checked]="option.value === selectedTime"
+              (click)="option.value === 'Custom' ? showCustomForm = !showCustomForm : null">
+              {{ option.label }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        }
+        @if(showCustomForm) {
+          <div class="collapse" style="display: flex; flex-direction: row;">
+            <div class="start-date">
+              <span>Start</span>
+              <select class="filter-category" [(ngModel)]="beginDateSelect" (change)="onDateChange(typeTime.DateBegin, $event)">
+                <option value="--">--</option>
+
+                @for(day of getFilteredBeginDays(); track day.name) {
+                  <option [value]="day.name">{{day.value|date: 'yyyy-MM-dd' }} ({{day.name}})</option>
+                }
+              </select>
+              <select class="filter-category" [(ngModel)]="beginHourSelect" (change)="onDateChange(typeTime.HourBegin,$event)">
+                <option value="--">--</option>
+                @for(hour of getFilteredBeginHours(); track $index) {
+                  <option [value]="hour.name">{{hour.value}}</option>
+                }
+              </select>
+            </div>
+            <div class="end-date">
+              <span>End</span>
+              <select class="filter-category" [(ngModel)]="endDateSelect" (change)="onDateChange(typeTime.DateEnd, $event)">
+                <option value="--">--</option>
+                @for(day of getFilteredEndDays(); track day.name) {
+                  <option [value]="day.name" >{{day.value|date: 'yyyy-MM-dd' }} ({{day.name}})</option>
+                }
+              </select>
+              <select class="filter-category" [(ngModel)]="endHourSelect" (change)="onDateChange(typeTime.HourEnd, $event)">
+                <option value="--">--</option>
+                @for(hour of getFilteredEndHours(); track $index) {
+                  <option [value]="hour.name">{{hour.value}}</option>
+                }
+              </select>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+</page-header>
+
+
+
+

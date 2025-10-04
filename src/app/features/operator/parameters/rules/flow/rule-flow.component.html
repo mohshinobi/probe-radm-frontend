@@ -1,0 +1,39 @@
+<div class="container" style="background-color: #1e1e1e;">
+    <h2>EXISTING SOURCES
+        <mat-icon matTooltip="Displays the rules flows source list, where you can
+      enable or disable a source and view its content." matTooltipPosition="above"
+            matTooltipDelay="500">help_outline</mat-icon>
+    </h2>
+    <table id="rule_files">
+        <thead>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Rules</th>
+            <th>Enabled Rules</th>
+            <th>Disabled Rules</th>
+            <th>Last Update</th>
+            <th>Size</th>
+            <th>Extentions</th>
+            <th></th>
+        </thead>
+        @for (file of rulesFilesList(); track $index) {
+        <tr>
+            <td>{{ file.name}}</td>
+            <td class="actions"><mat-slide-toggle class="locked-file-toggle"
+                    (change)="changeRuleFlowActivation(file.name, $event.checked)"
+                    [checked]="file.status === 'enable'"></mat-slide-toggle></td>
+            <td>{{ file.nb_rules }}</td>
+            <td>{{ file.nb_enable }}</td>
+            <td>{{ file.nb_disable }}</td>
+            <td>{{ file.last_update }}</td>
+            <td>{{ file.size|bytestohuman }}</td>
+            <td>{{ file.extension }}</td>
+            <td class="actions">
+                <button matTooltip="View Rule" title="View Rules" mat-icon-button (click)="view(file)"
+                    aria-label="view"><mat-icon>remove_red_eye</mat-icon></button>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+<router-outlet></router-outlet>

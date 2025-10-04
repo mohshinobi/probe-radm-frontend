@@ -1,0 +1,332 @@
+.card {
+    background-color: #27293d !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+  }
+  ngx-cytoscape {
+
+    height: 50vh;
+
+    float: left;
+
+    position: relative;
+
+    border: solid #21c0c0;
+
+    width: 50em;
+
+  }
+  .box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f7f7f7; /* light gray background */
+    border: 1px solid #ddd; /* light gray border */
+    border-radius: 10px; /* rounded corners */
+    padding: 20px; /* add some padding inside the box */
+    width: 250px; /* set a fixed width */
+    margin: 20px; /* add some margin around the box */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add a subtle shadow */
+  }
+
+  .box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* increase shadow on hover */
+    transform: translateY(-2px); /* add a slight lift on hover */
+  }
+
+  .loading{
+    font-family: Sesame;
+    font-size: 24px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .d-none{
+    display: none;
+  }
+
+  .hostname {
+    font-size: 25px;
+    color: #FFF73F;
+    font-family: Sesame;
+    font-weight: bold; /* make the hostname font bold */
+    margin-bottom: 10px; /* add some space below the hostname */
+  }
+
+  .status, .connectivity, .mac_adress, .ip_adress, .security_score, .alerts {
+    font-size: 18px; /* make the other elements font smaller */
+    margin-bottom: 10px; /* add some space below the hostname */
+    font-family: Sesame;
+  }
+  p{
+    font-family: Sesame;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .status {
+    color: #fff;
+    width: 50px;
+    border-radius: 20px;
+    padding: 4px;
+    font-weight: bold;
+  }
+
+  .on{
+    background: #00FF00;
+    text-align: center;
+    color: #000;
+  }
+  .off{
+    background: #FF0000;
+    text-align: center;
+  }
+
+  .connectivity {
+    color: #009688; /* make the connectivity text teal */
+  }
+
+  .mac_adress, .ip_adress {
+    color: #FFF; /* make the mac and ip address text gray */
+  }
+
+
+  .security_score {
+    width: 35px;
+    padding: 7px;
+    border-radius: 50%;
+    color: white;
+    background: #21c0c0;
+  }
+
+
+
+  .alerts {
+    color: #f44336; /* make the alerts text red */
+  }
+
+
+    .mat-typography{
+  font-family: Inter, sans-serif!important;
+}
+
+//button view all
+.b-view {
+  background: #F0EEFC;
+  border: 1px solid #7B5DFF;
+  border-radius: 8px;
+  color: #7B5DFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 32px;
+  width: 85px;
+  padding: 1px 12px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.b-view:hover,
+.b-view:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #F0EEFC;
+}
+
+.b-view:active {
+  opacity: .5;
+}
+
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between
+}
+
+.graph-title {
+  font-size: 20px;
+  color: white;
+  padding: 10px 0 0 1%;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame
+}
+
+//card custom
+.custom-card {
+  background-color: #323231;
+  width: 19.7%;
+  height: 100px;
+  padding: 20px;
+  border-radius: var(--mat-card-border-radius);;
+}
+
+.card-content {
+  padding: 0!important;
+}
+
+.content-wrapper {
+  display: flex;
+}
+
+.text-section {
+  width: 86%;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.main-number {
+  font-size: 24px;
+  line-height: 16px;
+  color: #FF0000;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.sub-number {
+  font-size: 18px;
+  line-height: 20px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+// toggle group alert
+mat-button-toggle-group {
+  border-radius: 10px;
+  border: solid 1px #D9D8D2;
+}
+
+mat-button-toggle {
+  color: #C5C4BE;
+  background: transparent;
+  border: none;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: #F0EEFC;
+  color: #7B5DFF;
+}
+
+.areaspeline {
+  width: 49.5%;
+}
+
+mat-icon {
+  color: #1F1F1F;
+}
+
+.date-display {
+  font-size: 16px;
+  padding: 8px 0;
+}
+
+.span-margin {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.mat-icon {
+  color: #FFF;
+}
+
+text {
+  fill: black !important;
+  color: black !important;
+}
+
+#infosNode{
+  display: none;
+  z-index: 99;
+  background-color: #333;
+  border-radius: 4px;
+  border:1px solid #eee;
+  min-width: 15rem;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  cursor: grab;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    li{
+      display: block;
+      line-height: 1.7rem;
+      &#header{
+        width: 100%;
+        display: flex;
+        border-bottom:1px solid white;
+        #close{
+          padding-top: 0.3rem;
+          font-weight: bold;
+          cursor: pointer;
+          background-color: tomato;
+          text-align: center;
+          width: 10%;
+          height: auto;
+          margin: 0;
+          border-top-right-radius:3px;
+          &:hover{
+            background-color: #FFF73F;
+            color: #333;
+          }
+        }
+        #headTitle{
+          overflow-x: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 1rem;
+          color: #333;
+          text-align: left;
+          background-color:white ;
+          width: 90%;
+          margin: 0;
+          padding: 0.2rem 0 0 1rem;
+          font-family: Sesame;
+        }
+      }
+
+  a {
+    height: 1.5rem;
+    padding: 0 1rem;
+    text-decoration: none;
+    font-family: sesame;
+    font-size: 1rem;
+    display: block;
+    color: white;
+    &#headerInfo{
+      font-family: Sesame;
+      font-size: 18px;
+      color: #fff;
+      font-weight: bold;
+      margin-right: auto;
+    }
+
+
+    &:hover{
+      background-color: #FFF73F;
+      color:#333;
+    }
+    }
+  }
+}
+}

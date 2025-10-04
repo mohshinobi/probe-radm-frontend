@@ -1,0 +1,54 @@
+<div #otToolBar id="otToolBar">
+
+    <div #otFilterToolbar id="otFilterToolbar">
+      <form [formGroup]="form"  style="padding: 0px;">
+        <mat-form-field class="inputFilter">
+          <mat-label>Types</mat-label>
+          <mat-select multiple formControlName="type">
+            @for (group of types; track group) {
+              <mat-optgroup [label]="group.key">
+                @for (category of group.value; track category) {
+                  <mat-option [value]="category.key">{{category.key}}</mat-option>
+                }
+              </mat-optgroup>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="inputFilter">
+          <mat-label>Protocols</mat-label>
+          <mat-select multiple formControlName="protocol">
+            @for (proto of protocols; track $index) {
+              <mat-option [value]="proto.key">{{proto.value}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
+
+    <button mat-flat-button  type="submit" (click)="onSubmit()" ><mat-icon>search</mat-icon>Filter</button>
+    <div class="w-auto"></div>
+    @if(this.showInfos() == true ) {
+      <button mat-flat-button (click)="this.toggleInfos()" style="margin-left:auto;"  class="ot-filter-btn"><mat-icon>remove_red_eye</mat-icon>Hide</button>
+      }@else{
+        <button mat-flat-button (click)="this.toggleInfos()" style="margin-left:auto;"  class="ot-filter-btn"><mat-icon>visibility_off</mat-icon>Show</button>
+      }
+
+    <button mat-flat-button (click)="parentFunction()" class="ot-filter-btn"><mat-icon>autorenew</mat-icon>Reset</button>
+
+    <button mat-flat-button  [disabled]="stats().undiscovered <= 0" type="button" (click)="exportDeadLetters()" ><mat-icon>insert_drive_file</mat-icon>Dead letters ({{ stats().undiscovered  }})</button>
+
+  </div>
+</div>
+
+<div #extraInfos  id="extraInfos" cdkDragBoundary="#container" cdkDrag >
+  <div id="header">
+    <p>Stats</p>
+    <mat-icon class="exit_icon" (click)="this.toggleInfos()">cancel</mat-icon>
+  </div>
+  <ul id="infos">
+    <li><p><label >Nb Levels : </label>{{ this.stats().levels }}</p></li>
+    <li><p><label >Nb Zones : </label>{{ this.stats().zones }}</p></li>
+    <li><p><label >Nb Assets : </label>{{ this.stats().assets }}</p></li>
+    <li><p><label >Nb Undiscovered Assets : </label>{{ this.stats().undiscovered }}</p></li>
+    <li><p><label >Nb Conversations: </label>{{ this.stats().conversations }}</p></li>
+  </ul>
+</div>

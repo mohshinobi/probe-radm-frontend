@@ -1,0 +1,179 @@
+
+h2{
+    font-family: Sesame;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    padding-left: 5px;
+    padding-top: 30px ;
+    padding-bottom: 5px;
+}
+.container-traffic{
+    background: #27293d;
+    margin-top: 1%;
+}
+.graphs{
+    display: flex;
+    margin: left 2%; ;
+}
+
+.mat-typography{
+  font-family: Inter, sans-serif!important;
+}
+
+//button view all
+.b-view {
+  background: #F0EEFC;
+  border: 1px solid #7B5DFF;
+  border-radius: 8px;
+  color: #7B5DFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 32px;
+  width: 85px;
+  padding: 1px 12px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.b-view:hover,
+.b-view:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #F0EEFC;
+}
+
+.b-view:active {
+  opacity: .5;
+}
+
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between
+}
+
+.graph-title {
+  font-size: 20px;
+  color: white;
+  padding: 10px 0 0 1%;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame, serif;
+}
+
+//card custom
+.custom-card {
+  background-color: #323231;
+  width: 19.7%;
+  height: 100px;
+  padding: 20px;
+  border-radius: var(--mat-card-border-radius);
+}
+
+.card-content {
+  padding: 0!important;
+}
+
+.content-wrapper {
+  display: flex;
+}
+
+.text-section {
+  width: 86%;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.main-number {
+  font-size: 24px;
+  line-height: 16px;
+  color: #FF0000;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.sub-number {
+  font-size: 18px;
+  line-height: 20px;
+  color: #EEEDE6;
+  font-family: 'Inter', 'Inter Semi Bold', sans-serif;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+// toggle group alert
+mat-button-toggle-group {
+  border-radius: 10px;
+  border: solid 1px #D9D8D2;
+}
+
+mat-button-toggle {
+  color: #C5C4BE;
+  background: transparent;
+  border: none;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: #F0EEFC;
+  color: #7B5DFF;
+}
+
+.areaspeline {
+  width: 49.5%;
+}
+
+mat-icon {
+  color: #1F1F1F;
+}
+
+//AI
+.item-ai{
+  font-size: 14px;
+  margin: 0;
+}
+
+//mat toggle --------------------------
+.custom-toggle-group {
+  height: 32px;
+}
+
+.custom-toggle {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-toggle .mat-button-toggle-label-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+//----------------------------------------
+
+.alerts-card-graphe{
+  background-color: #1F1F1F;
+  border-radius: 16px; margin-left: 1%;
+}
+
+

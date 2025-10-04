@@ -1,0 +1,12 @@
+<ng-container>
+  <div class="menu-container">
+    @for (menuItem of contextMenuItems; track $index) {
+      <div class="menu-link" (click)="onContextMenuClick($event, menuItem.menuEvent)">
+        {{ menuItem.menuText }}
+        @if ($index < contextMenuItems.length - 1) {
+          <hr/>
+        }
+      </div>
+    }
+  </div>
+</ng-container>

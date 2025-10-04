@@ -1,0 +1,71 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [options]="timeFilterOptions"
+      [title]="title"
+      [selectedTime]="currentTime()"
+      (timeChange)="onTimeChange($event)"
+      (customSelected)="onCustomSelected($event)">
+    </app-time-selector>
+  </div>
+</div>
+<div class="content">
+  <section style="margin:0;">
+    <div class="column-40">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div style="display: flex">
+            <div style="width: 70%;">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Threats By Rules Flows
+                <mat-icon matTooltip="Time-based visualization showing security event trends triggered by different rule IDs." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+          </div>
+          <div>
+            <app-areaspline [graphOptions]="flowsAreaChartOption()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-29">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Top rules flows <mat-icon matTooltip="Ranking of security rules generating the most alerts, identified by rule ID numbers." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <div>
+            <app-bar [graphOptions]="flowsBarChartOption()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="column-29">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div>
+            <h3 class="graph-title card-title">Rules Category By Day <mat-icon matTooltip="Daily breakdown of security rule activations grouped by category, shown as stacked columns." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <div>
+            <app-stacked-column [graphOptions]="flowsStackedChartOptions()"/>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <section>
+    <mat-card class="column-100">
+      <app-table
+        [tableDataResponse]="alerts()"
+        [tableColumns]="ordersTableColumns"
+        [displayedColumns]="displayedColumns"
+        [checkField]="'_id'"
+        [fields]="fields"
+        [form]="form()"
+        [length]="length"
+        (tableActions)="tableActions($event)"
+        (cellDatas)="getCellDatas($event)">
+        <button slot="delete-button" (click)="openDeleteModal()" mat-button class="button-action"> <mat-icon>delete</mat-icon> Delete</button>
+      </app-table>
+    </mat-card>
+  </section>
+</div>

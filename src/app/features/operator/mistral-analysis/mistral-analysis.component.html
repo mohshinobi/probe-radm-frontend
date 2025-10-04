@@ -1,0 +1,73 @@
+@if (isPopupVisible) {
+<div class="chat-overlay">
+  <div class="chat-container">
+    <div class="chat-header">
+      <span class="header-title">Jizo Advisor</span>
+      <button class="close-button" (click)="close()">×</button>
+    </div>
+
+    <div class="chat-messages" #messageContainer>
+      <!-- Message de bienvenue -->
+      <div class="message assistant">
+        <div class="message-content">
+          Please select a question below to better understand
+          <strong> "{{ alertDescription }}"</strong>:
+        </div>
+      </div>
+
+      <!-- Liste des questions -->
+      <div class="questions-container">
+        @for (q of questions; track q) {
+        <button
+          class="question-button"
+          [class.selected]="selectedQuestion === q"
+          (click)="selectQuestion(q)"
+        >
+          {{ q }}
+        </button>
+        }
+      </div>
+
+      <!-- Question sélectionnée -->
+      @if (selectedQuestion) {
+      <div class="message user">
+        <div class="message-content">
+          {{ selectedQuestion }}
+        </div>
+      </div>
+      }
+
+      <!-- Loading -->
+      @if (loading) {
+      <div class="message assistant">
+        <div class="message-content">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Affichage des résultats -->
+      @if (aiAnalysis) {
+      <div class="message assistant">
+        <div class="message-content">
+          {{ aiAnalysis }}
+        </div>
+      </div>
+      }
+
+      <!-- Message d'erreur -->
+      @if (errorMessage) {
+      <div class="message error">
+        <div class="message-content">
+          {{ errorMessage }}
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+}

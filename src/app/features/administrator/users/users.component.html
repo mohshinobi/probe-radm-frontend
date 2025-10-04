@@ -1,0 +1,282 @@
+<div>
+  <div class="button-container">
+    <app-time-selector [title]="'Users Management'">
+    </app-time-selector>
+    <button mat-raised-button class="add-user-button" (click)="openAddUserModal()">
+      <mat-icon>person_add</mat-icon> Add User
+    </button>
+  </div>
+  <div style="padding-top: 14px;">
+    <app-table
+      [tableDataResponse]="users()"
+      [tableColumns]="ordersTableColumns"
+      [displayedColumns]="displayedColumns"
+      [fields]="fields"
+      [form]="form()"
+      [length]="length"
+      (tableActions)="tableActions($event)"
+      (cellDatas)="handleDataSet($event)"
+      [seeMore]="false" >
+      <button slot="delete-button" [disabled]="!this.isSelectedUsers()" (click)="openUsersDeleteModal()" mat-button class="button-action" > <mat-icon>delete</mat-icon> Delete</button>
+    </app-table>
+  </div>
+</div>
+
+<!-- Template pour le formulaire d'ajout d'utilisateur -->
+<ng-template #addUserTemplate let-data>
+  <form [formGroup]="addUserForm">
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >  
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error>
+          @if (addUserForm.get('username')?.invalid && addUserForm.get('username')?.touched) {
+            @if (addUserForm.get('username')?.errors?.['required']) { 
+              <ng-container>Username is required.</ng-container>
+            }
+            @if (addUserForm.get('username')?.errors?.['minlength']) { 
+              <ng-container>Minimum 4 characters.</ng-container>
+            }
+            @if (addUserForm.get('username')?.errors?.['maxlength']) { 
+              <ng-container>Maximum 20 characters.</ng-container>
+            }
+            @if (addUserForm.get('username')?.errors?.['pattern']) { 
+              <ng-container>Username can only contain letters, numbers, hyphens, and underscores.</ng-container>
+            }
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >  
+        <mat-label>Password</mat-label>
+        <input [type]="showNewPassword ? 'text' : 'password'"
+              matInput 
+              formControlName="password" 
+              autocomplete="password" 
+              name="password" 
+              required>
+         <mat-icon matSuffix 
+          (click)="generatePassword('addUser')"
+          class="password-visibility-icon"
+          matTooltip="Generate Random Password"
+          aria-label="Generate Random Password">
+          vpn_key
+        </mat-icon>
+        <mat-icon matSuffix 
+          (click)="showNewPassword = !showNewPassword"
+          class="password-visibility-icon"
+          [matTooltip]="!showNewPassword ? 'View Password' : 'Hide Password'"
+        >
+          {{!showNewPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      @if(addUserForm.get('password')?.invalid && addUserForm.get('password')?.touched) {
+        <mat-error>
+          @if(addUserForm.get('password')?.errors?.['required']) {
+            <ng-container>Password is required.</ng-container>
+          }
+          @if(addUserForm.get('password')?.errors?.['minlength']) {
+            <ng-container>Password must be at least 15 characters.</ng-container>
+          }
+          @if(addUserForm.get('password')?.errors?.['pattern']) {
+            <ng-container>Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (excluding ';' and '~').</ng-container>
+          }
+        </mat-error>
+      }
+    </div>
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Confirm Password</mat-label>
+        <input [type]="showConfirmNewPassword ? 'text' : 'password'"
+              matInput 
+              formControlName="confirmPassword" 
+              autocomplete="confirmPassword"  
+              name="confirmPassword" 
+              required>
+        <mat-icon matSuffix 
+                  (click)="showConfirmNewPassword = !showConfirmNewPassword"
+                  class="password-visibility-icon">
+          {{!showConfirmNewPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      @if(addUserForm.get('confirmPassword')?.invalid && addUserForm.get('confirmPassword')?.touched) {
+        <mat-error>
+          @if(addUserForm.get('confirmPassword')?.errors?.['required']) {
+            <ng-container>New Password is required.</ng-container>
+          }
+          @if(addUserForm.get('confirmPassword')?.errors?.['minlength']) {
+            <ng-container>New Password must be at least 15 characters.</ng-container>
+          }
+          @if(addUserForm.get('confirmPassword')?.errors?.['pattern']) {
+            <ng-container>New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (excluding ';' and '~').</ng-container>
+          }
+          @if(addUserForm.get('confirmPassword')?.hasError('mismatch') && addUserForm.get('confirmPassword')?.touched) {
+           <ng-container>Passwords do not match!</ng-container>
+          }
+
+        </mat-error>
+      }
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="roles" required>
+          @for (role of roles; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (addUserForm.get('roles')?.invalid && addUserForm.get('roles')?.touched) {
+            @if (addUserForm.get('roles')?.errors?.['required']) { 
+              <ng-container>Role is required.</ng-container>
+            }
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-checkbox formControlName="enabled" checked>Enabled</mat-checkbox>
+    </div>
+    <div class="form-row">
+      <mat-checkbox formControlName="authorized" enabled>Authorized</mat-checkbox>
+    </div>
+  </form>
+</ng-template>
+
+<!-- Template pour le formulaire de changement de mot de passe -->
+<ng-template #changePasswordTemplate let-data>
+  <p class="dialog-message">Reset Password for : <strong>{{ data?.username }}</strong> ?
+  </p>
+  <form [formGroup]="changePasswordForm">
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >  
+        <mat-label>New Password</mat-label>
+         <input [type]="showNewPassword ? 'text' : 'password'"
+              matInput 
+              formControlName="newPassword" 
+              autocomplete="new-password" 
+              name="newPassword" 
+              required>
+         <mat-icon matSuffix 
+          (click)="generatePassword('changePassword')"
+          class="password-visibility-icon"
+          matTooltip="Generate Random Password"
+          aria-label="Generate Random Password">
+          vpn_key
+        </mat-icon>
+        <mat-icon matSuffix 
+          (click)="showNewPassword = !showNewPassword"
+          class="password-visibility-icon"
+          [matTooltip]="!showNewPassword ? 'View Password' : 'Hide Password'"
+        >
+          {{!showNewPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      @if(changePasswordForm.get('newPassword')?.invalid && changePasswordForm.get('newPassword')?.touched) {
+        <mat-error>
+          @if(changePasswordForm.get('newPassword')?.errors?.['required']) {
+            <ng-container>New Password is required.</ng-container>
+          }
+          @if(changePasswordForm.get('newPassword')?.errors?.['minlength']) {
+            <ng-container>New Password must be at least 15 characters.</ng-container>
+          }
+          @if(changePasswordForm.get('newPassword')?.errors?.['pattern']) {
+            <ng-container>New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (excluding ';' and '~').</ng-container>
+          }
+        </mat-error>
+      }
+    </div>
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Confirm Password</mat-label>
+        <input [type]="showConfirmNewPassword ? 'text' : 'password'"
+              matInput 
+              formControlName="confirmPassword" 
+              autocomplete="new-password"  
+              name="confirmPassword" 
+              required>
+        <mat-icon matSuffix 
+                  (click)="showConfirmNewPassword = !showConfirmNewPassword"
+                  class="password-visibility-icon">
+          {{!showConfirmNewPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      @if(changePasswordForm.get('confirmPassword')?.invalid && changePasswordForm.get('confirmPassword')?.touched) {
+        <mat-error>
+          @if(changePasswordForm.get('confirmPassword')?.errors?.['required']) {
+            <ng-container>New Password is required.</ng-container>
+          }
+          @if(changePasswordForm.get('confirmPassword')?.errors?.['minlength']) {
+            <ng-container>New Password must be at least 15 characters.</ng-container>
+          }
+          @if(changePasswordForm.get('confirmPassword')?.errors?.['pattern']) {
+            <ng-container>New Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (excluding ';' and '~').</ng-container>
+          }
+          @if(changePasswordForm.get('confirmPassword')?.hasError('mismatch') && changePasswordForm.get('confirmPassword')?.touched) {
+           <ng-container>Passwords do not match!</ng-container>
+          }
+          @if(changePasswordForm.get('confirmPassword') != changePasswordForm.get('confirmPassword')) {
+            <ng-container>Passwords do not match!</ng-container>
+          }
+        </mat-error>
+      }
+    </div>
+  </form>
+</ng-template>
+
+<!-- Template pour la modification d'un utilisateur -->
+<ng-template #updateUserTemplate let-data>
+  <form [formGroup]="updateUserForm">
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >  
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error>
+          @if (updateUserForm.get('username')?.invalid && updateUserForm.get('username')?.touched) {
+            @if (updateUserForm.get('username')?.errors?.['required']) { 
+              <ng-container>Username is required.</ng-container>
+            }
+            @if (updateUserForm.get('username')?.errors?.['minlength']) { 
+              <ng-container>Minimum 4 characters.</ng-container>
+            }
+            @if (updateUserForm.get('username')?.errors?.['maxlength']) { 
+              <ng-container>Maximum 20 characters.</ng-container>
+            }
+            @if (updateUserForm.get('username')?.errors?.['pattern']) { 
+              <ng-container>Username can only contain letters, numbers, hyphens, and underscores.</ng-container>
+            }
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mat-grid-tile-content">
+      <mat-form-field appearance="outline" class="full-width" >
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="roles" required>
+          @for (role of roles; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (updateUserForm.get('roles')?.invalid && updateUserForm.get('roles')?.touched) {
+            @if (updateUserForm.get('roles')?.errors?.['required']) { 
+              <ng-container>Role is required.</ng-container>
+            }
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-checkbox formControlName="enabled" checked>Enabled</mat-checkbox>
+    </div>
+    <div class="form-row">
+      <mat-checkbox formControlName="authorized" enabled>Authorized</mat-checkbox>
+    </div>
+  </form>
+</ng-template>
+
+<!-- Template pour la confirmation de suppression -->
+<ng-template #deleteTemplate let-data>
+  <p class="dialog-message">Are you sure you want to delete user(s) : <strong>{{ data?.username }}</strong> ?</p>
+</ng-template>

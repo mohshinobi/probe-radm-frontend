@@ -1,0 +1,103 @@
+.item-title {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #fff;
+}
+.item {
+    font-size: 16px;
+    color: #fff;
+}
+.dialog-content {
+    background-color: #1F1F1F;
+    color: #fff;
+    padding-top: 20px;
+    font-family: 'Inter', serif;
+    height: 100%;
+}
+
+.mat-mdc-dialog-content {
+   max-height: initial; 
+}
+
+
+.mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content {
+    padding-top: initial;
+}
+
+h3 {
+  color: #fff;
+  font-size: 15px;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.bold {
+    font-weight: bold;
+}
+.edit {
+    display: flex;
+    justify-content: space-evenly;
+}
+.justify {
+    display: flex;
+    align-items: center;
+}
+
+//-------------------------------------------------- list item --------- don't delete
+
+.list-item-content {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 50%;
+}
+
+.full-width {
+  flex: 1;
+}
+
+.add-button-container {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+:host ::ng-deep .mat-mdc-list-item {
+  height: auto;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+mat-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.add-button-container {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.btn-color:not(:disabled):hover {
+  background-color: #F5DF4D; /* Couleur rose lorsque le bouton est activé */
+  color: #000; /* Couleur du texte */
+}
+
+.btn-color:hover:not(:disabled) {
+  background-color: #e8d539; /* Couleur plus foncée au survol, quand activé */
+}
+
+.delete_input {
+  overflow: auto;
+  height: 250px;
+}
+
+
+.info {
+  font-size: small;
+  color: #e8d539;
+}

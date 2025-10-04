@@ -1,0 +1,318 @@
+@use "ngx-toastr/toastr";
+@use "./colors";
+@use "./fonts";
+@use 'material-icons/iconfont/material-icons.css';
+@use '@angular/material' as mat;
+@include mat.core();
+$default-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$violet-palette,
+    )
+  )
+);
+$compact-theme: mat.define-theme(
+  (
+    density: (
+      scale: -4
+    )
+  )
+);
+
+
+html, body { height: 100%; background-color: #434649 }
+:root {
+  @include mat.all-component-themes($default-theme);
+  @include mat.form-field-density($compact-theme); 
+ 
+  // Colors declaration or override
+  --mdc-circular-progress-active-indicator-color:#FFF73F;
+    // Size or shape override or declaration
+  --navbar-height:64px; // navbar height
+  --footer-height:5rem; // footer height
+  --mat-card-border-radius: 8px;
+  // Classs declarations
+  .radm-card{
+    background-color: var(--radm-black);
+    border-radius: var(--mat-card-border-radius) !important;
+    min-height: 2rem;
+    padding: 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  .mat-mdc-nav-list .mat-mdc-list-item{
+    border-radius:0px;
+  }
+  
+}
+.title-tooltip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.mdc-tab{
+  font-family: Sesame, sans-serif;
+}
+body { margin: 0; font-family: Sesame, "Helvetica Neue", sans-serif; overflow: hidden}
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Allow the items to wrap as necessary */
+  justify-content: space-between;
+  margin-top: 1%;
+}
+@for $i from 1 through 100 {
+  .column-#{$i} {
+    width: 100%;
+  }
+  @media (min-width: 600px) {
+    .column-#{$i} {
+      width: #{$i + '%'};
+    }
+  }
+}
+.shadow{
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+.title {
+  color: white;
+  font-size: 20px;
+  font-family: Sesame, serif;
+}
+.pd-20 {
+  padding: 20px;
+}
+
+.pd-10 {
+  padding: 10px;
+}
+ 
+.mat-mdc-unelevated-button,  
+.mat-mdc-button,  
+.mdc-button__ripple{
+ border-radius: 4px !important;
+}
+.btn-primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF73F;
+  color: #000;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  cursor: pointer;
+  gap: 3px;
+  &:hover {
+    background-color: #27293d;
+    color: #FFF73F;
+  }
+
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  }
+  ::-webkit-scrollbar-track {
+  border-radius: 4px !important;
+  background-color: #EFEFEF!important;
+  }
+  ::-webkit-scrollbar-thumb {
+  border-radius: 4px !important;
+  background-color: #FFF73F !important;
+  }
+
+  .mat-mdc-optgroup-label{
+    color: #000 !important;
+    background-color: #FFF73F;
+  }
+
+
+// For screens smaller than 600px
+@media (max-width: 600px) {
+  .pd-10 {
+    padding: 5px;
+  }
+}
+
+// For screens larger than 600px and smaller than 1200px
+@media (min-width: 601px) and (max-width: 1200px) {
+  .pd-10 {
+    padding: 8px;
+  }
+}
+
+// For screens larger than 1200px
+@media (min-width: 1201px) {
+  .pd-10 {
+    padding: 10px;
+  }
+}
+
+// for mobile devices put all the columns (col-25-col-50-col-75-col-100) in one column
+@media (max-width: 600px) {
+  .column-25, .column-50, .column-75, .column-100 {
+    width: 100%;
+  }
+}
+
+.mat-pseudo-checkbox-checked::after {
+  color: #000 !important;
+}
+
+$sev-colors: ('#F44949', '#FF6633', '#F89200', '#FFC080');
+.sev1 {
+  color: #F44949
+}
+
+
+.g-bubble-container {
+  display: flex;
+  gap: 4px;
+}
+
+.g-bubble {
+  background-color: transparent;
+  border: 1px solid white ;
+  border-radius: 30%;
+  width: 34px;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white !important;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+// .g-bubble:hover {
+//   background-color: #b6b6b6;
+//   color: white;
+// }
+
+.g-bubble__active {
+  background-color: yellow;
+  color: black !important;
+  border: 1px solid yellow ;
+}
+
+
+.mat-mdc-paginator-range-actions {
+  margin-right: 12px !important;
+}
+
+.mat-mdc-paginator-range-label::before {
+  content: 'Showing ';
+}
+
+.highcharts-legend-item{
+  text{
+    &:hover{
+      fill:#FFF73F !important;
+    }
+  }
+}
+
+.bdrop{
+  backdrop-filter: blur(10px);
+}
+
+.modal-body {
+  mat-dialog-container {
+    border-radius: 10px;
+    box-shadow: white 0 0 4px;
+    overflow: hidden;
+  }
+
+  .mat-mdc-dialog-title.mat-mdc-dialog-title {
+    color: white;
+    font-size: 21px;
+    margin: 0;
+  }
+
+  .mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content {
+    padding: 20px;
+  }
+}
+.header-title{
+  position:sticky;
+  z-index: 10;
+  top:0;
+  background-color: #303030;
+}
+
+.text-yellow{
+  color:#FFF111 !important;
+}
+.content{
+  padding: 10px;
+}
+
+.mat-expansion-panel{
+  box-shadow: none !important;
+}
+
+.mdc-list-item__content{
+  overflow: visible !important;
+}
+
+ 
+// for positions
+.pos-rel{
+  position: relative;
+}
+
+.pos-abs{
+  position: absolute;
+}
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+// Global class for padding and margin
+@for $i from 0 through 100 {
+  // .p-#{$i}{ padding: #{$i}px  !important;} // padding // todo: let it commented - check cti for conflit with same class
+  .pt-#{$i}{ padding-top: #{$i}px !important;} // padding top
+  .pr-#{$i}{ padding-right: #{$i}px !important;} // padding right
+  .pl-#{$i}{ padding-left: #{$i}px !important;} // padding left
+  .pb-#{$i}{ padding-bottom: #{$i}px !important;} // padding bottom
+  .m-#{$i} { margin: #{$i}px !important; } // margin top
+  .mt-#{$i} { margin-top: #{$i}px !important; } // margin top
+  .ml-#{$i} { margin-left: #{$i}px !important; } // margin left
+  .mb-#{$i} { margin-bottom: #{$i}px !important; } // margin bottom
+  .mr-#{$i} { margin-right: #{$i}px !important; } // margin right
+  // for position
+  .pos-top-#{i}{top:#{i}rem;}
+  .pos-bottom-#{i}{top:#{i}rem;}
+  .pos-left-#{i}{top:#{i}rem;}
+  .pos-right-#{i}{top:#{i}rem;}
+}
+// Global for padding and margin auto
+.p-auto { padding: auto !important; }
+.pt-auto { padding-top: auto !important; }
+.pb-auto { padding-bottom: auto !important; }
+.pl-auto { padding-left: auto !important; }
+.pr-auto { padding-right: auto !important; }
+.m-auto { margin: auto !important; }
+.mt-auto { margin-top: auto !important; }
+.mb-auto { margin-bottom: auto !important; }
+.ml-auto { margin-left: auto !important; }
+.mr-auto { margin-right: auto !important; }
+
+.blur-bg {
+  background-color:rgba(255,255,255,.3);
+  backdrop-filter: blur(10px);
+}
+
+.button-action {
+  border: 1px solid white !important;
+  border-radius: 4px;
+}
+

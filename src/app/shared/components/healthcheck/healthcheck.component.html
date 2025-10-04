@@ -1,0 +1,137 @@
+
+<div class="container bg shadow">
+    <div class="stats-suri">
+        <p class="suricata">Suricata has been running continuously since: 
+            <span class="info">{{ stats()?.[0]?.stats.uptime ?? 0 | uptimeToDatePipe }}</span> -  Last reloard :  <span class="info">{{stats()?.[0]?.stats.detect.engines[0].last_reload| date:'dd/MM/yyyy hh:mm a'}}</span>
+        </p>
+    </div>
+    <div class="card-stats">  
+        <div class="stat white column-28">
+            <div class="stats">
+                <div class="item">
+                <span> {{stats()?.[0]?.stats.capture.kernel_drops}} Packets</span>
+                <p>Packet Loss Rate</p>
+                </div>
+                <div class="item">
+                <span> {{stats()?.[0]?.stats.decoder.pkts}} Packets</span>
+                <p>Processing Throughput</p>
+                </div>
+                <div class="item">
+                <span> {{stats()?.[0]?.stats.tcp.invalid_checksum}}</span>
+                <p>Invalid Checksums</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.tcp.memuse}}</span>
+                <p>Used Memory</p>
+                </div>
+                <div class="item">
+                  <span>{{stats()?.[0]?.stats.memcap_pressure}}</span>
+                  <p>Memory Pressure</p>
+                </div>
+                <div class="item"></div>
+            </div>
+        </div>  
+        <div class="d-flex">
+            @for (graph of alertsAreaGraphOptions(); track $index) {
+                <mat-card class="card">
+                  <mat-card-content>
+                    <app-area
+                      [graphOptions]="graph"
+                    ></app-area>
+                  </mat-card-content>
+                </mat-card>
+              }
+        </div>
+    </div> 
+</div>
+
+<div class="container bg shadow">
+    @for (graph of alertsPieGraphOptions(); track $index) {
+        <mat-card class="card column-33">
+            <mat-card-content>
+                <app-pie
+                [graphOptions]="graph"
+                ></app-pie>
+            </mat-card-content>
+        </mat-card>
+    }
+</div>
+
+<div class="container bg shadow grid">
+    <div class="column-100">  
+        <div class="stat white">
+            <div class="stats">
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.detect.engines[0].rules_loaded}}</span>
+                <p>Loaded Rules</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.detect.engines[0].rules_failed}}</span>
+                <p>Failed Rules</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.detect.engines[0].rules_skipped}}</span>
+                <p>Skipped Rules</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.detect.alert}}</span>
+                <p>Detected Alerts</p>
+                </div>
+                <div class="item">
+                  <span>{{stats()?.[0]?.stats.detect.alerts_suppressed}}</span>
+                  <p>Suppressed Alerts</p>
+                </div>
+                <div class="item"></div>
+            </div>
+        </div> 
+    </div>
+    <div class="column-100">  
+        <div class="stat white">
+            <div class="stats">
+                <div class="item">
+                    <span class="error">{{stats()?.[0]?.stats.app_layer.error.tls.parser}}</span>
+                    <p class="error">TLS ERRORS</p>
+                </div>
+                <div class="item">
+                    <span class="error">{{stats()?.[0]?.stats.app_layer.error.http.parser}}</span>
+                    <p class="error">HTTP ERRORS</p>
+                </div>
+                <div class="item">
+                    <span class="error">{{stats()?.[0]?.stats.app_layer.error.rdp.parser}}</span>
+                    <p class="error">RDP ERRORS</p>
+                </div>
+                <div class="item">
+                    <span class="error">{{stats()?.[0]?.stats.app_layer.error.ssh.parser}}</span>
+                    <p class="error">SSH ERRORS</p>
+                </div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div> 
+    </div>
+    <div class="column-100">  
+        <div class="stat white">
+            <div class="stats">
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.tcp.syn}}</span>
+                <p>TCP SYN</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.tcp.synack}}</span>
+                <p>TCP SYN-ACK</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.tcp.rst}}</span>
+                <p>TCP RST</p>
+                </div>
+                <div class="item">
+                <span>{{stats()?.[0]?.stats.tcp.overlap}}</span>
+                <p>TCP OVERLAP</p>
+                </div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div> 
+    </div>
+</div> 
+

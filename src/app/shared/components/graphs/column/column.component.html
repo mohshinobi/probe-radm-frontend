@@ -1,0 +1,10 @@
+@defer(when chartOptions().series?.length ){
+        <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="chartOptions()"
+                class="column"
+        ></highcharts-chart>
+        <!-- {{chartOptions().series | json}} -->
+} @placeholder {
+        <app-skeleton ></app-skeleton>
+}

@@ -1,0 +1,13 @@
+
+<page-header [title]="title"  [subtitle]="'Equipements in Park'"/>
+<app-table id="table"
+  [tableDataResponse]="data()"
+  [tableColumns]="ordersTableColumns"
+  [displayedColumns]="displayedColumns"
+  [fields]="fields"
+  [form]="form()"
+  [length]="this.length"
+  (tableActions)="tableActions($event)"
+  (cellDatas)="handelDataSet($event)"
+  [seeMore]="false"
+/>

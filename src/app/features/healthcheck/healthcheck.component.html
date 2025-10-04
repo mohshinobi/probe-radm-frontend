@@ -1,0 +1,430 @@
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector [title]="title">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <div style="margin:0; padding: 1%; background:  #1F1F1F; border-radius: 10px">
+      <div style="display: flex">
+        <h3 class="card-title">Flow Engine has been running continuously since : <span class="txt-yellow">{{ uptime()|
+            uptimeToDatePipe }}</span>, Last reload : <span class="yellow">{{lastReload() |date: 'yyyy-MM-dd HH:mm:ss':
+            'UTC' }}</span></h3>
+      </div>
+      <div style="display: flex;justify-content: space-between;">
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Packet Loss Rate
+                  <mat-icon
+                    matTooltip="Percentage of network packets that failed to reach destination"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{kernelDrops()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Processing Throughput
+                  <mat-icon
+                    matTooltip="Number of packets successfully processed per second"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{decoderPkts()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Invalid Checksums
+                  <mat-icon
+                    matTooltip="Packets with corrupted data detected during transmission"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpInvalidChecksum()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Used Memory
+                  <mat-icon
+                    matTooltip="Current memory consumption by the flow engine"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpMemuse()|bytesConvert}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Memory Pressure
+                  <mat-icon
+                    matTooltip="System memory allocation stress level (0-10 scale)"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{memcapPressure()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <section class="dashboard-section">
+      <div class="system-overview">
+        <div class="header">
+          <h3 class="card-title">System Monitoring</h3>
+        </div>
+
+        <div class="summary-cards">
+          <!-- CPU Average Card -->
+          <mat-card class="metric-card">
+            <mat-card-content>
+              <div class="metric-icon cpu-avg">
+                <mat-icon>memory</mat-icon>
+              </div>
+              <div class="metric-info">
+                <div class="metric-label">CPU Average
+                  <mat-icon
+                    matTooltip="Average utilization across all CPU cores"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </div>
+                <div class="metric-value" [ngClass]="{
+                            'warning': cpuAvgUsage() > 40,
+                            'danger': cpuAvgUsage() > 80
+                          }">
+                  {{cpuAvgUsage()}}%
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- CPU Max Card -->
+          <mat-card class="metric-card">
+            <mat-card-content>
+              <div class="metric-icon cpu-max">
+                <mat-icon>memory</mat-icon>
+              </div>
+              <div class="metric-info">
+                <div class="metric-label">CPU Max
+                  <mat-icon
+                    matTooltip="Highest utilization percentage among all CPU cores"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </div>
+                <div class="metric-value" [ngClass]="{
+                            'warning': cpuMaxUsage() > 40,
+                            'danger': cpuMaxUsage() > 80
+                          }">
+                  {{cpuMaxUsage()}}%
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Add this to your summary-cards div in the template -->
+          <mat-card class="metric-card">
+            <mat-card-content>
+              <div class="metric-icon disk">
+                <mat-icon>storage</mat-icon>
+              </div>
+              <div class="metric-info">
+                <div class="metric-label">Disk
+                  <mat-icon
+                    matTooltip="Storage utilization percentage"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </div>
+                <div class="metric-value" [ngClass]="{
+                            'safe': diskUsagePercent() < 40,
+                            'warning': diskUsagePercent() >= 40 && diskUsagePercent() < 80,
+                            'danger': diskUsagePercent() >= 80
+                          }">
+                  {{diskUsagePercent()}}%
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Memory Card -->
+          <mat-card class="metric-card">
+            <mat-card-content>
+              <div class="metric-icon memory">
+                <mat-icon>memory</mat-icon>
+              </div>
+              <div class="metric-info">
+                <div class="metric-label">Memory
+                  <mat-icon
+                    matTooltip="Physical memory usage percentage"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </div>
+                <div class="metric-value" [ngClass]="{
+                            'safe': ramUsagePercent() < 40,
+                            'warning': ramUsagePercent() >= 40 && ramUsagePercent() < 80,
+                            'danger': ramUsagePercent() >= 80
+                          }">
+                  {{ramUsagePercent()}}%
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- CPU Details Section -->
+        <mat-card class="details-card">
+          <mat-card-header>
+            <mat-card-title>Details of the {{ cpuCount() }} CPU Cores </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-accordion>
+              @for (start of getCpuGroups(); track start) {
+              <mat-expansion-panel [expanded]="panelIndex === 0">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    CPU {{ start + 1 }} - {{ min(start + 12, cpuCount()) }}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="cpu-list">
+                  @for (cpu of cpuUsageData().slice(start, start + 12); track cpu.id; let i = $index) {
+                  <div class="cpu-item">
+                    <div class="cpu-name">CPU {{ start + i + 1 }}</div>
+                    <div class="cpu-bar-container">
+                      <div class="cpu-bar" [style.width.%]="cpu.usage" [ngClass]="{
+                                      'safe': cpu.usage < 20,
+                                      'warning': cpu.usage >= 20 && cpu.usage < 80,
+                                      'danger': cpu.usage >= 80
+                                    }">
+                      </div>
+                    </div>
+                    <div class="cpu-value">{{cpu.usage}}%</div>
+                  </div>
+                  }
+                </div>
+              </mat-expansion-panel>
+              }
+            </mat-accordion>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <div style="margin-top:1%; padding:1%; background:  #1F1F1F; border-radius: 10px">
+      <div class="header">
+        <h3 class="card-title">Rules Monitoring</h3>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Loaded Rules
+                  <mat-icon matTooltip="Total number of total security rules in the monitoring system"
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{ detectEnginesRulesLoaded() }} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Failed Rules
+                  <mat-icon matTooltip="Rules that failed to load or execute properly. These require immediate attention to ensure complete security coverage"
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                <p class="main-number">{{ detectEnginesRulesFailed() }} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Skipped Rules
+                  <mat-icon matTooltip="Rules intentionally bypassed due to configuration settings or dependencies"
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{detectEnginesRulesSkipped()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Detected Alerts
+                  <mat-icon matTooltip="Security events that triggered rule conditions. Each alert represents a potential security concern requiring investigation"
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{detectAlert()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">Suppressed Alerts
+                  <mat-icon matTooltip="Alerts that were detected but intentionally muted based on filter criteria or exception policies"
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{detectAlertsSuppressed()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">TLS Errors
+                  <mat-icon
+                    matTooltip="Transport Layer Security connection failures. May indicate certificate issues, protocol mismatches, or potential interception attempts"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tlsErrors()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">RDP Errors
+                  <mat-icon
+                    matTooltip="Remote Desktop Protocol connection failures. Could indicate brute force attempts or misconfigured access controls"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{rdpErrors()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">SSH Errors
+                  <mat-icon
+                    matTooltip="Secure Shell connection failures. Often related to authentication issues or potential unauthorized access attempts"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{sshErrors()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">HTTP Errors
+                  <mat-icon
+                    matTooltip="Web server or application errors. May indicate failed requests, misconfigurations, or potential web-based attacks"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{httpErrors()}} </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">TCP SYN
+                  <mat-icon
+                    matTooltip="Count of TCP SYN packets detected. Unusually high numbers may indicate scanning activity or SYN flood attacks"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpSyn()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">TCP SYN-ACK
+                  <mat-icon
+                    matTooltip="TCP handshake acknowledgment packets. Monitoring helps identify connection issues or potential flood attacks"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpSynack()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">TCP RST
+                  <mat-icon
+                    matTooltip="TCP connection reset packets. High volumes may indicate service disruptions, filtering, or scanning activities"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpRst()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="card-insights custom-card2">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">TCP Overlap
+                  <mat-icon
+                    matTooltip="Packets with overlapping TCP segments. May indicate evasion techniques or packet manipulation attacks"
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline
+                  </mat-icon>
+                </p>
+                <p class="main-number">{{tcpOverlap()}}</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<ng-template #modalContent let-data> <p>{{ data }}</p> </ng-template>
+<page-header [title]="'Ot Alerts'"  [subtitle]="'Alerts related to fine Industrial'"/>
+<app-table id="table"
+#tableComponent
+[tableDataResponse]="data()"
+[tableColumns]="ordersTableColumns"
+[displayedColumns]="displayedColumns"
+[fields]="fields"
+[form]="form()"
+[length]="length"
+(tableActions)="tableActions($event)"
+(cellDatas)="handelDataSet($event)"
+[seeMore]="false"
+[expandableDatas]="false"
+/>

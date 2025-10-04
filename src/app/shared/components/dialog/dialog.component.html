@@ -1,0 +1,359 @@
+<h2 mat-dialog-title>{{data().title}}</h2>
+<mat-dialog-content class="dialog-content">
+  @if(data().type == "add") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="add">
+          @for (field of data().fields; track $index) {
+            @if(field.key=="label") {
+              <div class="label">
+                <jizo-form [form]="data().form" [field]="field" ></jizo-form>
+              </div>
+            }
+
+            @else if(field.key.includes('valid')) {
+              <div class="valid">
+                <h3>VALID</h3>
+                  @if(field.key !="label") {
+                  <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                  }
+
+              </div>
+
+            }
+            @else {
+              <div class="except">
+                <h3>EXCEPTION</h3>
+                  @if(field.key !="label") {
+                  <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                  }
+              </div>
+            }
+          }
+        <!-- Boutons pour submit -->
+        <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">{{data().type|titlecase}}</button>
+      </form>
+  }
+
+  @else if(data().type == "update") {
+      <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" >
+        @for (field of data().fields; track $index) {
+          @if(field.key=="label") {
+            <div class="label">
+              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+            </div>
+          }
+
+          @else if(field.key.includes('valid')) {
+            <div class="valid">
+              <h3>VALID</h3>
+                @if(field.key !="label") {
+                <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                }
+            </div>
+
+          }
+          @else {
+            <div class="except">
+              <h3>EXCEPTION</h3>
+                @if(field.key !="label") {
+                <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                }
+            </div>
+          }
+        }
+          <!-- Boutons pour appliquer le filtre ou réinitialiser les filtres -->
+          <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">{{data().type|titlecase}}</button>
+          <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+        </form>
+  }
+
+  @else if (data().type == "delete") {
+      <p>Are you sure to {{data().title}} ?</p>
+      <button mat-raised-button class="btn-color" (click)="deleteConfig(data().section, data().data.configuration)" style="margin-right: 20px;">Yes</button>
+      <button mat-raised-button class="btn-color" (click)="close()" style="margin-right: 20px;">No</button>
+  }
+
+  @else if (data().type == "delete_ldap") {
+      <p>Are you sure to {{data().title}} ?</p>
+      <button mat-raised-button class="btn-color" (click)="deleteConfig(data().section, data().data.configuration)" style="margin-right: 20px;">Yes</button>
+      <button mat-raised-button class="btn-color" (click)="close()" style="margin-right: 20px;">No</button>
+  }
+
+  @else if (data().type == "multi_delete") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="add">
+      <p>Are you sure to {{data().title}} ?</p>
+      <p>Please select the configuration you want to delete </p>
+      <div class="delete_input">
+        @for (field of data().fields; track $index) {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+      </div>
+      <button mat-raised-button class="btn-color" (click)="deleteMultiConfig(data().section, data().form.value)" style="margin-right: 20px;">Yes</button>
+      <button mat-raised-button class="btn-color" (click)="close()" style="margin-right: 20px;">No</button>
+    </form>
+  }
+
+  @else if(data().type == "add_syslog") {
+
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="add">
+          @for (field of data().fields; track $index) {
+            @if(field.key=='client_private_key') {
+              @if(data().form.value.tls) {
+                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+              }
+            }
+            @else if(field.key=='server_certificate') {
+              @if(data().form.value.tls) {
+                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+              }
+            } 
+            @else if(field.key=='client_certificate') {
+              @if(data().form.value.tls) {
+                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+              }
+            } 
+            @else if (field.key=='tls') {
+              <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+            }
+            @else if (field.key=='protocol') {
+              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+            }
+            @else {
+              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+            }
+          }
+        <!-- Boutons pour submit -->
+        <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="isFormInvalid()">Add</button>
+        <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+    </form>
+  }
+
+  @else if(data().type == "update_syslog") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_syslog">
+      @for (field of data().fields; track $index) {
+        @if(field.key=='client_private_key') {
+          @if(data().form.value.tls) {
+              <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)" ></jizo-form>
+          }
+        }
+        @else if(field.key=='server_certificate') {
+          @if(data().form.value.tls) {
+            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+          }
+        } 
+        @else if(field.key=='client_certificate') {
+          @if(data().form.value.tls) {
+            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+          }
+        } 
+        @else if (field.key=='tls') {
+          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+        }
+        @else if (field.key=='template') {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+        @else {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+      }
+    <!-- Boutons pour submit -->
+    <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="isFormInvalid()">Update</button>
+    <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+</form>
+  }
+  @else if(data().type == "delete_syslog") {
+    <p>Are you sure to {{data().title}} ?</p>
+      <button mat-raised-button class="btn-color" (click)="deleteSyslog(data().data)" style="margin-right: 20px;">Yes</button>
+      <button mat-raised-button class="btn-color" (click)="close()" style="margin-right: 20px;">No</button>
+  }
+
+  @else if (data().type == "reset") {
+    <p>Are you sure to {{data().title}} ?</p>
+    <p>This will be restored to <span class="bold">{{data().data.default}}</span>.</p>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="reset(data().data)">Yes</button>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">No</button>
+
+  }
+
+  @else if (data().type == "enable_syslog") {
+    <p>Are you sure to {{data().title|lowercase}} ?</p>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="enableSyslog(data().data)">Yes</button>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">No</button>
+
+  }
+
+  @else if (data().type == "disable_syslog") {
+    <p>Are you sure to {{data().title|lowercase}} ?</p>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="disableSyslog(data().data)">Yes</button>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">No</button>
+
+  }
+
+  @else if (data().type == "reset_all") {
+    <p>Are you sure to {{data().title}} ?</p>
+    <p>This will delete all added configurations.</p>
+    <p>This will also {{data().title|lowercase}} to :</p>
+    <ul>
+      @for (item of data().data; track $index) {
+        <li>{{item.configuration}} : {{item.default}}</li>
+        }
+    </ul>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="resetAll(data().data[0].section)">Yes</button>
+    <button mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">No</button>
+  }
+
+  @else if (data().type == "update_severity") {
+      <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_severity">
+        @for (field of data().fields; track $index) {
+            <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+      <!-- Boutons pour submit -->
+      <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update Severity</button>
+      <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+  </form>
+  }
+
+  @else if (data().type == "update_pcap") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_pcap">
+      @for (field of data().fields; track $index) {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+      }
+    <!-- Boutons pour submit -->
+    <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update</button>
+    <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+</form>
+}
+
+@else if (data().type == "update_sftp_files" || data().type == "update_sftp_remote") {
+  <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_pcap">
+    @for (field of data().fields; track $index) {
+        <jizo-form [form]="data().form" [field]="field"></jizo-form>
+    }
+  <!-- Boutons pour submit -->
+  <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update</button>
+  <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+</form>
+}
+
+  @else if (data().type == "add_ldap") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="add">
+      @for (field of data().fields; track $index) {
+        @if(field.key=='certificate') {
+          @if(data().form.value.tls) {
+            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <span class="info">Username and password are required to test the connection before saving.</span>
+
+          }
+        }
+
+        @else if (field.key=='tls') {
+          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+          @if(!data().form.value.tls) {
+          <span class="info">Username and password are required to test the connection before saving.</span>
+          }
+        }
+        
+        @else if (field.key != 'username' && field.key != 'password') {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+        @else {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+      }
+    <!-- Boutons pour submit -->
+    <button 
+      type="submit" 
+      mat-raised-button 
+      class="btn-color" 
+      style="margin-right: 20px;" 
+      [disabled]="data().form.invalid || !ldapconnectionStatus"
+      (click)="addLdap(data().form)">Add</button>
+    <button
+      type="button"
+      mat-raised-button
+      class="btn-color"
+      style="margin-right: 20px;"
+      (click)="testConnectivity(data().form)"
+      [disabled]="!isNotFormEmpty(data().form)"
+    >
+      Test Connectivity
+    </button>
+    <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+  </form>
+  
+}
+
+  @else if (data().type == "update_ldap") {
+    <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="add">
+      @for (field of data().fields; track $index) {
+        @if(field.key=='certificate') {
+          @if(data().form.value.tls) {
+            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <span class="info">Username and password are required to test the connection before saving.</span>
+
+          }
+        }
+
+        @else if (field.key=='tls') {
+          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+          @if(!data().form.value.tls) {
+          <span class="info">Username and password are required to test the connection before saving.</span>
+          }
+        }
+        
+        @else if (field.key != 'username' && field.key != 'password') {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+        @else {
+          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        }
+      }
+    <!-- Boutons pour submit -->
+    <button 
+      type="submit" 
+      mat-raised-button 
+      class="btn-color" 
+      style="margin-right: 20px;" 
+      [disabled]="data().form.invalid || !ldapconnectionStatus"
+      (click)="updateLdap(data().form)">Update</button>
+    <button
+      type="button"
+      mat-raised-button
+      class="btn-color"
+      style="margin-right: 20px;"
+      (click)="testConnectivity(data().form)"
+      [disabled]="!isNotFormEmpty(data().form)"
+    >
+      Test Connectivity
+    </button>
+    <button type="button" mat-raised-button class="btn-color" style="margin-right: 20px;" (click)="close()">Cancel</button>
+  </form>
+  
+}
+
+  @else {
+      <div class="details">
+        <div class="valid">
+          <h3>VALID</h3>
+          <ul>
+            @for (item of parseSubnets(data().data).valid; track $index) {
+              <li>{{item.item}}</li>
+            }
+            @empty {
+              <li>None</li>
+            }
+          </ul>
+        </div>
+        <div class="except">
+          <h3>Exception</h3>
+          <ul>
+            @for (item of parseSubnets(data().data).except; track $index) {
+              <li>{{item.item}}</li>
+            }
+            @empty {
+              <li>None</li>
+            }
+          </ul>
+        </div>
+      </div>
+  }
+</mat-dialog-content>

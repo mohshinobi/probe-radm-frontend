@@ -1,0 +1,34 @@
+:root {
+  --radm-black:#1F1F1F;
+  --radm-white:#ffffff;
+  --radm-red:#c41e3a;
+  --radm-orange:#ff7c0a;
+  --radm-green:#aad372;
+  --radm-lightblue:#3fc7eb;
+  --radm-pink:#f48cba;
+  --radm-yellow:#fff468;
+  --radm-blue:#0070dd;
+  --radm-violet:#8788ee;
+  --radm-brown:#c69b6d;
+}
+.grey {
+  color: #858585;
+}
+.white {
+  color: var(--radm-white);
+}
+.red {
+  color: var(--radm-red);
+}
+.green {
+  color: var(--radm-green);
+}
+.blue {
+  color: var(--radm-lightblue);
+}
+.orange {
+  color: var(--radm-orange);
+}
+.yellow {
+  color: var(--radm-yellow);
+}

@@ -1,0 +1,7 @@
+<ul>
+    @for (breadcrumb of (breadcrumbs$ | async); track $index) {
+        <li>
+            <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+        </li>
+    }
+</ul>

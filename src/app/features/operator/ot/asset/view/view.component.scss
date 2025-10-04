@@ -1,0 +1,139 @@
+
+$width-input: 20rem;
+.main-title{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 38px;
+}
+mat-card{
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #1e1e1e;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: transparent;
+    height: 75vh;
+    mat-card {
+        min-height: 250px; /* Vous pouvez ajuster la hauteur minimale ici */
+    }
+
+}
+
+mat-card-header{
+    font-family: Sesame;
+    font-size: 1.5rem;
+    color: #FFF73F;
+}
+mat-card {
+
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #1e1e1e;
+    flex: 1 1 24%; /* Chaque carte prendra 24% de la largeur pour 4 cartes par ligne */
+    margin: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+#asset_zone{
+    background-color: lightgray;
+    color:#1e1e1e;
+    font-family: sans-serif;
+    text-align: center;
+    border-radius: 0.2rem;
+    width: 10rem !important;
+    position: absolute;
+    top: 50;
+    right: 0;
+    margin: 1rem 3rem ;
+    #asset_image{
+        max-width: 10rem;
+        max-height: 10rem;
+        background: transparent;
+    }
+    #asset_zone_name{
+        font-size: 1rem !important ;
+        font-weight: bolder !important ;
+    }
+    #asset_name{
+        font-size: 0.8rem !important ;
+    }
+}
+
+mat-card-content {
+    table {
+        display: flex;
+        flex-direction: column ;
+        width: 50%;
+        tr{
+            min-height: 2rem;
+            display: flex;
+            flex-direction: row ;
+            width: 100%;
+            margin: 0.5rem 0 ;
+            td{
+                display: block;
+                flex-direction: column ;
+                flex-wrap: wrap;
+                width: 50%;
+                &.first,&.second{
+                    color:lightgray;
+                }
+            }
+
+        }
+    }
+}
+
+
+input,
+textarea{
+    display: block !important;
+    background-color: #333;
+    color: white;
+    border:1 solid #1e1e1e;
+    padding: 0.3rem 1rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    width:$width-input;
+    &:focus{
+        border: 1px solid #555;
+    }
+}
+
+button{
+    width: 8rem;
+    border: 1px solid white;
+    border-radius:8px;
+    margin-right:1rem;
+}
+select {
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 0.8rem ;
+    position: relative;
+    width:$width-input;
+    list-style: none;
+    padding: 0 0.5rem;
+    margin: 0;
+    border: 1px solid #ccc;
+    color: white;
+    background: #333;
+    option{
+        position: absolute;
+        list-style: none;
+        padding: 0 0.5rem;
+        margin: 0;
+        border: 1px solid #ccc;
+        color: #333;
+        background: lightgray;
+    }
+}

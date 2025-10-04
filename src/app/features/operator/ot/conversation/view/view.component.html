@@ -1,0 +1,115 @@
+
+<div class="container-section p-32 border-section">
+  <app-breadcrumb></app-breadcrumb>
+  <h1 class="title">OT Conversation details</h1>
+</div>
+@if( conversation() ; as conv ){
+<section class="section pb-10 pt-0">
+  <div class="card-container">
+    <mat-card class="card">
+      <mat-card-content>
+        <div class="wrap-block">
+          <div class="block">
+            <ul>
+              <li><h2 class="card-title">Asset Source</h2></li>
+              <li><span >Id</span><span class="long-value"> {{ conv?.asset_src?.id}}</span></li>
+              <li><span >Name</span><span > {{ conv?.asset_src?.nom_client_usuel}}</span></li>
+              <li><span >Ip</span><span > {{ conv?.layers?.ip?.ip_ip_src }}</span></li>
+              <li><span >Mac</span><span > {{ conv?.layers?.eth?.eth_eth_src}}</span></li>
+              <li><span >Zone</span><span > {{ conv?.asset_src?.belonging_zone }}</span></li>
+              <li><span >Type</span><span > {{ conv?.asset_src?.type }}</span></li>
+            </ul>
+          </div>
+          <div class="block graph">
+            <div class="block"><app-asset-img [asset]="conv?.asset_src"></app-asset-img></div>
+            <div class="block arrow_animation">
+              <span class="arrow arrow-1"></span>
+              <span class="arrow arrow-2"></span>
+              <span class="arrow arrow-3"></span>
+              <p class="text" >{{ this._service.extractProtocol(conv?.layers?.frame?.frame_frame_protocols) }}</p>
+              <span class="arrow arrow-4"></span>
+              <span class="arrow arrow-5"></span>
+              <span class="arrow arrow-6"></span>
+            </div>
+            <div class="block"><app-asset-img [asset]="conv?.asset_dest"></app-asset-img></div>
+          </div>
+          <div class="block">
+            <ul>
+              <li><h2 class="card-title">Asset Destination</h2></li>
+              <li><span >Id</span><span class="long-value"> {{ conv?.asset_dest?.id}}</span></li>
+              <li><span >Name</span><span > {{ conv?.asset_dest?.nom_client_usuel}}</span></li>
+              <li><span >Ip</span><span > {{ conv?.layers?.ip?.ip_ip_dst }}</span></li>
+              <li><span >Mac</span><span > {{ conv?.layers?.eth?.eth_eth_dst}}</span></li>
+              <li><span >Zone</span><span > {{ conv?.asset_dest?.belonging_zone }}</span></li>
+              <li><span >Type</span><span > {{ conv?.asset_dest?.type }}</span></li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+<section class="section p-0 m-0">
+  <div class="card-container pb-10">
+    <mat-card class="card">
+      <mat-card-content>
+        <ul>
+          <li><h2 class="card-title">Conversation details</h2></li>
+          <li><span >Date</span><span > {{ conv?.timestamp  | date: 'yyyy-MM-dd HH:mm:ss': 'UTC'  }}</span></li>
+          <li><span >Protocol</span><span>{{ conv?.layers?.frame?.frame_frame_protocols }} <p class="highlight"> {{ this._service.extractProtocol(conv?.layers?.frame?.frame_frame_protocols) }} </p> </span>  </li>
+          <li><span >Is part of an alert</span><span >{{ conv?.isPartAlert && conv.isPartAlert == true  ? 'Yes' : 'No'  }}</span></li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-content>
+        <ul>
+          <li><h2 class="card-title">Statistics</h2></li>
+          <li class="mb-10"><span >Frame (Last hour)</span><span> {{ conv?.history?.last60Minutes ?? 'n/a' }}</span></li>
+          <li>
+            <table>
+              <thead>
+                <th></th>
+                <th>Last 1min</th>
+                <th>Last 5min</th>
+                <th>Last 15min</th>
+              </thead>
+              <tbody>
+              <tr>
+                <td><span>Bw</span></td>
+                <td>{{ conv?.history?.bw?.last1Minutes ?? 'n/a' }}</td>
+                <td>{{ conv?.history?.bw?.last5Minutes ?? 'n/a' }}</td>
+                <td>{{ conv?.history?.bw?.last15Minutes ?? 'n/a' }}</td>
+              </tr>
+              <tr>
+                <td><span>Payloads</span></td>
+                <td>{{ conv?.history?.payloads?.last1Minutes ?? 'n/a' }}</td>
+                <td>{{ conv?.history?.payloads?.last5Minutes ?? 'n/a' }}</td>
+                <td>{{ conv?.history?.payloads?.last15Minutes ?? 'n/a' }}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+<section>
+  <div class="card-container column-49">
+          <mat-card class="card">
+      <mat-card-content>
+        <ul>
+          <li><span >Frame Lenght</span><span > {{ conv?.layers?.frame?.frame_frame_len ?? 'n/a' }}</span></li>
+          <li><span >Total Byte</span><span>{{ conv?.layers?.frame?.frame_frame_cap_len ?? 'n/a' }}</span></li>
+          <li><span >Payload Length</span><span >{{ conv?.layers?.ip?.ip_ip_len ?? 'n/a'  }}</span></li>
+          <li><span >Payload Bytes</span><span>{{ conv?.layers?.ip?.ip_ip_len ?? 0 - (conv?.layers?.ip?.ip_ip_hdr_len ?? 0)  }}</span></li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+}
+

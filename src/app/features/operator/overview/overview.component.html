@@ -1,0 +1,459 @@
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector
+        [options]="timeFilterOptions"
+        [title]="title"
+        [selectedTime]="currentTime()"
+        (timeChange)="onTimeChange($event)"
+        (customSelected)="onCustomSelected($event)">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <div class="radm-card" style="padding: 1%; background:  #1F1F1F; border-radius: 10px">
+      <div style="display: flex">
+        <div class="column-95">
+          <h3 class="card-title">Last insights
+            <mat-icon matTooltip="Recent security findings and metrics detected by the monitoring system"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+        </div>
+        <div>
+          <button class="b-view" (click)="toggleCollapse()">
+            {{ showMore ? 'View less' : 'View all' }}
+          </button>
+        </div>
+      </div>
+      <div style="display: flex;justify-content: space-between;">
+        @if (alertThreat().length === 0) {
+          @for (item of noDataArray; track $index) {
+            <mat-card class="card-insights custom-card">
+              <mat-card-content class="card-content">
+                <div class="content-wrapper">
+                  <div class="text-section">
+                    <p class="title">No data</p>
+                    <p class="main-number">N/A</p>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        } @else {
+          @for (card of alertThreat().slice(0, 5); track $index) {
+            <mat-card class="card-insights custom-card">
+              <mat-card-content class="card-content">
+                <div class="content-wrapper">
+                  <div class="text-section">
+                    <p class="title">{{ card.title }}</p>
+                    <p class="main-number">{{ card.mainNumber }}</p>
+                  </div>
+                  @if (card.title !== 'Unique IP' && card.title !== 'Matched Rules') {
+                    @if (!_role.isAdministrator()){
+
+                      <span class="icon-container" (click)="redirectToPage(card.title)">
+                        <mat-icon class="icon">remove_red_eye</mat-icon>
+                      </span>
+
+                    }
+                  }
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        }
+      </div>
+      <div [@collapseExpand]="showMore ? 'expanded' : 'collapsed'" style="display:flex;justify-content:flex-start; gap:0.4rem;margin-top:0.4rem;">
+        @for (card of alertThreat().slice(5, 10); track $index) {
+          <mat-card class="card-insights custom-card">
+            <mat-card-content class="card-content">
+              <div class="content-wrapper">
+                <div class="text-section">
+                  <p class="title">{{ card.title }}</p>
+                  <p class="main-number">{{ card.mainNumber }}</p>
+                </div>
+                <div>
+                  @if (!_role.isAdministrator()){
+                    <div>
+                      <span class="icon-container" (click)="redirectToPage(card.title)">
+                        <mat-icon class="icon">remove_red_eye</mat-icon>
+                      </span>
+                    </div>
+                  }
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    </div>
+
+    <section>
+      <div class="column-26">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Severity alerts repartition
+                <mat-icon matTooltip="Shows distribution of security alerts by severity level"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-pie [graphOptions]="alertsBySevPie()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-39">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div class="column-80">
+                <h3 class="card-title" style="padding: 1.5% 0 0 1%">Traffic
+                  <mat-icon matTooltip="World map visualization showing traffic sources/destinations"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+              <div style="margin-top: 1%">
+                <mat-button-toggle-group class="custom-toggle-group" (change)="onMapChange($event.value)" hideSingleSelectionIndicator="true">
+                  @for (option of originOptions; track $index) {
+                    <mat-button-toggle
+                      class="custom-toggle"
+                      [value]="option.value"
+                      [checked]="option.value === currentMapType()">
+                      {{ option.label }}
+                    </mat-button-toggle>
+                  }
+                </mat-button-toggle-group>
+              </div>
+            </div>
+            <div>
+              <app-world-map [graphOptions]="alertsMapChartOptions()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-34">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="padding: 1.5% 0 0 1%">Alerts trends
+                  <mat-icon matTooltip="Graph showing alert volume over time"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-area [graphOptions]="alertsLineGraphOptions()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
+    <section>
+      <div class="column-34">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Top IP sources
+                <mat-icon matTooltip="Bar chart showing most active source IP addresses"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-bar [graphOptions]="alertsTop10IpSrc()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-31">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">IP Relationship
+                <mat-icon matTooltip="Flow diagram showing connections between IPs"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-sankey [graphOptions]="alertsSankeyChartOptions()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-34">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Top Ip destination
+                <mat-icon matTooltip="Bar chart showing most targeted destination IPs"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-bar [graphOptions]="alertsTop10IpDest()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-100">
+        <div class="ia-stats">
+          <div class="title-ai radm-card">
+          <span>
+            AI <mat-icon matTooltip="Information on the status of our Artificial Intelligence models."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+          </span>
+            <span class="started_at">Started at: </span>
+            <span class="started_at">{{iaStats()?.started_at | date: 'yyyy-MM-dd HH:mm:ss': 'UTC' }}</span>
+          </div>
+          <div class="progress-circle">
+            <mat-card class="card-insights custom-card" style="width: 100%; height:100%; background: #1F1F1F; padding: 2px; display: flex; flex-direction: column; align-self: center;">
+              <div>
+                <h3 class="graph-title card-title training">Initialization
+                  <mat-icon matTooltip="AI initialization step progress."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+              <circle-progress
+                [percent]="iaStats() ? (iaStats()?.progress ?? 0) * 100 : 0"
+                [radius]="40"
+                [animation]="true"
+                [animationDuration]="300"
+                [subtitle]="(iaStats()?.progress ?? 0) === 1 ? 'Ready' : 'Training'"
+                [titleColor]="'#fff'"
+                [subtitleColor]="'#fff'"
+                subtitleFontWeight="400"
+                [unitsColor]="'#fff'"
+                [subtitleFontSize]="'12'"
+                style="margin: 0 auto;"
+                [showBackground]="false"
+                [showInnerStroke]="false"
+                [outerStrokeColor]="getInnerStrokeColor( iaStats()?.progress ?? 0)"
+
+              ></circle-progress>
+            </mat-card>
+          </div>
+          <div class="informations">
+            <mat-card class="card-insights custom-card div1" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title" >Status<mat-icon matTooltip="Alerts if the AI engine is malfunctioning."
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>:  <span class="main-number-2 status-ai">{{iaStats()?.status}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div2" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+
+                  <p class="title">Engine is
+                    @if(iaStatus()){ <span class="running-color main-number-2">Running</span>}
+                    @else { <span class="stopped-color main-number-2">Stopped</span>}
+                  </p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div3" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Processed<mat-icon matTooltip="Shows the number of flows processed by the AI since the start of
+                    training." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.processed | numbersPipe}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div4" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Dropped<mat-icon matTooltip="Shows the number of flows abandoned by the AI since the start of
+                    training." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.dropped | numbersPipe}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div5" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Errors<mat-icon matTooltip="Shows the number of non-critical errors encountered by the AI since the
+                    start of training." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.error | numbersPipe}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div6" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Average Flow/s<mat-icon matTooltip="Shows the average throughput, in number of flows per
+                    second, processed by the AI since the start of training." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.average_fps | round}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div7" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Current Flow/s<mat-icon matTooltip="Shows the current throughput, in number of flows per second,
+                    processed by the AI over the last 60 seconds." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.current_fps | round}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card class="card-insights custom-card div8" style="width: 100%; background: #1F1F1F;">
+              <mat-card-content class="card-content">
+                <div class="text-section">
+                  <p class="title">Max Flow/s<mat-icon matTooltip="Shows the maximum throughput, in number of flows per second,
+                    processed by the AI over a period of 60 seconds." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>: <span class="main-number-2">{{iaStats()?.max_fps | round}}</span></p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section>
+      <div class="column-70">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <h3 class="card-title">AI Alerts by Severity <mat-icon style="color: #fff;"  matTooltip="Area chart showing AI Alerts distribution over time." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+             
+            @if (aiAlertsStatusDisplay().type === 'training') {
+            <div class="ai-status-message">
+              <div class="status-content">
+                <h4 class="status-title">{{ aiAlertsStatusDisplay().title }}</h4>
+                <p class="status-description">{{ aiAlertsStatusDisplay().description }}</p>
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="aiAlertsStatusDisplay().progressPercent"></div>
+                  </div>
+                  <span class="percentage">{{ aiAlertsStatusDisplay().progressPercent }}%</span>
+                </div>
+              </div>
+            </div>
+            } @else if (aiAlertsStatusDisplay().type === 'no-data') {
+            <div class="ai-status-message">
+              <div class="status-content">
+                <mat-icon>multiline_chart</mat-icon>
+                <h4 class="status-title">{{ aiAlertsStatusDisplay().title }}</h4>
+                <p class="status-description">{{ aiAlertsStatusDisplay().description }}</p>
+              </div>
+            </div>
+            } @else {
+            <app-areaspline [graphOptions]="alertsAreaSpline()"></app-areaspline>
+            }
+          </mat-card-content>
+        </mat-card>
+      </div>
+    
+      <div class="column-29">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 5px 0 0 5px ;">AI Alerts by Severity
+                <mat-icon style="color: #fff;"
+                  matTooltip="Distribution of AI alerts, detected by our model, ranked by severity" matTooltipPosition="above"
+                  matTooltipDelay="500">help_outline</mat-icon>
+              </h3>
+            </div>
+            <div>
+              @if (aiAlertsBySeverityStatusDisplay().type === 'training') {
+              <div class="ai-status-message">
+                <div class="status-content">
+                  <h4 class="status-title">{{ aiAlertsBySeverityStatusDisplay().title }}</h4>
+                  <p class="status-description">{{ aiAlertsBySeverityStatusDisplay().description }}</p>
+                  <div class="progress-container">
+                    <div class="progress-bar">
+                      <div class="progress-fill" [style.width.%]="aiAlertsBySeverityStatusDisplay().progressPercent"></div>
+                    </div>
+                    <span class="percentage">{{ aiAlertsBySeverityStatusDisplay().progressPercent }}%</span>
+                  </div>
+                </div>
+              </div>
+              } @else if (aiAlertsBySeverityStatusDisplay().type === 'no-data') {
+              <div class="ai-status-message">
+                <div class="status-content">
+                  <mat-icon>pie_chart</mat-icon>
+                  <h4 class="status-title">{{ aiAlertsBySeverityStatusDisplay().title }}</h4>
+                  <p class="status-description">{{ aiAlertsBySeverityStatusDisplay().description }}</p>
+                </div>
+              </div>
+              } @else {
+              <app-pie [graphOptions]="alertsAIBySevPie()" />
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      </section>
+      <section>
+        <div class="areaspeline">
+          <mat-card class="radm-card">
+            <mat-card-content>
+              <div>
+                <h3 class="graph-title card-title">AI Anomalies Detection
+                  <mat-icon matTooltip="Area chart showing deviance distribution over time." matTooltipPosition="above"
+                    matTooltipDelay="500">help_outline</mat-icon>
+                </h3>
+              </div>
+              <div>
+                @if (aiAnomaliesStatusDisplay().type === 'training') {
+                <div class="ai-status-message">
+                  <div class="status-content">
+                    <h4 class="status-title">{{ aiAnomaliesStatusDisplay().title }}</h4>
+                    <p class="status-description">{{ aiAnomaliesStatusDisplay().description }}</p>
+                    <div class="progress-container">
+                      <div class="progress-bar">
+                        <div class="progress-fill" [style.width.%]="aiAnomaliesStatusDisplay().progressPercent"></div>
+                      </div>
+                      <span class="percentage">{{ aiAnomaliesStatusDisplay().progressPercent }}%</span>
+                    </div>
+                  </div>
+                </div>
+                } @else if (aiAnomaliesStatusDisplay().type === 'no-data') {
+                <div class="ai-status-message">
+                  <div class="status-content">
+                    <h4 class="status-title">{{ aiAnomaliesStatusDisplay().title }}</h4>
+                    <p class="status-description">{{ aiAnomaliesStatusDisplay().description }}</p>
+                  </div>
+                </div>
+                } @else {
+                <app-areaspline [graphOptions]="aiAnomaliesAreaSplineChartOptions()" />
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      
+        <div class="areaspeline">
+          <mat-card class="radm-card">
+            <mat-card-content>
+              <div>
+                <h3 class="graph-title card-title">Active assets
+                  <mat-icon matTooltip="Histogram of active assets on the network over the last 2 weeks."
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+                </h3>
+              </div>
+              <div>
+                @if (aiAssetsStatusDisplay().type === 'training') {
+                <div class="ai-status-message">
+                  <div class="status-content">
+                    <h4 class="status-title">{{ aiAssetsStatusDisplay().title }}</h4>
+                    <p class="status-description">{{ aiAssetsStatusDisplay().description }}</p>
+                    <div class="progress-container">
+                      <div class="progress-bar">
+                        <div class="progress-fill" [style.width.%]="aiAssetsStatusDisplay().progressPercent"></div>
+                      </div>
+                      <span class="percentage">{{ aiAssetsStatusDisplay().progressPercent }}%</span>
+                    </div>
+                  </div>
+                </div>
+                } @else if (aiAssetsStatusDisplay().type === 'no-data') {
+                <div class="ai-status-message">
+                  <div class="status-content">
+                    <h4 class="status-title">{{ aiAssetsStatusDisplay().title }}</h4>
+                    <p class="status-description">{{ aiAssetsStatusDisplay().description }}</p>
+                  </div>
+                </div>
+                } @else {
+                <app-areaspline [graphOptions]="aiAssetsAreaSplineChartOptions()" />
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </section>
+  </div>
+</div>

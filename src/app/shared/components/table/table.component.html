@@ -1,0 +1,174 @@
+<div class="content">
+  <section>
+    <div class="column-100">
+    <!-- Container principal avec un panneau latéral (drawer) pour filtrer et un autre pour sélectionner des colonnes -->
+    <mat-drawer-container class="example-container">
+
+      <!-- Panneau de filtrage à gauche si le filtrage est activé -->
+      @if (isFilterable) {
+        <mat-drawer #drawerFilter class="example-sidenav" mode="side" position="start" >
+          <form [formGroup]="form" (ngSubmit)="onFilter()">
+            <!-- Boucle pour afficher dynamiquement les champs de filtrage -->
+            @for (field of fields; track $index) {
+              <jizo-form [form]="form" [field]="field"></jizo-form>
+            }
+            <!-- Boutons pour appliquer le filtre ou réinitialiser les filtres -->
+            <button type="submit" mat-raised-button color="primary" style="margin: 10px;">Filter</button>
+            <button type="button" mat-raised-button color="primary" (click)="reset()" style="margin: 10px;">Reset</button>
+          </form>
+        </mat-drawer>
+      }
+
+      <!-- Panneau de sélection des colonnes à droite si cette fonctionnalité est activée -->
+      @if (isSelectColumn) {
+        <mat-drawer #drawerColumn class="select-sidenav" mode="side" position="end">
+          <h3>Select Columns</h3>
+          <!-- Boucle pour afficher des cases à cocher pour chaque colonne disponible -->
+          @for (column of tableColumns; track $index) {
+            @if (column.dataKey != 'actions' && column.dataKey != '_id' && column.dataKey != 'id') {
+              <mat-checkbox
+                [checked]="displayedColumns.includes(column.dataKey)"
+                (change)="toggleColumn(column.dataKey)">
+                {{ column.name }}
+              </mat-checkbox>
+            }
+          }
+        </mat-drawer>
+      }
+
+      <!-- Contenu principal de la table -->
+      <div class="table-container" #tableContainer>
+        <div style="width: 100%; max-height: 800px;  display: flex; justify-content: space-between; align-items: center; overflow: hidden;">
+          <div class="chip-container" style="max-width: 50%; padding-left: 10px;">
+            <mat-chip-set aria-label="Enter template form keywords">
+              @for (keyword of chipFilterData(); track keyword) {
+                <mat-chip
+                  (removed)="removeChipFilterKey(keyword.key)"
+                  [ngClass]="{'green-background': !keyword.value.toString().includes('!'), 'red-background': keyword.value.toString().includes('!')}"
+                >
+                  {{keyword.columnName}} => {{ keyword.value}}
+                  <button matChipRemove aria-label="'remove template form' + keyword">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              }
+            </mat-chip-set>
+          </div>
+
+          <div style="padding: 10px;">
+            <ng-content select="[slot=delete-button]"></ng-content>
+            <button mat-button class="button-action" (click)="drawerFilter.toggle()"> <mat-icon>tune</mat-icon> Filters</button>
+            <button mat-button class="button-action" (click)="drawerColumn.toggle()"> <mat-icon>view_column</mat-icon> Select Columns</button>
+            @if (seeMore){
+              <button mat-button style="border: 1px solid #1e1e1e; background-color: yellow; color: #1e1e1e; border-radius: 8px; margin: 8px;" (click)="gotToSeeMore()">See More</button>
+            }
+          </div>
+        </div>
+        <table mat-table
+          [dataSource]="tableDataSource"
+          class="mat-elevation-z8 custom-table"
+          matSort (matSortChange)="announceSortChange($event)"
+          multiTemplateDataRows>
+          <!-- Boucle pour créer dynamiquement les colonnes de la table -->
+          @for (tableColumn of tableColumns; track $index) {
+            <ng-container [matColumnDef]="tableColumn.dataKey">
+              @if (tableColumn?.isSortable != undefined && tableColumn.isSortable == false){
+                <th mat-header-cell *matHeaderCellDef> {{strUcFirst(tableColumn.name)}} </th>
+              }
+
+              @else if (tableColumn.type === tableCellCheckbox) {
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox
+                    [checked]="isAllSelected()"
+                    [indeterminate]="isIndeterminate()"
+                    (change)="toggleAll($event.checked)">
+                  </mat-checkbox>
+                </th>
+              }
+              @else {
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{strUcFirst(tableColumn.name)}} </th>
+              }
+              <td mat-cell *matCellDef="let element" (contextmenu)="showContextMenu($event, {key: tableColumn.dataKey, value: getNestedData(tableColumn.dataKey, element), columnName: tableColumn.name}, tableColumn?.hideContextMenu, element); false">
+                @if (contextMenuItems.length > 0 && isContextMenuVisible) {
+                  <app-context-menu
+                    [ngStyle]="contextMenuStyle"
+                    [contextMenuItems]="contextMenuItems"
+                    (onContextMenuItemClick)="handleMenuItemClick($event)"
+                  />
+                }
+                <!-- Composant pour afficher dynamiquement le contenu des cellules en fonction des colonnes -->
+                <app-cell-table [tableColumn]="tableColumn" [element]="element" [checkedIds]="selectedIds" (cellDatas)="sendCellDatas($event)"></app-cell-table>
+              </td>
+            </ng-container>
+          }
+
+          <!-- Colonne d'expansion des lignes si la fonctionnalité d'expansion est activée -->
+          @if (expandableDatas) {
+            <ng-container matColumnDef="expand">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <!-- Bouton pour déplier/replier la ligne pour voir plus de détails -->
+                <button mat-icon-button (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation(); sendExpande(expandedElement)">
+                  @if (expandedElement === element) {
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                  } @else {
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                  }
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Affichage du contenu détaillé sous la ligne si la ligne est dépliée -->
+
+            @if (expandableDatas) {
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                  <div class="example-element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
+                    <!-- Contenu dynamique à afficher lorsque la ligne est dépliée -->
+
+                    @if (expandableDetailsData.length > 0 && expandableDetailsDataFunction(element).length  === 0 ) {
+                      <app-detail [fields]="expandableDetailsData"/>
+                    } @else {
+                      <app-detail [fields]="expandableDetailsDataFunction(element)"/>
+                    }
+                    <!-- <ng-container #detailsContainer></ng-container> -->
+                  </div>
+                </td>
+              </ng-container>
+            }
+          }
+
+          <!-- Ligne d'en-tête de la table -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+          <!-- Ligne de données pour chaque élément de la table -->
+          <tr mat-row *matRowDef="let element; columns: displayedColumns"
+            [ngClass]="'example-element-row ' + (element.username === 'admin' ? 'admin-row' : '')"
+            [class.example-expanded-row]="expandedElement === element">
+          </tr>
+
+          <!-- Message "No data available" si aucune donnée n'est disponible -->
+          <tr class="mat-row" *matNoDataRow>
+            <td [attr.colspan]="displayedColumns.length" class="no-data-cell">No data available</td>
+          </tr>
+
+          <!-- Ligne d'expansion des détails (si applicable) -->
+          @if(expandableDatas) {
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          }
+        </table>
+
+        <!-- Paginator pour gérer la pagination des données de la table -->
+        <mat-paginator
+          style="background-color: #1e1e1e;"
+          [pageSizeOptions]="paginationSizes"
+          [pageSize]="defaultPageSize"
+          [length]="length"
+          (page)="handlePageEvent($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </mat-drawer-container>
+    </div>
+  </section>
+</div>

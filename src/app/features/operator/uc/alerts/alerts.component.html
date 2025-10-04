@@ -1,0 +1,13 @@
+<page-header [title]="'Usecases Alerts'"  [subtitle]="'Alerts related to fine tuned scenarios'"/>
+<app-table
+  [tableDataResponse]="alerts"
+  [tableColumns]="ordersTableColumns"
+  [displayedColumns]="displayedColumns"
+  [fields]="fields"
+  [form]="form()"
+  [length]="length()"
+  [expandableDatas]="false"
+  [seeMore]="false"
+  (cellDatas)="getCellDatas($event)"/>
+
+

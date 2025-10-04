@@ -1,0 +1,131 @@
+mat-button-toggle-group {
+  border-radius: 4px;
+  border: solid 1px #D9D8D2;
+}
+
+mat-button-toggle {
+  color: #C5C4BE;
+  background: transparent;
+  border: none;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: #F0EEFC;
+  color: #7B5DFF;
+
+  &.custom-toggle:nth-last-child(1)::after {
+    color: #7B5DFF;
+  }
+
+}
+
+.custom-toggle-group {
+  height: 32px;
+}
+
+.custom-toggle {
+  height: 32px;
+  width: auto;
+  padding: 0;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.custom-toggle .mat-button-toggle-label-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+.start-date, .end-date {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: [left] 15% [middle] 60% [right] auto;
+  gap: 2px;
+}
+
+.filter-category {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555; 
+  font-size: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.filter-category::-ms-expand {
+  display: none;
+}
+
+
+.filter-category:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.custom-toggle:nth-last-child(1) {
+  padding : 0 5px;
+}
+
+.custom-toggle:nth-last-child(1)::after {
+  content: '▼';
+  font-size: 12px;
+  color: #F0EEFC;
+  padding-right: 8px;
+}
+.collapse {
+  background: transparent;
+  font-size: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 3px;
+
+}
+.selected-dates {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.time-selector {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 12px; 
+ 
+}
+.time-selector-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.label-date {
+  font-weight: bold;
+}
+.date-range {
+  display: flex;
+  gap: 5px;
+  font-size: 12px;
+}
+.txt-dates {
+  color: #c5c4be
+}
+.d-none {
+  display: none;
+}
+.main-title {
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 38px;
+  margin: 0;
+}
+.container-title {
+  display:flex;
+  gap: 20px
+}

@@ -1,0 +1,73 @@
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: center;
+}
+
+.card-title {
+  color: white;
+  font-size: 24px;
+  font-family: Sesame, serif;
+  margin: 0;
+  text-align: center;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mat-header-cell, .mat-cell {
+  color: white;
+  font-size: 16px;
+  padding: 16px;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mat-cell {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.file-name-cell {
+  text-align: left;
+}
+
+.actions-header,
+.actions-cell {
+  text-align: center;
+}
+
+.mat-row:last-child .mat-cell {
+  border-bottom: none;
+}
+
+mat-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.mat-mdc-table {
+  background-color: #1F1F1F;
+}
+
+.icon-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.center-card{
+  margin:0 auto;
+  padding-top:1rem;
+}

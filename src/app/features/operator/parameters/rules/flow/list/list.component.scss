@@ -1,0 +1,75 @@
+h2{
+    margin-top: 2rem;
+    margin-left: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+}
+form{
+    width: 100%;
+    background-color: #1e1e1e;
+    padding: 1rem;
+}
+.container{
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #1e1e1e;
+    h2{
+        font-family: Sesame;
+    }
+    #content{
+        table{
+            thead {
+                th{
+                    background-color: #1e1e1e;
+                    color: white;
+                }
+            }
+            tr{
+                margin: 0;
+                padding: 0;
+                background-color: #eee !important;
+
+                td{
+                    color: #333;
+                    padding: 0 0.4rem;
+                    width: auto !important;
+                    &:first-child{
+                        border-top-left-radius: 0.4rem;
+                        border-bottom-left-radius: 0.4rem;
+                    }
+                    &:last-child{
+                        border-top-right-radius: 0.4rem;
+                        border-bottom-right-radius: 0.4rem;
+                    }
+                    &.actions{
+                        padding: 0 !important;
+                        text-align: center;
+                        button{
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#content{
+    width: 98%;
+    #form{
+        margin-top: 2rem;
+        .textarea{
+            width: calc(98% - 10rem);
+        }
+        #submit,
+        mat-form-field{
+            width:40%;
+            margin: auto 2rem;
+        }
+        #submit{
+            margin-left:calc(40% + 6rem) ;
+        }
+    }
+}

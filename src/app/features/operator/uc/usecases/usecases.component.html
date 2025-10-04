@@ -1,0 +1,14 @@
+ <page-header [title]="'Usecases'"  [subtitle]="'Detection scenarios from real world attacks'"/>
+<app-table
+  [tableDataResponse]="usecases"
+  [tableColumns]="ordersTableColumns"
+  [displayedColumns]="displayedColumns"
+  [fields]="fields"
+  [form]="form()"
+  [length]="length()"
+  [expandableDatas]="false"
+  [seeMore]="false"
+  (cellDatas)="getCellDatas($event)"
+>
+  <button slot="delete-button" mat-button class="button-action" (click)="uploadFile()" [matTooltip]="'Upload'"> <mat-icon>add</mat-icon>Add</button>
+</app-table>

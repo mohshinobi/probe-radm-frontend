@@ -1,0 +1,113 @@
+<div class="container-section p-32 border-section">
+  <h1 class="title">Usecases details</h1>
+  <h2 class="subtitle grey">Detection scenarios from real world attacks</h2>
+</div>
+
+<section class="bg-dark">
+  <div class="information border-section d-flex">
+    <div class="column-80">
+      <div class="information-content">
+        <div>
+          <h3 class="subtitle white">Name</h3>
+          <p class="content">{{ name }}</p>
+        </div>
+        <div>
+          <h3 class="subtitle white">Description</h3>
+          <p class="content">{{ description }}</p>
+        </div>
+        <div class="ttps">
+          <h3 class="subtitle white">TTPs</h3>
+          <div class="tags-container">
+            @for (ttp of TTPs;track $index) {
+              <span
+                class="tags"
+                [class.tag-ta]="isTA(ttp)"
+                [class.tag-other]="!isTA(ttp)"
+              >{{ ttp }}</span>
+            }
+          </div>
+        </div>
+        <div>
+          <h3 class="subtitle">Tags</h3>
+          <div class="tags-container">
+            @for (tag of tags;track $index) {
+              <span class="tags">{{ tag }}</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column-20">
+      <mat-card class="column-90 card top">
+        <mat-card-content>
+          <div>
+            <h2 class="key">Number of Alerts</h2>
+            <p class="value">352</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="column-90 card top">
+        <mat-card-content>
+          <div>
+            <h2 class="key">Timespan</h2>
+            <p class="value">{{ timespan }} hours</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
+  </div>
+  <div class="steps">
+    <h3 class="title">Steps</h3>
+    <mat-stepper linear="true" #stepper class="custom-stepper">
+      <ng-template matStepperIcon="edit" let-index="index">
+        <span class="step-index">{{ index + 1 }}</span>
+      </ng-template>
+
+      @for (step of stepData; track step.name; let i = $index) {
+        <mat-step [label]="step.name">
+          <div>
+            <h3 class="subtitle white">Description</h3>
+            <p class="content">{{ step.description }}</p>
+            <h3 class="subtitle white">Link rules</h3>
+            <div class="tables">
+              @for (rt of step.ruleTypes; track rt.type) {
+                <div class="">
+                  <ng-container
+                    [ngTemplateOutlet]="ruleTable"
+                    [ngTemplateOutletContext]="{ type: rt.type, values: rt.values }">
+                  </ng-container>
+                </div>
+              }
+            </div>
+          </div>
+        </mat-step>
+      }
+    </mat-stepper>
+  </div>
+</section>
+
+<ng-template #ruleTable let-type="type" let-values="values">
+  <div class="mini-mat-table-container">
+    <mat-table [dataSource]="values" class="mini-mat-table mat-elevation-z1">
+
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>{{ type }}</th>
+        <td mat-cell *matCellDef="let v">{{ v }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let v">
+          <button mat-icon-button class="icon-btn" aria-label="Edit rule" (click)="onRuleAction(type, v)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedRuleColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedRuleColumns;"></tr>
+    </mat-table>
+  </div>
+</ng-template>

@@ -1,0 +1,23 @@
+export interface HeatlthcheckStats {
+    statstcpsynack: number,
+    statstcpsyn: number,
+    statstcpoverlap: number,
+    statstcpinvalid_checksum: number,
+    statstcprst: number,
+    statstcpmemuse: number,
+    statscapturekernel_drops: number,
+    statsftpmemuse: number,
+    statsdecoderpkts: number,
+    statsapp_layererrorhttpparser: number,
+    statsapp_layererrorsshparser: number,
+    statsapp_layererrortlsparser: number,
+    statsapp_layererrorrdpparser: number,
+    statsmemcap_pressure: number,
+    statshttpmemuse: number,
+    statsuptime: number,
+    statsdetectalert: number, statsdetectengines0rules_skipped: number,
+    statsdetectengines0rules_failed: number, 
+    statsdetectengines0rules_loaded: number,
+    statsdetectengines0last_reload: Date, 
+    statsdetectalerts_suppressed: number
+}

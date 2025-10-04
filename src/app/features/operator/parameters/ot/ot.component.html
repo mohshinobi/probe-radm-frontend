@@ -1,0 +1,53 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [title]="title">
+    </app-time-selector>
+  </div>
+</div>
+
+
+  <mat-card class="radm-card column-50 center-card">
+    <h3 class="card-title pos-rel">
+      <label>OT Files</label>
+      <mat-icon
+      matTooltip="Allows uploading OT Network information files which include Levels, Assets, and
+      Zones. These three files must have a CSV extension."
+      matTooltipPosition="above"
+      matTooltipDelay="500">help_outline</mat-icon>
+    </h3>
+    <mat-card-content>
+        <table mat-table [dataSource]="fileTypes" class="file-table">
+          <ng-container matColumnDef="fileName">
+            <th class="column-70 pos-rel" mat-header-cell *matHeaderCellDef> File Name </th>
+            <td mat-cell *matCellDef="let file" class="file-name-cell">
+              <mat-icon >{{ file.icon }}</mat-icon>
+              <label  class="pos-abs ml-10">{{ file.displayName }}</label>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-header"> Actions </th>
+            <td mat-cell *matCellDef="let file" class="actions-cell">
+
+              <button mat-icon-button [disabled]="downloadingFile === file.fullName" (click)="downloadFile(file.fullName)" [matTooltip]="'Download'">
+                <mat-icon [ngClass]="{ 'icon-spin': downloadingFile === file.fullName }">
+                  {{ downloadingFile === file.fullName ? 'loop' : 'download' }}
+                </mat-icon>
+              </button>
+
+              <button mat-icon-button [disabled]="loadingFile === file.fullName" (click)="uploadFile(file.fullName)" [matTooltip]="'Upload'">
+                <mat-icon [ngClass]="{ 'icon-spin': loadingFile === file.fullName }">
+                  {{ loadingFile === file.fullName ? 'loop' : 'upload' }}
+                </mat-icon>
+              </button>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+

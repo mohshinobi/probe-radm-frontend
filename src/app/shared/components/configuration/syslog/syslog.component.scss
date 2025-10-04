@@ -1,0 +1,167 @@
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between
+}
+
+.main-title {
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 38px;
+}
+
+.graph-title {
+  font-size: 20px;
+  color: white;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame, serif;
+  padding: 0;
+  margin: 0;
+}
+
+.card-title01 {
+  font-size: 22px;
+  font-weight: bold;
+
+}
+
+.alerts-card-syslog {
+  background-color: #1F1F1F;
+  border-radius: 16px;
+  height: 400px;
+}
+
+
+.txt-yellow {
+  color: #FFF73F;
+}
+
+.mg-0 {
+  margin: 0;
+}
+
+.no-data {
+  color: #FFF73F;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  .actions {
+    display: flex;
+    gap: 10px;
+    .cta {
+      cursor: pointer;
+    &:hover {
+      color: #FFF73F;
+    }
+    }
+  }
+  .title {
+    font-size: 16px;
+    color: #FFF73F;
+    font-weight: 700;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mat-cell {
+  color: white;
+  font-size: 16px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.file-name-cell {
+  background-color: #1F1F1F;
+  text-align: left;
+}
+
+.actions-cell {
+  text-align: center;
+  background-color: #1F1F1F;
+}
+
+.mat-row:last-child .mat-cell {
+  border-bottom: none;
+}
+
+.mat-icon {
+  color: white;
+  margin: 0;
+}
+
+.mat-mdc-table {
+  background-color: #1F1F1F;
+}
+
+.btn-color:not(:disabled):hover {
+  background-color: #F5DF4D; /* Couleur rose lorsque le bouton est activé */
+  color: #000; /* Couleur du texte */
+  .mat-icon {
+    color: black;
+  }
+}
+
+.btn-color:hover:not(:disabled) {
+  background-color: #e8d539; /* Couleur plus foncée au survol, quand activé */
+}
+
+.label {
+  color: #FFF73F;
+  font-size: 16px;
+  font-weight: 700;
+}
+.title-section {
+  margin: 15px 0;
+}
+.no-data{
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 22px;
+  color: #e8d539;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.btn-white {
+  background-color: aliceblue;
+  .mat-icon {
+    color:#000;
+  }
+}
+
+.card-header {
+  padding: 15px;
+}

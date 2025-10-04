@@ -1,0 +1,35 @@
+<div class="bell-container">
+  <!-- Icône cloche avec badge -->
+  <div class="icon" (click)="toggleDropdown()">
+    <mat-icon>notifications</mat-icon>
+    @if (count() > 0) {
+      <span class="badge">{{ count() }}</span>
+    }
+  </div>
+
+  <!-- Dropdown des notifications -->
+  @if (isOpen()) {
+    <div class="dropdown" [ngClass]="{ open: isOpen() }">
+      <div class="title">Notifications</div>
+        @if (notifications().length > 0) {
+          <div class="notification-list">
+            @for (n of notifications(); track n.id) {
+              <div class="notification-item" [ngClass]="n.type">
+                <span>{{ n.message }}</span>
+                <button (click)="remove(n.id)">✕</button>
+              </div>
+            }
+          </div>
+          <div class="footer">
+            <button (click)="clearAll()">Delete all</button>
+            <button (click)="isOpen.set(false)">Close</button>
+          </div>
+        } @else {
+          <div class="empty">
+            <span>No notifications</span>
+            <button (click)="isOpen.set(false)">Close</button>
+          </div>
+        }
+      </div>
+  }
+</div>

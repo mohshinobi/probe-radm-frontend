@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Delete Alert</h2>
+<mat-dialog-content>
+  Are you sure you want to delete alert?<br>
+
+  <ng-container *ngIf="data">
+    <mat-checkbox [(ngModel)]="deleteAllAlertsBySignature">
+      Also delete all alerts with signature ID {{ data?.alert?.signature_id }}
+    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="deleteAllAlertsBySource">
+      Also delete all alerts with source IP {{ data?.src_ip }}
+    </mat-checkbox>
+  </ng-container>
+
+  <ng-container *ngIf="!data">
+    <mat-checkbox [(ngModel)]="deleteByDate">
+      Also delete alerts by date range
+    </mat-checkbox>
+    <div *ngIf="deleteByDate" class="date-form">
+      <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="startDate">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>End Date</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="endDate">
+      </mat-form-field>
+    </div>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="cancel.emit()">Cancel</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()">Delete</button>
+</mat-dialog-actions>

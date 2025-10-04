@@ -1,0 +1,118 @@
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector
+        [options]="timeFilterOptions"
+        [title]="title"
+        [selectedTime]="currentTime()"
+        (timeChange)="onTimeChange($event)"
+        (customSelected)="onCustomSelected($event)">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <section class="mg-0">
+      <div class="column-26">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Deviances distribution
+                <mat-icon matTooltip="Distribution of network traffic anomalies detected by our AI model, categorized by severity levels."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-pie [graphOptions]="alertsBySevPie()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-73">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex; gap: 10px;">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">TOP 100 {{formattedCategory()+"s"}} ({{ getDeviancesLabel(selectedRisks)}})
+                  <mat-icon matTooltip=" Bubble visualization of the top source IP addresses generating the most severe anomalies."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+              <mat-select class="filter-category-custom"  multiple [(ngModel)]="selectedRisks" (selectionChange)="onBtnChange($event)">
+                @for (dev of deviancesTypes; track dev) {
+                  <mat-option [value]="dev.value">{{dev.label}}</mat-option>
+                }
+              </mat-select>
+              <select class="filter-category" (change)="onSelectChange($event)">
+                <option value="src_ip" selected>Source IP</option>
+                <option value="dest_ip">Destination IP</option>
+                <option value="dest_port">Destination Port</option>
+                <option value="proto">Protocol</option>
+              </select>
+            </div>
+            <div>
+              <app-packed-bubble [graphOptions]="deviancesBubbleGraphOptions()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-50">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex;  align-items: center;">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Traffic
+                <mat-icon matTooltip="Weekly heatmap showing traffic patterns."
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              <div style="
+                  display: flex;
+                  margin: 0 auto;
+                  width: max-content;
+                  align-items: center;
+                  margin: 0 auto;">
+                @if(weekType()!="last") {
+                  <button mat-fab style="background: transparent; width: 32px; height: 32px;" (click)="onHeatClick('last')"><mat-icon style="color: #FFF;">keyboard_arrow_left</mat-icon></button>
+                }
+                <span style="margin-left: 10px; margin-right: 10px;">
+                    @if(weekType()=="last") {
+                      {{heatMapCurrentDates()[0]|date: 'fullDate'}} - {{heatMapCurrentDates()[1]|date: 'fullDate'}}
+                    }
+                    @else {
+                      {{heatMapLastDates()[0]|date: 'fullDate'}} - {{heatMapLastDates()[1]|date: 'fullDate'}}
+                    }
+                  </span>
+                @if(weekType()=="last") {
+                  <button mat-fab style="background: transparent; width: 32px; height: 32px;" (click)="onHeatClick('current')"><mat-icon style="color: #FFF;">keyboard_arrow_right</mat-icon></button>
+                }
+              </div>
+            </div>
+            <div style="width: 100%; margin:0 auto;">
+
+              <app-heat-map [graphOptions]="heatchartOptions()"></app-heat-map>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-49">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 100%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Deviances
+                  <mat-icon matTooltip="Geographic visualization of network anomalies sources/destinations."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+              <div>
+                <mat-button-toggle-group (change)="onMapChange($event.value)" hideSingleSelectionIndicator="true" class="custom-toggle-group">
+                  <mat-button-toggle class="custom-toggle" value="src" checked="true">Source</mat-button-toggle>
+                  <mat-button-toggle class="custom-toggle" value="dest">Destination</mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+            </div>
+            <div>
+              <app-world-map [graphOptions]="alertsSourceMapChartOptions()"></app-world-map>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+  </div>
+</div>

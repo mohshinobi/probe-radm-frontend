@@ -1,0 +1,42 @@
+<mat-sidenav-container autosize >
+  <mat-sidenav mode="side" [@sidenavAnimation]="isCollapsed ? 'closed' : 'open'" [opened]="true" fixedInViewport="true" fixedTopGap="64">
+    <mat-nav-list >
+      @for(item of navItems; track item.label){
+        @if (item.children && item.children.length > 0) {
+          <mat-expansion-panel [hideToggle]="isCollapsed" (click)="isCollapsed = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>{{item.icon}}</mat-icon>
+                @if (!isCollapsed) {
+                    <span>{{item.label}}</span>
+                }
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            @if (!isCollapsed) {
+              <mat-nav-list>
+                @for (subItem of item.children; track subItem.label) {
+                  <a mat-list-item [routerLink]="subItem.link" routerLinkActive="active-link">
+                    {{subItem.label}}
+                  </a>
+                }
+              </mat-nav-list>
+            }
+          </mat-expansion-panel>
+        } @else {
+          <mat-nav-list>
+            <a mat-list-item [routerLink]="item.link" routerLinkActive="active-link" (click)="isCollapsed = false">
+              <mat-icon class="custom-icon">{{item.icon}}</mat-icon>
+              @if (!isCollapsed) {
+                <span class="custom-label" >{{item.label}}</span>
+              }
+            </a>
+          </mat-nav-list>
+        }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content [@sidenavContentAnimation]="isCollapsed ? 'closed' : 'open'" style="margin-top: 50px;">
+    <ng-content />
+  </mat-sidenav-content>
+</mat-sidenav-container>

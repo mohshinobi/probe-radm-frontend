@@ -1,0 +1,87 @@
+<div class="header-title">
+  <div>
+    <app-time-selector
+      [options]="timeFilterOptions"
+      [title]="title"
+      [selectedTime]="currentTime()"
+      (timeChange)="onTimeChange($event)"
+      (customSelected)="onCustomSelected($event)">
+    </app-time-selector>
+  </div>
+</div>
+<div class="content">
+  <section>
+    <div class="container">
+      <div class="column-33">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">
+                Top Source Country <mat-icon matTooltip="Ranking of countries generating the most network traffic or security events." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+              </h3>
+            </div>
+            <div>
+              <app-bar [graphOptions]="alertsByCountry()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-33">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">
+                Top 10 Source Country <mat-icon matTooltip="Geographic visualization highlighting the ten countries generating the most security events." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+              </h3>
+            </div>
+            <app-world-map [graphOptions]="topSourceMapChartOptions()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-33">
+        <mat-card class="radm-card">
+          <mat-card-content>
+             <div>
+              <h3 class="graph-title card-title">
+               Top Threats and Threat Counts for the Top 5 IP Sources <mat-icon matTooltip="Summary of most common security threats associated with the five most active IP addresses." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+              </h3>
+            </div>
+            <app-pie [graphOptions]="alertsBySevPie()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="column-100">
+        <div class="card">
+          <app-table
+            [tableDataResponse]="alerts()"
+            [tableColumns]="ordersTableColumns"
+            [displayedColumns]="displayedColumns"
+            [checkField]="'_id'"
+            [fields]="fields"
+            [form]="form()"
+            [length]="length"
+            [expandableDatas]="true"
+            (tableActions)="tableActions($event)"
+            (cellDatas)="getCellDatas($event)"
+            (expandDatas)="getDetailsParams($event)"
+            [expandableDetailsData]="sourceDetails()"
+            [defaultPageSize]="100">
+            <button slot="delete-button" (click)="openDeleteModal()" mat-button class="button-action"> <mat-icon>delete</mat-icon> Delete</button>
+          </app-table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

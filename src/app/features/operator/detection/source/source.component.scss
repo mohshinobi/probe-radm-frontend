@@ -1,0 +1,49 @@
+.first {
+  background: #27293d;
+}
+
+.card {
+  border: none;
+  box-shadow: none;
+  color: white;
+  height: 100%;
+}
+
+.radm-card{
+  height: 100%;
+  padding-bottom: 1%;
+}
+
+.section {
+  margin: 0;
+}
+
+//mat toggle --------------------------
+.custom-toggle-group {
+  height: 32px;
+}
+
+.custom-toggle {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-toggle .mat-button-toggle-label-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame, serif;
+}
+
+

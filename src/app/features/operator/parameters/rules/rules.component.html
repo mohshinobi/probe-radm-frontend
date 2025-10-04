@@ -1,0 +1,52 @@
+<mat-drawer-container class="rule-container">
+  <mat-drawer #drawer  mode="side"   opened class="rule-sidenav">
+    <h2>FLOWS</h2>
+    <mat-divider></mat-divider>
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <button [routerLink]="['/operator/parameters/rules/activity']"  mat-button aria-label="view" matTooltip="Shows how many alerts there have been in the last hour and in
+        the hour before, as well as the change between these two periods."><mat-icon>visibility</mat-icon> Rule Activity</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button [routerLink]="['/operator/parameters/rules/view-rules']" mat-button aria-label="view" matTooltip="Leads to the View Rules Flow page displaying the content and
+        structure of an existing source rule. The content and structure of the first source is displayed by default."><mat-icon>visibility</mat-icon> View Rules</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button [routerLink]="['/operator/parameters/rules/edit-rule']" mat-button aria-label="view" matTooltip="Leads to the Edit Rule Flow page, where you can modify the content
+        and structure of a rule flow by its SID. Only the Action, MSG, and Threshold fields can be modified."><mat-icon>mode_edit</mat-icon> Edit Rule</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button [routerLink]="['/operator/parameters/rules/rule-set-generator']" mat-button aria-label="view" matTooltip="Leads to the Rule Set Generator page, where you can create and manage rule sets."><mat-icon>auto_fix_high</mat-icon> Rule Set Generator</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button  mat-button aria-label="view" (click)="openUploadModal()" matTooltip="Leads to the Upload Rule File page, where you can upload rule
+        files. The rule file must have a .rules extension."><mat-icon>cloud_upload</mat-icon> Upload Rules</button>
+      </mat-list-item>
+    </mat-list>
+    <br>
+  </mat-drawer>
+
+  <mat-drawer-content class="rule-sidenav-content" id="rules_flow_management">
+    <button mat-raised-button (click)="drawer.toggle()"><mat-icon>@if( drawer.opened ){keyboard_arrow_left}@else{keyboard_arrow_right}</mat-icon></button>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<ng-template #uploadFileFormTemplate let-data>
+    <div class="mat-grid-tile-content">
+      <button mat-button color="primary" (click)="fileInput.click()">
+        <mat-icon>cloud_upload</mat-icon>
+        {{ selectedFileName || 'Choose a file' }}
+      </button>
+      <input #fileInput type="file" (change)="onFileSelected($event)" hidden>
+      <button mat-raised-button color="accent" (click)="uploadFile()" [disabled]="!selectedFile" style="margin-left: 20px;">
+        Submit
+      </button>
+      <button mat-raised-button color="accent" (click)="cancelUpload()" style="margin-left: 20px;">
+        Cancel
+      </button>
+      <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+      <p *ngIf="uploadMessage" style="color: green;">{{ uploadMessage }}</p>
+    </div>
+</ng-template>

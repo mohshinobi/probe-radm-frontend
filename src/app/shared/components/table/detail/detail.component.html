@@ -1,0 +1,57 @@
+
+<div class="details-container">
+  @if (title) {
+    <div class="details-header">
+      <p>{{ title }}</p>
+    </div>
+  }
+
+  <div class="details-content" [class.with-areas]="areaFields.length > 0">
+    <div class="main-fields">
+      @if (textFields.length) {
+        <div class="fields-section"
+          [style.gridTemplateColumns]="'repeat(' + getColumnCount(textFields) + ', 1fr)'">
+          @for (field of textFields; track $index) {
+            @if (field.value){
+            <div class="details-item">
+
+              <span class="label">{{ field.key }}: </span>
+              @if (field.key !== 'Icon') {
+                <span class="text-wrap">
+                  {{ field.key === 'Date' ? (field.value | date : 'yyyy-MM-dd HH:mm:ss' :'UTC' ) : field.value }}
+                </span>
+              } @else {
+                <div [innerHTML]="domSanitizer.bypassSecurityTrustHtml(decodeBase64Icon(field.value))"></div>
+              }
+            </div>
+            }
+          }
+        </div>
+      }
+      @if (imageFields.length) {
+        <div class="fields-section"
+        [style.gridTemplateColumns]="'repeat(' + getColumnCount(imageFields) + ', 1fr)'">
+        @for (field of imageFields; track $index) {
+         <div class="details-item flag-div">
+           <span class="label">{{ field.key }}: </span>
+            @if (field.srcImg && !field.srcImg.endsWith('undefined.svg')) {
+              <img [src]="field.srcImg" class="flag" alt="flag"/>
+            }
+            @if (field.value) { <span>{{ field.value }}</span> }
+         </div>
+        }
+        </div>
+      }
+    </div>
+    @if (areaFields.length) {
+      <div class="area-fields">
+        @for (field of areaFields; track $index) {
+          <div class="details-item area">
+            <span class="label">{{ field.key }}: </span>
+            <textarea class="info-box" rows="7" matInput disabled>{{ field.value }}</textarea>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

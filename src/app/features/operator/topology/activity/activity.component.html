@@ -1,0 +1,91 @@
+
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector
+        [title]="title">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <section style="margin:0;">
+      <div class="column-100">
+        <mat-card class="radm-card card-1" id="networkDiagram">
+          <mat-card-content >
+            <div #infosNode id="infosNode"  cdkDragBoundary="#networkDiagram" cdkDrag >
+              <ul>
+                <li id="header">
+                  <span id="headTitle">n/a</span>
+                  <a style="display:inline-block;" id="close" (click)="hideInfos($event)">x</a>
+                </li>
+                <li><a id="trackSource" href="" target="_blank">track as source</a></li>
+                <li><a id="trackDestination" href="" target="_blank">track as destination</a></li>
+                <li><a id="details" href="" target="_blank">details</a></li>
+              </ul>
+            </div>
+            <div style="display: flex">
+              <div style="width: 100%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">NETWORK TOPOLOGY
+                  <mat-icon matTooltip="Comparison of the current week traffic with the week prior."
+                    matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-network [graphOptions]="networkChartOptions()" (click)="showDetails($event)" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div class="box card card-2 column-19 d-none">
+          <p class="loading">Select on a host</p>
+          <h2 class="hostname"></h2>
+          <p class="status"></p>
+          <p>Mac Adress: <span class="mac_adress"></span></p>
+          <p>IP Adress: <span class="ip_adress"></span></p>
+          <p>OS: <span class="os"></span></p>
+          <p>Security score: <span class="security_score"></span></p>
+          <p>Number of Alerts: <span class="alerts"></span></p>
+        </div>
+        <div class="no-data-found d-none">
+          <p>No data found for this node <span class="mac_adress"></span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="column-100">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 100%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">NETWORK TRAFFIC HEATMAP
+                  <mat-icon matTooltip="This visualization shows network traffic intensity across different time periods."
+                            matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div style="width: 100%; margin:0 auto;">
+              <app-heat-map [graphOptions]="heatMapChartOptions()" style="height:600px !important;"></app-heat-map>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-100">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+            </div>
+            <div style="width: 70%;">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">IP Relationship
+                 <mat-icon matTooltip="This visualization shows the network flow and relationships between source and destination IP address."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-sankey [graphOptions]="macSankeyGraphOptions()"></app-sankey>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+  </div>
+</div>

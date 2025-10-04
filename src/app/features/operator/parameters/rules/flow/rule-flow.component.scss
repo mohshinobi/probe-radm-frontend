@@ -1,0 +1,53 @@
+h2 {
+    margin: 1rem;
+    margin-top: 2rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-family: Sesame;
+}
+
+.container {
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    
+    #rule_files {
+        thead {
+            th {
+                background-color: #ff0 !important;
+                color: #1e1e1e;
+                padding: 0.5rem 1rem;
+            }
+        }
+        tr {
+            background-color: #1e1e1e !important;
+            color: white;
+            td {
+                padding: 0 0.4rem;
+                width: auto !important;
+                &:first-child {
+                    border-top-left-radius: 0.4rem;
+                    border-bottom-left-radius: 0.4rem;
+                }
+                &:last-child {
+                    border-top-right-radius: 0.4rem;
+                    border-bottom-right-radius: 0.4rem;
+                }
+                &.actions {
+                    padding: 0 !important;
+                    text-align: center;
+                    button {
+                        margin: 0;
+                        &:disabled {
+                            color: #999;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

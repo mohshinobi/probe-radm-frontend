@@ -1,0 +1,212 @@
+<section>
+  <div class="column-100 radm-card">
+    <h3 class="card-title">Asset Informations</h3>
+    <div class="cards-container">
+
+      <!-- Status -->
+      <div [ngClass]="'card card-stats'">
+        <div class="card-body ">
+          <div class="col">
+            <h5 class="card-title ">
+              Current Status
+            </h5>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <span [ngClass]="'count name '" >
+                {{ assetDetails()?.devPresentLastScan==1 ? 'Online' : 'Offline' }}
+              </span>
+              @if(assetDetails()?.devIsNew==1) {
+                <span [ngClass]="'count bg-new-asset'">
+                  NEW
+                </span>
+              }
+            </div>
+          </div>
+          <div>
+            <i [ngClass]="'icon-stats fa-solid fa-'+(assetDetails()?.devPresentLastScan ? 'plug' : 'plug-circle-xmark')"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAME -->
+      <div [ngClass]="'card card-stats'">
+        <div class="card-body ">
+          <div class="col">
+            <h5 class="card-title">
+              Name  <span [innerHTML]="decodeBase64Icon(assetDetails().devIcon)"></span>
+            </h5>
+            <span class="count name">
+              {{ assetDetails()?.devName  }}
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAC -->
+      <div [ngClass]="'card card-stats'">
+        <div class="card-body ">
+          <div class="col">
+            <h5 class="card-title ">
+              MAC Address
+            </h5>
+            <span class="count name">
+              {{ assetDetails()?.devMac  }}
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAST IP -->
+      <div [ngClass]="'card card-stats'">
+        <div class="card-body ">
+          <div class="col">
+            <h5 class="card-title ">
+              Last IP
+            </h5>
+            <span class="count name">
+              {{ assetDetails()?.devLastIP  }}
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAST Connection -->
+      <div [ngClass]="'card card-stats'">
+        <div class="card-body">
+          <div class="col">
+            <h5 class="card-title ">
+              Last Connection
+            </h5>
+            <span class="count name">
+              {{ assetDetails()?.devLastConnection | date:'yyyy-MM-dd HH:mm:ss'  }}
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="column-24">
+    <mat-card class="radm-card">
+      <mat-card-content>
+        <div>
+          <h3 class="graph-title card-title">
+            Asset History Stats
+          </h3>
+        </div>
+        @defer(when histogram().series?.length){
+        <app-pie
+          [graphOptions]="pieChartOptions()"
+          >
+
+        </app-pie>
+        } @placeholder {
+          <app-skeleton ></app-skeleton>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="column-75">
+    <mat-card class="radm-card">
+      <mat-card-content>
+        <div>
+          <h3 class="graph-title card-title">
+            Asset History for the Last 30 DAYS
+          </h3>
+        </div>
+        @defer(when histogram().series?.length){
+        <highcharts-chart
+              [Highcharts]="Highcharts"
+              [options]="histogram()"
+              style="width: 100%; display: block;"
+          ></highcharts-chart>
+        } @placeholder {
+          <app-skeleton ></app-skeleton>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+<section>
+  <div class="column-50 bg-black">
+    <h3 class="card-title">Main Informations</h3>
+      <table mat-table [dataSource]="getTable(mainInformations())" class="file-table">
+                <ng-container matColumnDef="key">
+            <td
+              mat-cell
+              *matCellDef="let item"
+              class="file-name-cell label column-25"
+            >
+            {{ formatKey(item.key) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <td
+              mat-cell
+              *matCellDef="let item"
+              class="file-name-cell column-90"
+            >
+              @if(item.key == 'devIcon') {
+                <span [innerHTML]="decodeBase64Icon(item.value)"></span>]
+              }
+              @else {
+                @if(item.value == '0') {
+                  <i class="fa-solid fa-close"></i>
+                }
+                @else if (item.value == '1') {
+                  <i class="fa-solid fa-check"></i>
+                }
+                @else {
+                  {{ item.value }}
+                }
+              }
+
+            </td>
+          </ng-container>
+          <tr mat-row *matRowDef="let row; columns: ['key', 'value']"></tr>
+        </table>
+  </div>
+
+  <div class="column-44 bg-black">
+    <h3 class="card-title">Session & Network Informations</h3>
+      <table mat-table [dataSource]="getTable(sessionInformations())" class="file-table">
+                <ng-container matColumnDef="key">
+            <td
+              mat-cell
+              *matCellDef="let item"
+              class="file-name-cell label column-25"
+            >
+              {{ formatKey(item.key) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <td
+              mat-cell
+              *matCellDef="let item"
+              class="file-name-cell column-90"
+            >
+
+            @if (item.key == 'devFirstConnection' || item.key == 'devLastConnection' || item.key == 'devLastNotification') {
+              {{ item.value | date:'yyyy-MM-dd HH:mm:ss' }} <span class="label">({{ item.value | ago }} Left)</span>
+            }
+            @else {
+              @if(item.value == '0') {
+                <i class="fa-solid fa-close"></i>
+              }
+              @else if (item.value == '1') {
+                <i class="fa-solid fa-check"></i>
+              }
+              @else {
+                {{ item.value }}
+              }
+            }
+            </td>
+          </ng-container>
+          <tr mat-row *matRowDef="let row; columns: ['key', 'value']"></tr>
+        </table>
+  </div>
+</section>
+
+

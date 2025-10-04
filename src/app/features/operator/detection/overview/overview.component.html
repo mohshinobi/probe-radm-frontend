@@ -1,0 +1,176 @@
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector
+        [options]="timeFilterOptions"
+        [title]="title"
+        [selectedTime]="currentTime()"
+        (timeChange)="onTimeChange($event)"
+        (customSelected)="onCustomSelected($event)">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <section style="margin:0;">
+      <div class="column-24">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Severity alerts repartition
+                <mat-icon matTooltip="Distribution of security alerts by severity level"
+                matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-pie [graphOptions]="alertsBySevPie()"/>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-75">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Alerts trends
+                 <mat-icon matTooltip="Time-based visualization of alert volumes"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-area [graphOptions]="alertsLineGraphOptions()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-50">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Top IP source
+                  <mat-icon matTooltip="Displays the most active IP addresses in your network, ranked by number of events."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-bar [graphOptions]="alertsTop10IpSrc()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-23">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Top Application
+                  <mat-icon matTooltip="Shows the distribution of network traffic by
+                  application type. Each color represents a different port or service (22/SSH,
+                  80/HTTP, etc.), helping identify the most commonly used applications in
+                  your network"
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-stacked-bar [graphOptions]="alertsTopApplication()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="column-23">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Requests By Protocol
+                  <mat-icon matTooltip="Visualizes network requests categorized by
+                  protocol type (HTTP, SSH, DNS, etc.). The colored bars indicate different
+                  protocols, allowing you to monitor the distribution of network traffic
+                  types."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <div>
+              <app-stacked-bar [graphOptions]="alertsTopAppproto()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-25">
+        <mat-card class="alerts-card-horieontal">
+          <mat-card-content>
+            <div style="display: flex">
+              <div style="width: 70%;">
+                <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Top Threat
+                  <mat-icon matTooltip="Overview of security incidents by major threat categories,
+                  showing the total count and distribution of detected threats. The bar
+                  graph provides a visual comparison of threat volumes."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+              </div>
+            </div>
+            <app-horizontal-bar-chart [graphOptions]="alertsByThreatbarGraphOptions()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="column-74">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div class="header">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Alerts by Threat
+                <mat-icon matTooltip="Time-series visualization showing the frequency and
+                trends of different security threats over a 24-hour period. Each line
+                represents a distinct threat category, allowing you to track and compare
+                threat patterns."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-areaspline [graphOptions]="alertsByThreatAreSpline()"></app-areaspline>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-100">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div class="header">
+              <h3 class="card-title" style="font-size: 22px; color: white;padding: 1.5% 0 0 1%">Alerts by category
+                <mat-icon matTooltip="Detailed breakdown of specific security alerts
+                tracked over time. The graph displays various security incident types and
+                their frequency."
+                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <div>
+              <app-areaspline [graphOptions]="alertsAreaSpline()" />
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <div style="padding-top: 14px;" >
+      <app-table
+        [tableDataResponse]="alerts()"
+        [tableColumns]="ordersTableColumns"
+        [displayedColumns]="displayedColumns"
+        [checkField]="'_id'"
+        [fields]="fields"
+        [form]="form()"
+        [length]="length"
+
+        [expandableDatas]="true"
+        [expandableDetailsDataFunction]="expandableDetailsData"
+
+        (tableActions)="tableActions($event)"
+        (cellDatas)="getCellDatas($event)">
+        <button slot="delete-button" (click)="openDeleteModal()" mat-button class="button-action"> <mat-icon>delete</mat-icon> Delete</button>
+      </app-table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,36 @@
+.menu-link {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-link:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.menu-link hr {
+  margin: 5px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.menu-link::before {
+  // content: '🔹';
+  color: #007bff;
+  font-size: 14px;
+}
+
+.menu-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 200px;
+  font-family: Arial, sans-serif;
+}

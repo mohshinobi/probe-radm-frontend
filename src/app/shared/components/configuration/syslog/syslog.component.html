@@ -1,0 +1,71 @@
+<div class="title-syslog">
+  <h2 class="title-section title-tooltip">Configuration Syslog<mat-icon matTooltip="Specifies settings for logging system and alerts events.">help_outline</mat-icon></h2>
+  @if(configurationSyslog().length  < 2 && isAdmin) {
+    <button mat-raised-button (click)="openDialog('', 'New Syslog Configuration', 'add_syslog', 'syslog')" class="btn btn-white" style="max-width: 100px;" matTooltip="Add new Syslog Configuration">
+      <mat-icon class="btn-icon">add</mat-icon>
+    </button>
+  }
+</div>
+
+
+<section class="mg-0" style="align-items: stretch">
+    @if(configurationSyslog().length == 0) {
+      <div class="adress column-100">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <p class="no-data">No Syslog Configuration found</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+    @for (config of configurationSyslog(); track $index) {
+      <div class="adress column-49">
+        <mat-card class="alerts-card-syslog">
+          <div class="d-flex" style="padding: 2% 2% 3% 3%">
+            <h3 class="card-title">
+              {{config.template}} <mat-icon [matTooltip]="config.template=='Alert'?'Alerts Configuration Syslog':'System Configuration Syslog'">help_outline</mat-icon>
+            </h3>
+            <div class="buttons">
+              @if (isAdmin) {
+                <button
+                mat-raised-button
+                (click)="openDialog(config, 'Update ' + config.template, 'update_syslog', config.template)"
+                class="btn btn-color"
+                matTooltip="Update {{ config.template }}">
+              <mat-icon class="btn-icon">edit</mat-icon>
+              </button>
+              <button
+                mat-raised-button
+                (click)="openDialog(config.template, 'Delete ' + config.template, 'delete_syslog', config.template)"
+                class="btn btn-color"
+                matTooltip="Delete {{ config.template }}">
+              <mat-icon class="btn-icon">delete</mat-icon>
+              </button>
+              }
+
+            </div>
+            </div>
+          <mat-card-content>
+            <table mat-table [dataSource]="getConfigValues(config)" class="file-table">
+              <ng-container matColumnDef="label">
+                <td mat-cell *matCellDef="let item" class="file-name-cell column-75 label">
+                  @if(item.value || item.label == 'TLS') {
+                    {{ item.label }}
+                  }
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="value">
+                <td mat-cell *matCellDef="let item" class="file-name-cell column-75">
+                  {{item.value}}
+                </td>
+              </ng-container>
+
+              <tr mat-row *matRowDef="let row; columns: ['label', 'value']"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+</section>

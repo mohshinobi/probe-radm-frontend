@@ -1,0 +1,56 @@
+<div>
+  <div class="header-title">
+    <div>
+      <app-time-selector
+        [options]="timeFilterOptions"
+        [title]="title"
+        [selectedTime]="currentTime()"
+        (timeChange)="onTimeChange($event)"
+        (customSelected)="onCustomSelected($event)">
+      </app-time-selector>
+    </div>
+  </div>
+  <div class="content">
+    <section style="margin:0;">
+      <div class="column-61">
+        <mat-card  class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Alerts By Category<mat-icon matTooltip="Time-based visualization of different security alert types over a 24-hour period." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <app-areaspline [graphOptions]="alertsByCategorieAreaGraphOptions()"/>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+      <div class="column-38">
+        <mat-card class="radm-card">
+          <mat-card-content>
+            <div>
+              <h3 class="graph-title card-title">Requests Alerts By Category<mat-icon matTooltip="Distribution of security alerts by threat category, showing proportion of each alert type." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            </div>
+            <app-pie [graphOptions]="alertsRequestPieChartOptions()"/>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <section>
+      <div class="column-100">
+        <app-table
+          [tableDataResponse]="alerts()"
+          [tableColumns]="ordersTableColumns"
+          [displayedColumns]="displayedColumns"
+          [checkField]="'_id'"
+          [fields]="fields"
+          [form]="form()"
+          [length]="length"
+          (tableActions)="tableActions($event)"
+          (cellDatas)="getCellDatas($event)">
+          <button slot="delete-button" (click)="openDeleteModal()" mat-button class="button-action"> <mat-icon>delete</mat-icon> Delete</button>
+        </app-table>
+      </div>
+    </section>
+  </div>
+</div>
+
+

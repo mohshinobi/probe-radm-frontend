@@ -1,0 +1,19 @@
+
+<h2>
+@if (!sid) {
+   View rules flow: {{selectedFileName()}} <strong style="color:#ff0"></strong>
+}
+</h2>
+<app-table
+    [tableDataResponse]="rulesFlow()"
+    [tableColumns]="ordersTableColumns"
+    [displayedColumns]="displayedColumns"
+    [fields]="fields"
+    [form]="form()"
+    [length]="this.length"
+    (tableActions)="tableActions($event)"
+    (cellDatas)="getCellDatas($event)"
+    [expandableDatas]="true"
+    [seeMore]="false"
+    [expandableDetailsDataFunction]="anomaliesDetails"
+/>

@@ -1,0 +1,26 @@
+
+ <app-ot-topology-filter id="otFilterToolbar"
+  #filterComponent
+  (submitEvent)="filter($event , 'filter')"
+  [linksParent]="links"
+  [dataParent]="data"
+  [missingAssets]="missingIpsAssets"
+  (parentFunctionTrigger)="resetDiagram()"
+  /> 
+ 
+<div class="content" >
+  <!-- if there is missing assets then show the div else show nothing -->
+  <div #otPalette id="otPalette" class="{{ ( missingIpsAssets() && missingIpsAssets().length > 0 ) ? 'show' : 'hide' }}"> </div>
+  <div #container id="container">
+    @if(!allSignalsReady()){
+      <mat-spinner id="spinner" ></mat-spinner>
+    }
+    <div #otDiagram id="otDiagram"></div>
+  </div>
+  <app-topology-legend #legendProtoComponent
+    (protocolChange)="filter($event , 'protocol')"
+    [protocolsConv]="protocols()"
+    [links]="links()">
+  </app-topology-legend>
+
+</div>

@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Edit rule flow</h2>
+  <div id="content">
+    <form class="form" [formGroup]="searchRuleFlow">
+      <mat-form-field>
+        <mat-label>Sid:</mat-label>
+        <input matInput formControlName="sid" name="sid" required></mat-form-field>
+      <button mat-icon-button type="submit" (click)="this.submitSearchRuleFlow()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+    <mat-divider></mat-divider>
+    <form class="form" [formGroup]="editRuleFlow" (ngSubmit)="submitEditRuleFlow()">
+      <mat-form-field>
+        <mat-label>Action:</mat-label>
+        <mat-select formControlName="action" required>
+          <mat-option value="alert">alert - generate an alert</mat-option>
+          <mat-option value="pass">pass - stop further inspection of the packet</mat-option>
+          <mat-option value="drop">drop - drop packet and generate alert</mat-option>
+          <mat-option value="reject">reject - send RST/ICMP unreach error to the sender of the matching packet
+          </mat-option>
+          <mat-option value="rejectsrc">rejectsrc - same as just reject</mat-option>
+          <mat-option value="rejectdst">rejectdst - send RST/ICMP error packet to receiver of the matching packet
+          </mat-option>
+          <mat-option value="rejectboth">rejectboth - send RST/ICMP error packets to both sides of the conversation
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Message:</mat-label>
+        <input matInput formControlName="msg" name="msg" required></mat-form-field>
+      <mat-form-field>
+        <mat-label>Threshold:</mat-label>
+        <input matInput formControlName="threshold" name="threshold"></mat-form-field>
+
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Protocol:</mat-label>
+        <input matInput formControlName="protocol" readonly name="protocol"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Direction:</mat-label>
+        <input matInput formControlName="direction" readonly name="direction"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Src ip:</mat-label>
+        <input matInput formControlName="src_ip" readonly name="src_ip"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Dest ip:</mat-label>
+        <input matInput formControlName="dest_ip" readonly name="dest_ip"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Dest port:</mat-label>
+        <input matInput formControlName="dest_port" readonly name="dest_port"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Src port:</mat-label>
+        <input matInput formControlName="src_port" readonly name="src_port"></mat-form-field>
+      <mat-form-field [class.disabled-field]="true">
+        <mat-label>Status:</mat-label>
+        <input matInput formControlName="status" readonly name="status"></mat-form-field>
+      <mat-form-field class="textarea" [class.disabled-field]="true">
+        <mat-label>Options:</mat-label>
+        <textarea matInput formControlName="options" readonly rows="5" name="options"></textarea></mat-form-field>
+
+      <mat-divider></mat-divider>
+
+      <button id="submit" mat-flat-button type="submit">Save</button>
+    </form>
+  </div>
+</div>

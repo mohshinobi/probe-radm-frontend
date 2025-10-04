@@ -1,0 +1,47 @@
+.container-file {
+  background-color: black;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 15px;
+  height: 700px;
+  width: 800px;
+  max-height: 80vh; 
+  overflow-y: auto; 
+  overflow-x: auto; 
+  border-radius: 8px;
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  word-break: break-word; 
+}
+
+.log-content {
+  font-family: monospace;
+  font-size: 1rem;
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  word-break: break-word; 
+  line-height: 1.5; 
+  color: #e0e0e0;
+  margin: 0.5rem 0;
+}
+.close-btn-container {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+

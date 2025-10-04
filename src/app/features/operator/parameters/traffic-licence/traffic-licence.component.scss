@@ -1,0 +1,146 @@
+
+.bandwidth {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #1F1F1F;
+    border-radius: 16px;
+
+}
+
+.licence-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    margin-left: 9px;
+    gap: 5px;
+}
+
+.value, .unit {
+    font-family: 'Sesame';
+    font-weight: bold;
+    color: #FFF73F;
+}
+
+.value {
+    font-size: 26px;
+}
+
+.unit {
+    font-size: 24px;
+}
+  mat-button-toggle-group {
+  border-radius: 10px;
+  border: solid 1px #D9D8D2;
+}
+
+mat-button-toggle {
+  color: #C5C4BE;
+  background: transparent;
+  border: none;
+}
+
+mat-button-toggle.mat-button-toggle-checked {
+  background-color: #F0EEFC;
+  color: #7B5DFF;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 1%;
+    background-color: #1F1F1F !important;
+}
+
+.card-title{
+  color: white;
+  font-size: 22px;
+  font-family: Sesame, serif;
+}
+
+section {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between;
+}
+
+.main-title {
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 38px;
+}
+
+.mat-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-content {
+  flex: 1;
+   height: 50vh;
+}
+
+.licence-details {
+  display: grid;
+  grid-template-columns: [left] 40% [middle] 20% [right] 10% [end] 30%;
+  gap: 5px;
+}
+
+.flow-max {
+  color: #FF0000;
+}
+
+.custom-card {
+  background-color: #323231;
+  border-radius: var(--mat-card-border-radius);;
+}
+.cards-realtime {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.exceed {
+  display: grid;
+  grid-template-columns: [left] 60% [right] auto;
+  gap: 5px;
+}
+
+.icon-warning {
+  color: #FFF73F;
+  font-size: 42px;
+  width: 42px;
+  height: 42px;
+}
+.right-exceed {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.left-count {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
+  .main-number, .title {
+    color: #FFF73F;
+  }
+}
+
+.left-exceed {
+  border-right: 2px dotted #eeeeee;
+  margin-left: 10px;
+  padding-right: 5px;
+}

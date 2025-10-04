@@ -1,0 +1,92 @@
+.container {
+  max-width: 100% !important;
+  margin: 20px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  border-bottom: 1px solid #555;
+  color: #fff;
+  padding: 8px 16px;
+}
+
+.mat-toolbar {
+  background-color: #1e1e1e !important;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-user-button {
+  background-color: #fff73f !important;
+  color: black !important;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.user-details {
+  padding: 16px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-label {
+  display: inline-block;
+  min-width: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.mat-mdc-form-field  {
+  width: 100%;
+}
+
+.button-action {
+  border: 1px solid white;
+  border-radius: 4px;
+  margin: 8px;
+}
+
+.generate-password-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4e4e4d;
+  color: #fff !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  width: fit-content;
+}
