@@ -8,7 +8,7 @@ import {BaseField} from "@shared/components/form/fields";
 import {AlertsUcService} from "@features/operator/uc/alerts/alerts-uc.service";
 import {Router} from "@angular/router";
 import {JsonPipe} from "@angular/common";
-import {PageHeaderComponent} from "@layout/page-header.component";
+import {PageHeaderComponent} from "@layout/header/page-header.component";
 
 @Component({
   selector: 'app-alerts',

@@ -115,7 +115,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     .card-title{
       color: white;
       font-size: 22px;
-      font-family: Sesame, serif;
+      font-family: BebasNeue, serif;
     }
   `]
 })

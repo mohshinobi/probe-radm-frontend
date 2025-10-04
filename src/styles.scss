@@ -9,7 +9,7 @@ $default-theme: mat.define-theme(
     color: (
       theme-type: dark,
       primary: mat.$cyan-palette,
-      tertiary: mat.$violet-palette,
+      tertiary: mat.$blue-palette,
     )
   )
 );
@@ -21,40 +21,45 @@ $compact-theme: mat.define-theme(
   )
 );
 
-
-html, body { height: 100%; background-color: #434649 }
 :root {
   @include mat.all-component-themes($default-theme);
   @include mat.form-field-density($compact-theme); 
- 
-  // Colors declaration or override
   --mdc-circular-progress-active-indicator-color:#FFF73F;
-    // Size or shape override or declaration
-  --navbar-height:64px; // navbar height
-  --footer-height:5rem; // footer height
+  --navbar-height: 64px;
+  --footer-height: 5rem;
   --mat-card-border-radius: 8px;
-  // Classs declarations
   .radm-card{
     background-color: var(--radm-black);
     border-radius: var(--mat-card-border-radius) !important;
-    min-height: 2rem;
-    padding: 0 10px;
+    min-height: 5em; 
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border: 1px solid var(--radm-border-gray); 
   }
   .mat-mdc-nav-list .mat-mdc-list-item{
     border-radius:0px;
   }
+  section{
+    padding:0 1rem;
+    &.table-section{ 
+      padding: 0;
+      margin: 0;
+    }
+  }
+ 
   
 }
+
+html, body { height: 100%; background-color: #303030 }
+
 .title-tooltip {
   display: inline-flex;
   align-items: center;
   gap: 5px;
 }
 .mdc-tab{
-  font-family: Sesame, sans-serif;
+  font-family: BebasNeue, sans-serif;
 }
-body { margin: 0; font-family: Sesame, "Helvetica Neue", sans-serif; overflow: hidden}
+body { margin: 0; font-family: BebasNeue, "Helvetica Neue", sans-serif; overflow: hidden}
 .container {
   display: flex;
   flex-wrap: wrap; /* Allow the items to wrap as necessary */
@@ -77,7 +82,7 @@ body { margin: 0; font-family: Sesame, "Helvetica Neue", sans-serif; overflow: h
 .title {
   color: white;
   font-size: 20px;
-  font-family: Sesame, serif;
+  font-family: BebasNeue, serif;
 }
 .pd-20 {
   padding: 20px;
@@ -316,3 +321,13 @@ $sev-colors: ('#F44949', '#FF6633', '#F89200', '#FFC080');
   border-radius: 4px;
 }
 
+
+.flex{
+  display: flex; 
+  &.flex-row{
+    flex-direction: row;
+  }
+  &.flex-column{
+    flex-direction: column;
+  }
+}

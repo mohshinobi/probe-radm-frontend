@@ -102,30 +102,19 @@ export class TableComponent implements OnInit {
   @Input() isFilterable = true;
   @Input() isSelectColumn = true;
   @Input() inputExpandDatas: any = null;
-  @Input() seeMore = true;
-
+  @Input() seeMore = false;
   @Input() expandableDatas: boolean = false;
-
-  @Input()
-  expandableDetailsData: DetailField[] = [];
-
+  @Input() expandableDetailsData: DetailField[] = [];
   @Input() isSelectable: boolean = true;
-
   @Input() checkField = '';
-
-  @Input()
-  expandableDetailsDataFunction: (data: any) => DetailField[] = () => [];
-
+  @Input() expandableDetailsDataFunction: (data: any) => DetailField[] = () => [];
   @Input() seeMoreLink: string = '/operator/detection/alerts-list';
-
   @Input() form!: FormGroup;
   @Input() fields!: BaseField<string | number>[];
-
   @Output() tableActions = new EventEmitter<any>();
   @Output() cellDatas = new EventEmitter<any>();
   @Output() expandDatas = new EventEmitter<any>();
   @Output() pageChange = new EventEmitter<{ page: number; size: number }>();
-
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('drawerFilter') drawerFilter!: MatDrawer;
   @ViewChild('drawerColumn') drawerColumn!: MatDrawer;
@@ -137,7 +126,6 @@ export class TableComponent implements OnInit {
   readonly chipFilterData = signal<ChipFilterDataInterface[]>([]);
 
   router = inject(Router);
-
   tableCellCheckbox: TableCellTypeEnum = TableCellTypeEnum.CHECKBOX2;
 
   ngOnInit(): void {

@@ -19,7 +19,7 @@ import { MatSelectModule} from '@angular/material/select';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { types , TypesInterface } from '../../ot.utility';
 import { criticity, OtAsset } from '../../services/interface';
-import {PageHeaderComponent} from "@layout/page-header.component";
+import {PageHeaderComponent} from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-view',

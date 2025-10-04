@@ -5,13 +5,12 @@ pipeline {
         string(name: 'tag', defaultValue: 'latest', description: 'Version/tag to use for image')
     }
     environment {
-        REPO = "jizofront" // the repository created after the git clone
+        REPO = "radmfront" // the repository created after the git clone
         DIR_SOURCE = "browser" // the directory for apache server for the source project
-        DIR_JK_ARTIFACT = "/opt/jk_artefacts/jizo-ai/teamweb" // the directory for the image saved to be copied to after build and save
+        DIR_JK_ARTIFACT = "/opt/jk_artefacts/radm-ai/teamweb" // the directory for the image saved to be copied to after build and save
         IMAGE_FILE = "image-frontend-${params.branch_name}-${params.tag}.tar.gz"
-        IMAGE_NAME = "jizo-frontend:${params.tag}"
+        IMAGE_NAME = "radm-frontend:${params.tag}"
         TGZ_FILE = "sources"
-
     }
 
     stages {
@@ -25,7 +24,7 @@ pipeline {
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[$class: 'CleanBeforeCheckout']],
                 userRemoteConfigs: [[
-                    url: "git@srv-jizoai-gitlab-001.jizoai.local:sesame/jizo-ai/${REPO}.git",
+                    url: "git@radm:sidratech/radm-frontend/${REPO}.git",
                     credentialsId: 'GitLab'
                 ]]
             ])

@@ -1,5 +1,4 @@
-<page-header [title]="title || ''"  [subtitle]="subTitle || ''">
-<div class="time-selector">
+ <div class="time-selector">
     @if(condition){
     <ng-content></ng-content>
   }
@@ -20,7 +19,47 @@
           }
         </div>
       </div>
-      <div style="display: flex; flex-direction: row;">
+      <div class="flex flex-row">
+        @if(showCustomForm) {
+          <div class="flex flex-row collapse" id="time-input">
+            <mat-form-field class="input-dates">
+              <mat-label>Start</mat-label>
+              <mat-select class="filter-category dates" [(ngModel)]="beginDateSelect" (change)="onDateChange(typeTime.DateBegin, $event)">
+                <mat-option></mat-option>
+                @for(day of getFilteredBeginDays(); track day.name) {
+                  <mat-option [value]="day.name">{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="input-hours"> 
+              <mat-label>Hour</mat-label>
+              <mat-select class="filter-category" [(ngModel)]="beginHourSelect" (change)="onDateChange(typeTime.HourBegin,$event)">   
+                <mat-option></mat-option>            
+                @for(hour of getFilteredBeginHours(); track $index) {
+                  <mat-option [value]="hour.name">{{hour.value}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="input-dates">
+              <mat-label>End</mat-label>
+              <mat-select class="filter-category dates" [(ngModel)]="endDateSelect" (change)="onDateChange(typeTime.DateEnd, $event)">
+                <mat-option></mat-option>
+                @for(day of getFilteredEndDays(); track day.name) {
+                  <mat-option [value]="day.name" >{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="input-hours">   
+              <mat-label>Hour</mat-label>           
+              <mat-select class="filter-category hours" [(ngModel)]="endHourSelect" (change)="onDateChange(typeTime.HourEnd, $event)">
+                <mat-option></mat-option>
+                @for(hour of getFilteredEndHours(); track $index) {
+                  <mat-option [value]="hour.name">{{hour.value}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field> 
+          </div>
+        }
         @if(options){
           <mat-button-toggle-group [ngClass]="'custom-toggle-group'+ (showCustomForm ? ' custom-show' : '')" (change)="onTimeChange($event.value)" hideSingleSelectionIndicator="true">
             <mat-button-toggle
@@ -33,47 +72,12 @@
             </mat-button-toggle>
           </mat-button-toggle-group>
         }
-        @if(showCustomForm) {
-          <div class="collapse" style="display: flex; flex-direction: row;">
-            <div class="start-date">
-              <span>Start</span>
-              <select class="filter-category" [(ngModel)]="beginDateSelect" (change)="onDateChange(typeTime.DateBegin, $event)">
-                <option value="--">--</option>
 
-                @for(day of getFilteredBeginDays(); track day.name) {
-                  <option [value]="day.name">{{day.value|date: 'yyyy-MM-dd' }} ({{day.name}})</option>
-                }
-              </select>
-              <select class="filter-category" [(ngModel)]="beginHourSelect" (change)="onDateChange(typeTime.HourBegin,$event)">
-                <option value="--">--</option>
-                @for(hour of getFilteredBeginHours(); track $index) {
-                  <option [value]="hour.name">{{hour.value}}</option>
-                }
-              </select>
-            </div>
-            <div class="end-date">
-              <span>End</span>
-              <select class="filter-category" [(ngModel)]="endDateSelect" (change)="onDateChange(typeTime.DateEnd, $event)">
-                <option value="--">--</option>
-                @for(day of getFilteredEndDays(); track day.name) {
-                  <option [value]="day.name" >{{day.value|date: 'yyyy-MM-dd' }} ({{day.name}})</option>
-                }
-              </select>
-              <select class="filter-category" [(ngModel)]="endHourSelect" (change)="onDateChange(typeTime.HourEnd, $event)">
-                <option value="--">--</option>
-                @for(hour of getFilteredEndHours(); track $index) {
-                  <option [value]="hour.name">{{hour.value}}</option>
-                }
-              </select>
-            </div>
-          </div>
-        }
       </div>
     </div>
   </div>
 </div>
-
-</page-header>
+ 
 
 
 

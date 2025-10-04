@@ -2,9 +2,9 @@
   <div class="column-left">
     <div class="container-api">
       <h1>Welcome to</h1>
-      <div class="logo">
-         <h1 class="logo-big">RADM</h1>
-        <span class="version">{{version()?.full_version}}</span>
+      <div class="logo">   
+          <img src="assets/images/radm-full-logo.png" class="img-logo">          
+          <span class="version">{{version()?.full_version}}</span>
       </div>
       <div class="pings">      
         <p [class]="ping()?.status === 200 ? 'apiUp' : 'apiDown'"><mat-icon>circle</mat-icon>API</p> 

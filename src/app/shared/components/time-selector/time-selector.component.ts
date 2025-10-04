@@ -5,8 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { PageHeaderComponent } from "@layout/page-header.component";
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
     selector: 'app-time-selector',
@@ -18,8 +17,7 @@ import { PageHeaderComponent } from "@layout/page-header.component";
     MatSelectModule,
     MatIconModule,
     CommonModule,
-    FormsModule,
-    PageHeaderComponent
+    FormsModule
 ],
     templateUrl: './time-selector.component.html',
     styleUrl: './time-selector.component.scss'

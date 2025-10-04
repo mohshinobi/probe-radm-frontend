@@ -7,13 +7,12 @@ import { OTService} from '@features/operator/ot/services/ot.service';
 import { TableComponent} from '@shared/components/table/table.component';
 import { map, switchMap} from 'rxjs';
 import { TableColumnInterface} from '@core/interfaces';
-import { FormGroup} from "@angular/forms";
-import { Router} from '@angular/router';
+import { FormGroup} from "@angular/forms"; 
 import { MatButtonModule} from '@angular/material/button';
 import { MatIconModule} from '@angular/material/icon';
 import { TimeSelectorComponent} from "@shared/components/time-selector/time-selector.component";
 import { QueryParams } from '../services/interface';
-import {PageHeaderComponent} from "@layout/page-header.component";
+import {PageHeaderComponent} from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-asset',
@@ -23,9 +22,7 @@ import {PageHeaderComponent} from "@layout/page-header.component";
     providers: [OTService]
 })
 
-export class AssetComponent {
-
-  constructor(private router:Router){  }
+export class AssetComponent { 
   _service = inject(OTService);
   displayedColumns =  this._service.getDisplayedAssetsColumns();
   length :number = 0;

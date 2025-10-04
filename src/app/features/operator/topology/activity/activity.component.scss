@@ -36,7 +36,7 @@
   }
 
   .loading{
-    font-family: Sesame;
+    font-family: BebasNeue;
     font-size: 24px;
     text-align: center;
     margin: 0 auto;
@@ -49,7 +49,7 @@
   .hostname {
     font-size: 25px;
     color: #FFF73F;
-    font-family: Sesame;
+    font-family: BebasNeue;
     font-weight: bold; /* make the hostname font bold */
     margin-bottom: 10px; /* add some space below the hostname */
   }
@@ -57,10 +57,10 @@
   .status, .connectivity, .mac_adress, .ip_adress, .security_score, .alerts {
     font-size: 18px; /* make the other elements font smaller */
     margin-bottom: 10px; /* add some space below the hostname */
-    font-family: Sesame;
+    font-family: BebasNeue;
   }
   p{
-    font-family: Sesame;
+    font-family: BebasNeue;
     font-size: 18px;
     color: #fff;
     font-weight: bold;
@@ -154,7 +154,7 @@ section {
 .card-title{
   color: white;
   font-size: 22px;
-  font-family: Sesame
+  font-family: BebasNeue
 }
 
 //card custom
@@ -301,7 +301,7 @@ text {
           width: 90%;
           margin: 0;
           padding: 0.2rem 0 0 1rem;
-          font-family: Sesame;
+          font-family: BebasNeue;
         }
       }
 
@@ -309,12 +309,12 @@ text {
     height: 1.5rem;
     padding: 0 1rem;
     text-decoration: none;
-    font-family: sesame;
+    font-family: BebasNeue;
     font-size: 1rem;
     display: block;
     color: white;
     &#headerInfo{
-      font-family: Sesame;
+      font-family: BebasNeue;
       font-size: 18px;
       color: #fff;
       font-weight: bold;

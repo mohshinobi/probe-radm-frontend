@@ -29,6 +29,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {Router} from "@angular/router";
 import {RoleService} from "@core/services/role.service";
 import {formatAreaSpline, formatPieAndColumn, formatSankey} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 interface IaStatsInterface {
   stats_type: string,
@@ -54,25 +55,26 @@ const riskLevels = {
 @Component({
     selector: 'app-overview',
     imports: [
-        AreaComponent,
-        MatButtonToggle,
-        MatButtonToggleGroup,
-        MatCard,
-        MatCardContent,
-        SankeyComponent,
-        WorldMapComponent,
-        DatePipe,
-        NgCircleProgressModule,
-        NumbersPipe,
-        RoundPipe,
-        AreasplineComponent,
-        PieComponent,
-        BarComponent,
-        TimeSelectorComponent,
-        MatIconModule,
-        CommonModule,
-        MatTooltipModule
-    ],
+    AreaComponent,
+    MatButtonToggle,
+    MatButtonToggleGroup,
+    MatCard,
+    MatCardContent,
+    SankeyComponent,
+    WorldMapComponent,
+    DatePipe,
+    NgCircleProgressModule,
+    NumbersPipe,
+    RoundPipe,
+    AreasplineComponent,
+    PieComponent,
+    BarComponent,
+    TimeSelectorComponent,
+    MatIconModule,
+    CommonModule,
+    MatTooltipModule,
+    PageHeaderComponent
+],
     providers: [
         (NgCircleProgressModule.forRoot({})).providers!,
         ToLowerCasePipe,

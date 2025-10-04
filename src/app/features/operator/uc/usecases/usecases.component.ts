@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {ToastrService} from "ngx-toastr";
-import {PageHeaderComponent} from "@layout/page-header.component";
+import {PageHeaderComponent} from "@layout/header/page-header.component";
 
 @Component({
   selector: 'app-usecases',

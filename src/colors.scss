@@ -1,15 +1,30 @@
 :root {
-  --radm-black:#1F1F1F;
+  --radm-black:#1f1f1f;
+  --radm-gray:#202020;
+  --radm-lightgray:#888888;
   --radm-white:#ffffff;
+
   --radm-red:#c41e3a;
+  --radm-red-rgb:196, 30, 58;
+
   --radm-orange:#ff7c0a;
+  --radm-orange-rgb:255, 124, 10;
+
   --radm-green:#aad372;
+  --radm-green-rgb:170, 211, 114;
+
   --radm-lightblue:#3fc7eb;
+  --radm-lightblue-rgb:63, 199, 235;
+
+  --radm-blue:#0070dd;
+  --radm-blue-rgb:0, 112, 221;
+
   --radm-pink:#f48cba;
   --radm-yellow:#fff468;
-  --radm-blue:#0070dd;
   --radm-violet:#8788ee;
-  --radm-brown:#c69b6d;
+  --radm-brown:#c69b6d; 
+
+  --radm-border-gray:#454443;
 }
 .grey {
   color: #858585;

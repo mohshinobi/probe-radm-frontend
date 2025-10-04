@@ -10,7 +10,7 @@ import { TableColumnInterface } from '@core/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeSelectorComponent } from "@shared/components/time-selector/time-selector.component";
 import { BaseField } from '@shared/components/form/fields';
-import {PageHeaderComponent} from "@layout/page-header.component";
+import {PageHeaderComponent} from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-conversation',

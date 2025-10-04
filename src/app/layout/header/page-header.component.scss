@@ -1,0 +1,56 @@
+:host {
+    --mat-card-border-radius:0;
+    --mat-sidenav-container-background-color: #252525;
+}
+.page-header-section {
+    display:flex;   
+    flex-direction: row;
+    border-bottom: 1px solid var(--radm-border-gray); 
+    background-color: #252525;
+    border: 1px solid var(--radm-border-gray); 
+    position: sticky;
+    top: 0;
+    z-index:99; 
+    flex-wrap: wrap; 
+    padding: 1rem 1rem 1.2rem 1rem;  
+    .title-section{   
+        flex: 1; 
+        width: 25%;
+        .title {  
+            line-height: 38px;
+            font-size: 34px;
+            color: white;
+            font-family: BebasNeue; 
+            margin: 0; 
+        }   
+        .subtitle {        
+            padding-top: 0.5rem;   
+            font-size: 16px;
+            font-family: Inter,sans-serif;
+            line-height: 0px;
+            margin: 0; 
+            color: #9B9B96; 
+        }
+    }
+    .content-section{ 
+        width: 75%;  
+        margin-left:auto; 
+        display: flex; 
+        align-items: center;
+        justify-content: flex-end;
+        
+    }
+
+} 
+ 
+.button-action {
+    border: 1px solid #00ff98 !important;
+    background-color: rgba(0, 255, 152, 0.09);
+    border-radius: 4px !important;
+}
+.content {
+    padding: 0;
+    border-left: 1px solid var(--radm-border-gray);
+}
+ 
+ 

@@ -115,7 +115,7 @@ export class SolidgaugeComponent {
             color: options.color,
             fontSize: '28px',
           },
-          format: `<div><span style="font-family:sesame;font-size:25px;color:${options.label};">${options.data}</span><span>${options.label}</span></div>`,
+          format: `<div><span style="font-family:BebasNeue;font-size:25px;color:${options.label};">${options.data}</span><span>${options.label}</span></div>`,
           y: 0
         }
       }],

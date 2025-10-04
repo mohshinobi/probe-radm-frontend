@@ -19,7 +19,7 @@ import { SideNavComponent } from '@shared/components/side-nav/side-nav.component
   <app-header (sideNavAction)="toggleSideNav()" class="header-nav"/>
   <app-side-nav [navItems]="navItems" [isCollapsed]="isCollapsed" >
     <div class="div-content">
-      <router-outlet/>
+      <router-outlet></router-outlet>
     </div>
   </app-side-nav>
   <app-footer id="footer"/>
@@ -30,22 +30,19 @@ import { SideNavComponent } from '@shared/components/side-nav/side-nav.component
       z-index: 100;
       width: 100%;
       height: var(--navbar-height);
-    }
-
-    .div-content {
-      padding: 14px 0 0 0;
+    } 
+    .div-content { 
+      gap:1rem;
+      padding-top: 14px; 
       height: calc(100vh - var(--navbar-height) - var(--footer-height));
-      overflow: auto;
+      overflow-y: auto; 
     }
   `
 })
 export class AppLayoutComponent {
-
   private _roleService = inject(RoleService);
-
   isCollapsed = false;
   navItems: MenuInterface[] = navItemsByRules(this._roleService);
-
   toggleSideNav() {
     this.isCollapsed = !this.isCollapsed;
   }
