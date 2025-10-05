@@ -19,23 +19,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatButton} from "@angular/material/button";
 import {DeleteModalService} from "@shared/components/modal/modal-delete/service/modal-delete.service";
 import {formatAreaSpline, formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-category',
     templateUrl: './category.component.html',
     styleUrl: './category.component.scss',
     imports: [
-        AreasplineComponent,
-        MatCard,
-        MatCardContent,
-        PieComponent,
-        TableComponent,
-        ReactiveFormsModule,
-        TimeSelectorComponent,
-        MatIcon,
-        MatTooltipModule,
-        MatButton
-    ],
+    AreasplineComponent,
+    MatCard,
+    MatCardContent,
+    PieComponent,
+    TableComponent,
+    ReactiveFormsModule,
+    TimeSelectorComponent,
+    MatIcon,
+    MatTooltipModule,
+    MatButton,
+    PageHeaderComponent
+],
     providers: [CategoryFormService]
 })
 export class CategoryComponent {

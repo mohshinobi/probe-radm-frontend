@@ -12,7 +12,7 @@
   padding: 0;
   font-family: BebasNeue;
   font-size: 6rem;  
-  background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 100%, rgba(83, 152, 237, 1) 52%);  
+  background: linear-gradient(130deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 100%, rgba(83, 152, 237, 1) 52%);  
   background-clip: text; 
   color: transparent;
   letter-spacing : 0.5rem;
@@ -29,9 +29,10 @@
 }
 
 .column-left { 
-  background-color: var(--radm-black); 
+  background-color: #171717;
+  opacity: 1;
   background-size: 10px 10px;
-  background-image: repeating-linear-gradient(45deg, var(--radm-gray) 0, var(--radm-gray) 1px, var(--radm-black) 0, var(--radm-black) 50%);
+  background-image: repeating-linear-gradient(45deg, #0c0c0c 0, #0c0c0c 1px, #171717 0, #171717 50%);
   width: 60%;
   height: 100vh;
   display: flex;

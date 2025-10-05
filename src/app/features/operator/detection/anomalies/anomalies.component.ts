@@ -29,28 +29,30 @@ import {CommonService} from '@core/services';
 import {WorldMapComponent} from '@shared/components/graphs/world-map/world-map.component';
 import {map, switchMap} from 'rxjs';
 import {formatPieAndColumn, formatSankey} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-anomalies',
     imports: [
-        MatCard,
-        TableComponent,
-        ReactiveFormsModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardContent,
-        MatButtonModule,
-        MatButtonToggle,
-        MatButtonToggleGroup,
-        MatIconModule,
-        PieComponent,
-        MatTooltipModule,
-        TimeSelectorComponent,
-        AreasplineComponent,
-        SankeyComponent,
-        WorldMapComponent
-    ],
+    MatCard,
+    TableComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardContent,
+    MatButtonModule,
+    MatButtonToggle,
+    MatButtonToggleGroup,
+    MatIconModule,
+    PieComponent,
+    MatTooltipModule,
+    TimeSelectorComponent,
+    AreasplineComponent,
+    SankeyComponent,
+    WorldMapComponent,
+    PageHeaderComponent
+],
     providers: [
         AnomaliesFormService,
         AnomaliesService

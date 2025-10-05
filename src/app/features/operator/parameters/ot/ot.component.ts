@@ -5,23 +5,23 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {OtManagementService} from "@core/services/ot-management.service";
 import {CommonModule} from "@angular/common";
-import {ToastrService} from "ngx-toastr";
-import {TimeSelectorComponent} from "@shared/components/time-selector/time-selector.component";
+import {ToastrService} from "ngx-toastr"; 
 import {MatTooltip} from "@angular/material/tooltip";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 
 @Component({
     selector: 'app-ot',
     imports: [
-        MatCard,
-        MatCardContent,
-        MatTableModule,
-        MatButtonModule,
-        MatIcon,
-        CommonModule,
-        TimeSelectorComponent,
-        MatTooltip
-    ],
+    MatCard,
+    MatCardContent,
+    MatTableModule,
+    MatButtonModule,
+    MatIcon,
+    CommonModule, 
+    MatTooltip,
+    PageHeaderComponent
+],
     templateUrl: './ot.component.html',
     styleUrl: './ot.component.scss'
 })

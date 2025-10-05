@@ -1,22 +1,21 @@
-<div class="header-title">
-  <div>
-    <app-time-selector
-      [options]="timeFilterOptions"
-      [title]="title"
-      [condition]="condition"
-      (timeChange)="onTimeIntervalChange($event)"
-      (customSelected)="onCustomDateChange($event)">
-      <mat-form-field appearance="outline" class="select-field">
-        <mat-select  value="alert" (selectionChange)="onProtocolChange($event.value)" [(ngModel)]="protocolSelected">
-          @for (proto of protocolSelectFilterOptions; track $index) {
-            <mat-option [value]="proto.value">{{proto.label}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </app-time-selector>
-  </div>
-</div>
-<div class="content">
+<page-header [title]="'Overview'"  
+  [subtitle]="'Detection'">
+  <mat-form-field appearance="outline" class="select-field" style="margin-right:auto;">
+    <mat-select  value="alert" (selectionChange)="onProtocolChange($event.value)" [(ngModel)]="protocolSelected">
+      @for (proto of protocolSelectFilterOptions; track $index) {
+        <mat-option [value]="proto.value">{{proto.label}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <app-time-selector
+    [options]="timeFilterOptions"
+    [title]="title" 
+    (timeChange)="onTimeIntervalChange($event)"
+    (customSelected)="onCustomDateChange($event)"> 
+  </app-time-selector>
+</page-header>  
+
+
   <section>
     @if(protocol() === ProtocolIndex.alert) {
       <div class="column-26">
@@ -176,19 +175,17 @@
       </mat-card>
     </div>
   </section>
-
-  <app-table
-    #tableComponent
-    [tableDataResponse]="alertsByProtocol()"
-    [tableColumns]="ordersTableColumnsByProto"
-    [displayedColumns]="displayedColumnsByProto"
-    [form]="form"
-    [fields]="fields"
-    [length]="length"
-    (tableActions)="tableActions($event)"
-    (cellDatas)="getCellDatas($event)"
-    [expandableDatas]="true"
-    [expandableDetailsDataFunction]="expandableDetailsData"
-  />
-</div>
-
+ 
+<app-table
+  #tableComponent
+  [tableDataResponse]="alertsByProtocol()"
+  [tableColumns]="ordersTableColumnsByProto"
+  [displayedColumns]="displayedColumnsByProto"
+  [form]="form"
+  [fields]="fields"
+  [length]="length"
+  (tableActions)="tableActions($event)"
+  (cellDatas)="getCellDatas($event)"
+  [expandableDatas]="true"
+  [expandableDetailsDataFunction]="expandableDetailsData"/>
+ 

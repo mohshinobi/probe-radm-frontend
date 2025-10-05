@@ -21,6 +21,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import Highcharts from 'highcharts';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { Base64Pipe } from '@shared/pipes/base64.pipe';
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 interface Value {
   count: number;
@@ -34,16 +35,17 @@ interface Stat {
 @Component({
     selector: 'app-asset',
     imports: [
-        TableComponent,
-        MatCardModule,
-        MatIconModule,
-        PieComponent,
-        MatTooltipModule,
-        CommonModule,
-        HighchartsChartModule,
-        SkeletonComponent,
-        Base64Pipe
-    ],
+    TableComponent,
+    MatCardModule,
+    MatIconModule,
+    PieComponent,
+    MatTooltipModule,
+    CommonModule,
+    HighchartsChartModule,
+    SkeletonComponent,
+    Base64Pipe,
+    PageHeaderComponent
+],
     providers: [Base64Pipe],
     templateUrl: './asset.component.html',
     styleUrl: './asset.component.scss'

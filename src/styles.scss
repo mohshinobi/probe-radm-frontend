@@ -20,15 +20,19 @@ $compact-theme: mat.define-theme(
     )
   )
 );
-
-:root {
+:root{
   @include mat.all-component-themes($default-theme);
   @include mat.form-field-density($compact-theme); 
+}
+
+:root {
   --mdc-circular-progress-active-indicator-color:#FFF73F;
   --navbar-height: 64px;
   --footer-height: 5rem;
-  --mat-card-border-radius: 8px;
-  .radm-card{
+  --mat-card-border-radius: 8px; 
+}
+:root{
+    .radm-card{
     background-color: var(--radm-black);
     border-radius: var(--mat-card-border-radius) !important;
     min-height: 5em; 
@@ -45,11 +49,10 @@ $compact-theme: mat.define-theme(
       margin: 0;
     }
   }
- 
-  
 }
 
 html, body { height: 100%; background-color: #303030 }
+
 
 .title-tooltip {
   display: inline-flex;

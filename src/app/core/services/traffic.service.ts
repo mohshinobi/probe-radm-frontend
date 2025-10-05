@@ -7,6 +7,17 @@ import { proxyPath } from '@configs/api-url.config';
 const _webApi = proxyPath.web;
 const _configApi = proxyPath.config;
 
+export interface licenseInfos { 
+  hit_time_span_sec: number;
+  hit_threshold_gigabits: number;
+  hit_threshold_margin_percentage: number;
+  hit_count_time_span_hour: number;
+  hit_count: number;
+  expiry_date: string;
+  ip_address: string;
+  mac_hash: string; 
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -42,8 +53,8 @@ export class TrafficService {
   }
 
   getLicenceInfo (){
-    return this._http.get<any>(_configApi+'/license').pipe(
-      map((response: any) => response),
+    return this._http.get<licenseInfos>(_configApi+'/license').pipe(
+      map((response: any) => response?.license || {}),
       catchError(() => of({}))
     );
   }

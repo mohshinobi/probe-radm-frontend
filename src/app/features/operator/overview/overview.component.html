@@ -8,87 +8,84 @@
         (timeChange)="onTimeChange($event)"
         (customSelected)="onCustomSelected($event)">
       </app-time-selector>
-</page-header> 
+</page-header>  
  
- 
- 
-    <div class="radm-card" style="padding: 1%; margin: 14px 14px 0 14px;">
-      <div style="display: flex">
-        <div class="column-95">
-          <h3 class="card-title">Last insights
-            <mat-icon matTooltip="Recent security findings and metrics detected by the monitoring system"
-                  matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
-        </div>
-        <div>
-          <button class="b-view" (click)="toggleCollapse()">
-            {{ showMore ? 'View less' : 'View all' }}
-          </button>
-        </div>
-      </div>
-      <div style="display: flex;justify-content: space-between;">
-        @if (alertThreat().length === 0) {
-          @for (item of noDataArray; track $index) {
-            <mat-card class="card-insights custom-card">
-              <mat-card-content class="card-content">
-                <div class="content-wrapper">
-                  <div class="text-section">
-                    <p class="title">No data</p>
-                    <p class="main-number">N/A</p>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          }
-        } @else {
-          @for (card of alertThreat().slice(0, 5); track $index) {
-            <mat-card class="card-insights custom-card">
-              <mat-card-content class="card-content">
-                <div class="content-wrapper">
-                  <div class="text-section">
-                    <p class="title">{{ card.title }}</p>
-                    <p class="main-number">{{ card.mainNumber }}</p>
-                  </div>
-                  @if (card.title !== 'Unique IP' && card.title !== 'Matched Rules') {
-                    @if (!_role.isAdministrator()){
-
-                      <span class="icon-container" (click)="redirectToPage(card.title)">
-                        <mat-icon class="icon">remove_red_eye</mat-icon>
-                      </span>
-
-                    }
-                  }
-                </div>
-              </mat-card-content>
-            </mat-card>
-          }
-        }
-      </div>
-      <div [@collapseExpand]="showMore ? 'expanded' : 'collapsed'" style="display:flex;justify-content:flex-start; gap:0.4rem;margin-top:0.4rem;">
-        @for (card of alertThreat().slice(5, 10); track $index) {
-          <mat-card class="card-insights custom-card">
-            <mat-card-content class="card-content">
-              <div class="content-wrapper">
-                <div class="text-section">
-                  <p class="title">{{ card.title }}</p>
-                  <p class="main-number">{{ card.mainNumber }}</p>
-                </div>
-                <div>
-                  @if (!_role.isAdministrator()){
-                    <div>
-                      <span class="icon-container" (click)="redirectToPage(card.title)">
-                        <mat-icon class="icon">remove_red_eye</mat-icon>
-                      </span>
-                    </div>
-                  }
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        }
-      </div>
+<div class="radm-card" style="padding: 1%; margin: 14px 14px 0 14px;">
+  <div style="display: flex">
+    <div class="column-95">
+      <h3 class="card-title">Last insights
+        <mat-icon matTooltip="Recent security findings and metrics detected by the monitoring system"
+              matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
     </div>
- 
+    <div>
+      <button class="b-view" (click)="toggleCollapse()">
+        {{ showMore ? 'View less' : 'View all' }}
+      </button>
+    </div>
+  </div>
+  <div style="display: flex;justify-content: space-between;">
+    @if (alertThreat().length === 0) {
+      @for (item of noDataArray; track $index) {
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">No data</p>
+                <p class="main-number">N/A</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    } @else {
+      @for (card of alertThreat().slice(0, 5); track $index) {
+        <mat-card class="card-insights custom-card">
+          <mat-card-content class="card-content">
+            <div class="content-wrapper">
+              <div class="text-section">
+                <p class="title">{{ card.title }}</p>
+                <p class="main-number">{{ card.mainNumber }}</p>
+              </div>
+              @if (card.title !== 'Unique IP' && card.title !== 'Matched Rules') {
+                @if (!_role.isAdministrator()){
 
+                  <span class="icon-container" (click)="redirectToPage(card.title)">
+                    <mat-icon class="icon">remove_red_eye</mat-icon>
+                  </span>
+
+                }
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+  </div>
+  <div [@collapseExpand]="showMore ? 'expanded' : 'collapsed'" style="display:flex;justify-content:flex-start; gap:0.4rem;margin-top:0.4rem;">
+    @for (card of alertThreat().slice(5, 10); track $index) {
+      <mat-card class="card-insights custom-card">
+        <mat-card-content class="card-content">
+          <div class="content-wrapper">
+            <div class="text-section">
+              <p class="title">{{ card.title }}</p>
+              <p class="main-number">{{ card.mainNumber }}</p>
+            </div>
+            <div>
+              @if (!_role.isAdministrator()){
+                <div>
+                  <span class="icon-container" (click)="redirectToPage(card.title)">
+                    <mat-icon class="icon">remove_red_eye</mat-icon>
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>
+ 
 <section>
   <div class="column-26">
     <mat-card class="radm-card">

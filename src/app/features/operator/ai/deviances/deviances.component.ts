@@ -19,26 +19,28 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { TimeSelectorComponent } from '@shared/components/time-selector/time-selector.component';
 import {formatBubble, formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-deviance',
     imports: [
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatTooltipModule,
-        MatIconModule,
-        PackedBubbleComponent,
-        MatCardModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        PieComponent,
-        CommonModule,
-        HeatMapComponent,
-        WorldMapComponent,
-        FormsModule,
-        TimeSelectorComponent,
-        CommonModule
-    ],
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatTooltipModule,
+    MatIconModule,
+    PackedBubbleComponent,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    PieComponent,
+    CommonModule,
+    HeatMapComponent,
+    WorldMapComponent,
+    FormsModule,
+    TimeSelectorComponent,
+    CommonModule,
+    PageHeaderComponent
+],
     templateUrl: './deviances.component.html',
     styleUrl: './deviances.component.scss'
 })

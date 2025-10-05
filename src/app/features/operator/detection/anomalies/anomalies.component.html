@@ -1,14 +1,17 @@
-<div class="header-title">
-  <div>
-    <app-time-selector
-      [options]="timeFilterOptions"
-      [title]="title"
-      [selectedTime]="currentTime()"
-      (timeChange)="onTimeChange($event)"
-      (customSelected)="onCustomSelected($event)">
-    </app-time-selector>
-  </div>
-</div>
+ 
+
+<page-header [title]="'Anomalies'"  
+[subtitle]="'Detection'">
+      <app-time-selector
+        [options]="timeFilterOptions"
+        [title]="title"
+        [selectedTime]="currentTime()"
+        (timeChange)="onTimeChange($event)"
+        (customSelected)="onCustomSelected($event)">
+      </app-time-selector>
+</page-header> 
+ 
+
 <div class="content">
   <section style="margin:0;">
     <div class="column-19">

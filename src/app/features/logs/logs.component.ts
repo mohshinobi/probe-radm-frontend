@@ -12,23 +12,25 @@ import { CommonModule } from '@angular/common';
 import { MatCell, MatCellDef, MatColumnDef, MatRow, MatRowDef, MatTable } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TokenService } from '@core/services/token.service';
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-logs',
     imports: [
-        MatIconModule,
-        MatDialogModule,
-        MatCardModule,
-        MatProgressSpinnerModule,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatRow,
-        MatRowDef,
-        MatTable,
-        CommonModule,
-        MatTooltipModule
-    ],
+    MatIconModule,
+    MatDialogModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    CommonModule,
+    MatTooltipModule,
+    PageHeaderComponent
+],
     templateUrl: './logs.component.html',
     styleUrl: './logs.component.scss'
 })

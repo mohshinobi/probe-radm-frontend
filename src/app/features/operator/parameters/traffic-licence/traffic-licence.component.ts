@@ -1,5 +1,5 @@
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
@@ -9,23 +9,25 @@ import { CommonService, TrafficService } from '@core/services';
 import { TimeSelectorComponent } from '@shared/components/time-selector/time-selector.component';
 import { BytesConvertPipe } from '@shared/pipes/bytes-convert.pipe';
 import { LeftDaysPipe } from '@shared/pipes/days-left.pipe';
-import {map, switchMap} from 'rxjs';
-import { AreaComponent } from '@shared/components/graphs/area/area.component';
+import {map, switchMap} from 'rxjs'; 
 import { AreasplineComponent } from '@shared/components/graphs/areaspline/areaspline.component';
-import {formatHistoByTime, formatHistoField} from "@core/utils/graph-formater.util";
+import {formatHistoByTime} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-traffic-licence',
-    imports: [
-        AreasplineComponent,
-        DatePipe,
-        LeftDaysPipe,
-        BytesConvertPipe,
-        MatCardModule,
-        TimeSelectorComponent,
-        MatIconModule,
-        MatTooltipModule
-    ],
+  imports: [
+    JsonPipe,
+    AreasplineComponent,
+    DatePipe,
+    LeftDaysPipe,
+    BytesConvertPipe,
+    MatCardModule,
+    TimeSelectorComponent,
+    MatIconModule,
+    MatTooltipModule,
+    PageHeaderComponent
+],
     providers: [LeftDaysPipe, BytesConvertPipe],
     templateUrl: './traffic-licence.component.html',
     styleUrl: './traffic-licence.component.scss'

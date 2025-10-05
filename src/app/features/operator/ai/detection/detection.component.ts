@@ -25,6 +25,7 @@ import { Point, Series } from 'highcharts';
 import { AreaComponent } from '@shared/components/graphs/area/area.component';
 import { ApiResponse } from '@core/interfaces/api-response.interface';
 import {formatAreaSpline, formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 const riskLevels = {
   '1': 'Low Deviance',
@@ -36,19 +37,20 @@ const riskLevels = {
 @Component({
     selector: 'app-deviance',
     imports: [
-        CommonModule,
-        MatTableModule,
-        WorldMapMarkerComponent,
-        MatIconModule,
-        AreasplineComponent,
-        TableComponent,
-        MatCardModule,
-        MatButtonToggleModule,
-        MatTooltipModule,
-        TimeSelectorComponent,
-        PieComponent,
-        AreaComponent,
-    ],
+    CommonModule,
+    MatTableModule,
+    WorldMapMarkerComponent,
+    MatIconModule,
+    AreasplineComponent,
+    TableComponent,
+    MatCardModule,
+    MatButtonToggleModule,
+    MatTooltipModule,
+    TimeSelectorComponent,
+    PieComponent,
+    AreaComponent,
+    PageHeaderComponent
+],
     providers: [IAAlertsFormService, NumbersPipe],
     templateUrl: './detection.component.html',
     styleUrl: './detection.component.scss'

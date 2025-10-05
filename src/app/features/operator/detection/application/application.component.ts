@@ -26,22 +26,24 @@ import {MatButton} from "@angular/material/button";
 import {DeleteModalService} from "@shared/components/modal/modal-delete/service/modal-delete.service";
 import {formatAreaSpline, formatPieAndColumn} from "@core/utils/graph-formater.util";
 import {ApplicationService} from "@features/operator/detection/application/service/application.service";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-application',
     imports: [
-        AreasplineComponent,
-        MatCard,
-        MatCardContent,
-        PieComponent,
-        TableComponent,
-        BarComponent,
-        ReactiveFormsModule,
-        TimeSelectorComponent,
-        MatIcon,
-        MatTooltipModule,
-        MatButton
-    ],
+    AreasplineComponent,
+    MatCard,
+    MatCardContent,
+    PieComponent,
+    TableComponent,
+    BarComponent,
+    ReactiveFormsModule,
+    TimeSelectorComponent,
+    MatIcon,
+    MatTooltipModule,
+    MatButton,
+    PageHeaderComponent
+],
     providers: [AlertsFormService],
     templateUrl: './application.component.html',
     styleUrl: './application.component.scss'

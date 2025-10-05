@@ -37,29 +37,31 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {DeleteModalService} from "@shared/components/modal/modal-delete/service/modal-delete.service";
 import {MatButton} from "@angular/material/button";
 import {formatAreaSpline, formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-overview',
     imports: [
-        AreaComponent,
-        MatCard,
-        MatCardContent,
-        PieComponent,
-        TableComponent,
-        BarComponent,
-        AreasplineComponent,
-        MatCardModule,
-        ReactiveFormsModule,
-        StackedBarComponent,
-        HorizontalBarChartComponent,
-        StackedBarComponent,
-        MatSelectModule,
-        MatIconModule,
-        TimeSelectorComponent,
-        CommonModule,
-        MatTooltipModule,
-        MatButton
-    ],
+    AreaComponent,
+    MatCard,
+    MatCardContent,
+    PieComponent,
+    TableComponent,
+    BarComponent,
+    AreasplineComponent,
+    MatCardModule,
+    ReactiveFormsModule,
+    StackedBarComponent,
+    HorizontalBarChartComponent,
+    StackedBarComponent,
+    MatSelectModule,
+    MatIconModule,
+    TimeSelectorComponent,
+    CommonModule,
+    MatTooltipModule,
+    MatButton,
+    PageHeaderComponent
+],
     providers: [AlertsFormService],
     templateUrl: './overview.component.html',
     styleUrl: './overview.component.scss'

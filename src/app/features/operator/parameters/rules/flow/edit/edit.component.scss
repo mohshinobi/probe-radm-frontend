@@ -61,12 +61,12 @@ form{
     .form{
         margin-top: 2rem;
         .textarea{
-            width: calc(98% - 10rem);
+            width: calc(100% - 10rem);
         }
         #submit,
         mat-form-field{
-            width:40%;
-            margin: auto 2rem;
+            width:auto;
+            margin: 0.5rem 2rem;
         }
         #submit{
             margin-left:calc(40% + 6rem) ;

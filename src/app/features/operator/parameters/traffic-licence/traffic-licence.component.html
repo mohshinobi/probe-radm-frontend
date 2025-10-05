@@ -1,6 +1,5 @@
-<div>
-  <div class="header-title">
-    <div>
+<page-header [title]="'Traffic License'"  
+[subtitle]="'Live'">
       <app-time-selector
         [options]="timeFilterOptions"
         [title]="title"
@@ -8,105 +7,96 @@
         (timeChange)="onTimeChange($event)"
         (customSelected)="onCustomSelected($event)">
       </app-time-selector>
+</page-header> 
+ 
+<div class="content">
+  <div style="padding: 1%; background:  #1F1F1F; border-radius: 10px">
+    <div style="display: flex">
+      <div class="column-95">
+        <h3 class="card-title">General informations <mat-icon matTooltip="Overview of key licence metrics including expiration
+          date, bandwidth usage, and flow limits for your current subscription." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+      </div>
     </div>
-  </div>
-  <div class="content">
-    <div style="padding: 1%; background:  #1F1F1F; border-radius: 10px">
-      <div style="display: flex">
-        <div class="column-95">
-          <h3 class="card-title">General informations <mat-icon matTooltip="Overview of key licence metrics including expiration
-            date, bandwidth usage, and flow limits for your current subscription." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
-        </div>
-      </div>
-      <div class="column-100 cards-realtime">
-        <mat-card class="card-insights custom-card">
-          <mat-card-content class="card-content">
-            <div class="content-wrapper">
-              <div class="text-section">
-                <p class="main-number">Licence expires in</p>
-                <span class="title"> {{licenceInfo()?.date | leftDays}} </span><span> ({{licenceInfo()?.date | date :"dd/MM/yyyy" : "UTC"}})</span>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="card-insights custom-card">
-          <mat-card-content class="card-content">
-            <div class="content-wrapper">
-              <div class="text-section">
-                <p class="main-number">Real Time Bandwidth</p>
-                <p class="title">
-                  @if(bandwidthInfos()?.bandwidth_gbps && bandwidthInfos()?.bandwidth_gbps >= 0.01) {
-                    {{bandwidthInfos()?.bandwidth_gbps.toFixed(2)}} Gbps
-                  }
-                  @else if(bandwidthInfos()?.bandwidth_mbps && bandwidthInfos()?.bandwidth_mbps >= 0.01) {
-                    {{bandwidthInfos()?.bandwidth_mbps.toFixed(2)}} Mbps
-                  }
-                  @else {
-                    {{bandwidthInfos()?.bandwidth_bps.toFixed(2)}} Bps
-                  }
-                </p>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="card-insights custom-card">
-          <mat-card-content class="card-content">
-            <div class="content-wrapper">
-              <div class="text-section">
-                <p class="main-number">Licence Flow Limit</p>
-                <p class="title">{{this.licenceInfo()?.flow_max|bytesConvert}}</p>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="card-insights custom-card">
-          <mat-card-content class="card-content">
-            <div class="content-wrapper">
-              <div class="text-section">
-                <p class="main-number">Number of Licence exceeded</p>
-                <p class="title">{{bandwidthInfos()?.exceed_count}}</p>
-                <!-- <div class="left-exceed">
-                  <p class="main-number">Number of Licence exceeded</p>
-                  <p class="title">{{bandwidthInfos()?.exceed_count}}</p>
-                </div>
-                <div class="right-exceed">
-                  <span class="icon-container">
-                    <mat-icon class="icon-warning">warning</mat-icon>
-                  </span>
-                  <div class="left-count">
-                    <span class="main-number">Left Hits</span>
-                    <p class="title">{{144 - bandwidthInfos()?.exceed_count}}</p>
-                  </div>
-                </div>                   -->
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
 
+    <div class="column-100 cards-realtime">
+      <mat-card class="card-insights custom-card">
+        <mat-card-content class="card-content">
+          <div class="content-wrapper">
+            <div class="text-section">
+              <p class="main-number">Licence expires in</p> 
+              <span class="title"> {{licenceInfo()?.expiry_date | leftDays}} </span><span> ({{licenceInfo()?.expiry_date | date :"dd/MM/yyyy" : "UTC"}})</span>
+            </div>
+          </div>
+        </mat-card-content> 
+      </mat-card>
+
+
+      
+      <mat-card class="card-insights custom-card">
+        <mat-card-content class="card-content">
+          <div class="content-wrapper">
+            <div class="text-section">
+              <p class="main-number">Real Time Bandwidth</p>
+              <p class="title">
+                @if(bandwidthInfos()?.bandwidth_gbps && bandwidthInfos()?.bandwidth_gbps >= 0.01) {
+                  {{bandwidthInfos()?.bandwidth_gbps.toFixed(2)}} Gbps
+                }
+                @else if(bandwidthInfos()?.bandwidth_mbps && bandwidthInfos()?.bandwidth_mbps >= 0.01) {
+                  {{bandwidthInfos()?.bandwidth_mbps.toFixed(2)}} Mbps
+                }
+                @else {
+                  {{bandwidthInfos()?.bandwidth_bps.toFixed(2)}} Bps
+                }
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="card-insights custom-card">
+        <mat-card-content class="card-content">
+          <div class="content-wrapper">
+            <div class="text-section">
+              <p class="main-number">Licence Flow Limit</p>
+              <p class="title">{{this.licenceInfo()?.flow_max|bytesConvert}}</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="card-insights custom-card">
+        <mat-card-content class="card-content">
+          <div class="content-wrapper">
+            <div class="text-section">
+              <p class="main-number">Number of Licence exceeded</p>
+              <p class="title">{{bandwidthInfos()?.exceed_count}}</p>
+    
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
-    <section>
-      <div class="column-50">
-        <mat-card class="radm-card">
-          <mat-card-content>
-            <div class="licence-details">
-              <h3 class="graph-title card-title">Traffic/Licence Detection <mat-icon matTooltip="Graphical representation of network traffic volume
-                against licence thresholds, showing potential capacity issues or violations." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
-            </div>
-            <div>
-              <app-areaspline [graphOptions]="trafficAreaGraphOptions()" style="margin-top: 50px; flex-grow:1;"></app-areaspline>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="column-49">
-        <mat-card class="radm-card">
-          <mat-card-content>
-            <h3 class="graph-title card-title">Captured Packets Every Minute <mat-icon matTooltip="Real-time monitoring data showing packet capture rates." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
-              <app-areaspline [graphOptions]="areaGraphOptions()"></app-areaspline>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </section>
+
   </div>
+  <section>
+    <div class="column-50">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <div class="licence-details">
+            <h3 class="graph-title card-title">Traffic/Licence Detection <mat-icon matTooltip="Graphical representation of network traffic volume
+              against licence thresholds, showing potential capacity issues or violations." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+          </div>
+          <div>
+            <app-areaspline [graphOptions]="trafficAreaGraphOptions()" style="margin-top: 50px; flex-grow:1;"></app-areaspline>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="column-49">
+      <mat-card class="radm-card">
+        <mat-card-content>
+          <h3 class="graph-title card-title">Captured Packets Every Minute <mat-icon matTooltip="Real-time monitoring data showing packet capture rates." matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon></h3>
+            <app-areaspline [graphOptions]="areaGraphOptions()"></app-areaspline>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
 </div>

@@ -27,26 +27,28 @@ import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infi
 import { TimeSelectorComponent } from "@shared/components/time-selector/time-selector.component";
 import { DeleteModalService } from "@shared/components/modal/modal-delete/service/modal-delete.service";
 import {AlertListService} from "@features/operator/detection/alerts-list/service/alert-list.service";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-alerts-list',
     imports: [
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        FormsModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatCardModule,
-        TableComponent,
-        CommonModule,
-        MatIconModule,
-        TimelineComponent,
-        PieComponent,
-        AreaComponent,
-        InfiniteScrollComponent,
-        TimeSelectorComponent
-    ],
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatCardModule,
+    TableComponent,
+    CommonModule,
+    MatIconModule,
+    TimelineComponent,
+    PieComponent,
+    AreaComponent,
+    InfiniteScrollComponent,
+    TimeSelectorComponent,
+    PageHeaderComponent
+],
     providers: [AlertsFormService],
     templateUrl: './alerts-list.component.html',
     styleUrl: './alerts-list.component.scss'

@@ -22,21 +22,23 @@ import {DeleteModalService} from "@shared/components/modal/modal-delete/service/
 import {MatButton} from "@angular/material/button";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-source',
     imports: [
-        MatCard,
-        MatCardContent,
-        WorldMapComponent,
-        TableComponent,
-        TimeSelectorComponent,
-        BarComponent,
-        MatIconModule,
-        PieComponent,
-        MatButton,
-        MatTooltipModule
-    ],
+    MatCard,
+    MatCardContent,
+    WorldMapComponent,
+    TableComponent,
+    TimeSelectorComponent,
+    BarComponent,
+    MatIconModule,
+    PieComponent,
+    MatButton,
+    MatTooltipModule,
+    PageHeaderComponent
+],
     templateUrl: './source.component.html',
     styleUrl: './source.component.scss'
 })

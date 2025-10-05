@@ -14,20 +14,22 @@ import {TimeSelectorComponent} from "@shared/components/time-selector/time-selec
 import { HardwareService } from '@core/services/hardware.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltip} from "@angular/material/tooltip";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-healthcheck',
     imports: [
-        MatButtonToggleModule,
-        MatCardModule,
-        MatIconModule,
-        CommonModule,
-        BytesConvertPipe,
-        UptimeToDatePipePipe,
-        TimeSelectorComponent,
-        MatExpansionModule,
-        MatTooltip
-    ],
+    MatButtonToggleModule,
+    MatCardModule,
+    MatIconModule,
+    CommonModule,
+    BytesConvertPipe,
+    UptimeToDatePipePipe,
+    TimeSelectorComponent,
+    MatExpansionModule,
+    MatTooltip,
+    PageHeaderComponent
+],
     providers: [
         DatePipe,
         BytesConvertPipe,

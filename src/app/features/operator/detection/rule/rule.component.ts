@@ -22,23 +22,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {DeleteModalService} from "@shared/components/modal/modal-delete/service/modal-delete.service";
 import {MatButton} from "@angular/material/button";
 import {formatAreaSpline, formatPieAndColumn} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-rule',
     imports: [
-        AreasplineComponent,
-        MatCard,
-        MatCardContent,
-        TableComponent,
-        BarComponent,
-        StackedColumnComponent,
-        ReactiveFormsModule,
-        MatIcon,
-        CommonModule,
-        TimeSelectorComponent,
-        MatTooltipModule,
-        MatButton,
-    ],
+    AreasplineComponent,
+    MatCard,
+    MatCardContent,
+    TableComponent,
+    BarComponent,
+    StackedColumnComponent,
+    ReactiveFormsModule,
+    MatIcon,
+    CommonModule,
+    TimeSelectorComponent,
+    MatTooltipModule,
+    MatButton,
+    PageHeaderComponent
+],
     providers: [AlertsFormService],
     templateUrl: './rule.component.html',
     styleUrl: './rule.component.scss'

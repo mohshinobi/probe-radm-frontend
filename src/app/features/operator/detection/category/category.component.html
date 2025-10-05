@@ -1,6 +1,5 @@
-<div>
-  <div class="header-title">
-    <div>
+<page-header [title]="'Category'"  
+[subtitle]="'Detection'">
       <app-time-selector
         [options]="timeFilterOptions"
         [title]="title"
@@ -8,8 +7,11 @@
         (timeChange)="onTimeChange($event)"
         (customSelected)="onCustomSelected($event)">
       </app-time-selector>
-    </div>
-  </div>
+</page-header> 
+
+
+<div>
+ 
   <div class="content">
     <section style="margin:0;">
       <div class="column-61">

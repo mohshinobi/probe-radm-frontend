@@ -19,11 +19,12 @@ import {TimeSelectorComponent} from "@shared/components/time-selector/time-selec
 import {MatTooltip} from "@angular/material/tooltip";
 import { CdkDrag} from '@angular/cdk/drag-drop';
 import {formatSankey} from "@core/utils/graph-formater.util";
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 HC_networkgraph(Highcharts);
 @Component({
     selector: 'app-activity',
-    imports: [MatCardModule, MatIconModule, CommonModule, NetworkComponent, SankeyComponent, HeatMapComponent, MatInputModule, MatFormFieldModule, TimeSelectorComponent, MatTooltip, CdkDrag],
+    imports: [MatCardModule, MatIconModule, CommonModule, NetworkComponent, SankeyComponent, HeatMapComponent, MatInputModule, MatFormFieldModule, TimeSelectorComponent, MatTooltip, CdkDrag, PageHeaderComponent],
     providers: [BytesConvertPipe],
     templateUrl: './activity.component.html',
     styleUrls: ['./activity.component.scss']
