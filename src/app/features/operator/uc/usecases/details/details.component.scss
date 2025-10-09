@@ -1,5 +1,5 @@
 :host {
-  --mat-stepper-header-selected-state-icon-background-color: #FFF73F;
+  --mat-stepper-header-selected-state-icon-background-color: var(--radm-lightblue);
   --mat-stepper-header-selected-state-icon-foreground-color: black;
   --mat-stepper-header-edit-state-icon-background-color:rgba(255, 255, 255, 0.71);
   --mat-stepper-header-label-text-color: white;

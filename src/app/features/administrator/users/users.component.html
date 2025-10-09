@@ -1,11 +1,7 @@
-<div>
-  <div class="button-container">
-    <app-time-selector [title]="'Users Management'">
-    </app-time-selector>
-    <button mat-raised-button class="add-user-button" (click)="openAddUserModal()">
-      <mat-icon>person_add</mat-icon> Add User
-    </button>
-  </div>
+
+<page-header [title]="'Users Management'"/>
+
+<div> 
   <div style="padding-top: 14px;">
     <app-table
       [tableDataResponse]="users()"
@@ -17,7 +13,10 @@
       (tableActions)="tableActions($event)"
       (cellDatas)="handleDataSet($event)"
       [seeMore]="false" >
-      <button slot="delete-button" [disabled]="!this.isSelectedUsers()" (click)="openUsersDeleteModal()" mat-button class="button-action" > <mat-icon>delete</mat-icon> Delete</button>
+      <div slot="delete-button">
+        <button mat-raised-button class="add-user-button" (click)="openAddUserModal()"><mat-icon>person_add</mat-icon> Add User</button>
+        <button  [disabled]="!this.isSelectedUsers()" (click)="openUsersDeleteModal()" mat-button class="button-action" > <mat-icon>delete</mat-icon> Delete</button>
+      </div>
     </app-table>
   </div>
 </div>

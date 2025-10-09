@@ -48,7 +48,7 @@
 
   .hostname {
     font-size: 25px;
-    color: #FFF73F;
+    color: var(--radm-lightblue);
     font-family: BebasNeue;
     font-weight: bold; /* make the hostname font bold */
     margin-bottom: 10px; /* add some space below the hostname */
@@ -286,7 +286,7 @@ text {
           margin: 0;
           border-top-right-radius:3px;
           &:hover{
-            background-color: #FFF73F;
+            background-color: var(--radm-lightblue);
             color: #333;
           }
         }
@@ -323,7 +323,7 @@ text {
 
 
     &:hover{
-      background-color: #FFF73F;
+      background-color: var(--radm-lightblue);
       color:#333;
     }
     }

@@ -44,7 +44,7 @@ section {
 
 
 .txt-yellow {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
 }
 
 .mg-0 {
@@ -52,7 +52,7 @@ section {
 }
 
 .no-data {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
   font-weight: bold;
   font-size: 20px;
   text-align: center;
@@ -75,13 +75,13 @@ mat-card-content {
     .cta {
       cursor: pointer;
     &:hover {
-      color: #FFF73F;
+      color: var(--radm-lightblue);
     }
     }
   }
   .title {
     font-size: 16px;
-    color: #FFF73F;
+    color: var(--radm-lightblue);
     font-weight: 700;
   }
 }
@@ -145,7 +145,7 @@ mat-card-content {
 }
 
 .label {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
   font-size: 16px;
   font-weight: 700;
 }

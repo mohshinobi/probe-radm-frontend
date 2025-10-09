@@ -206,7 +206,7 @@ ul{
 }
 
 .cybercriminal-color {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
 }
 
 .apt-color {
@@ -338,7 +338,7 @@ ul{
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 16px;
-  background-color: #FFF73F1A;
+  background-color: var(--radm-lightblue)1A;
 }
 
 .recent-title {
@@ -409,7 +409,7 @@ mat-panel-title {
 .button-sesame{
   font-family: BebasNeue, sans-serif;
   border-radius: 0;
-  background-color: #FFF73F;
+  background-color: var(--radm-lightblue);
   color: #323231;
   font-size: 18px;
   font-weight: 700;

@@ -12,7 +12,7 @@ export const OtGlobal :ConfigInterface =  {
   zone : 'Zone',
   asset: 'Asset',
   undiscoveredAsset: 'Undiscovred asset',
-  yellow : '#FFF73F'
+  yellow : 'var(--radm-lightblue)'
 };
 
 export function getDiagram(){

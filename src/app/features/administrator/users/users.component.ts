@@ -32,31 +32,33 @@ import { TokenService } from '@core/services/token.service';
 import { CommonService } from '@core/services';
 import { TimeSelectorComponent } from "@shared/components/time-selector/time-selector.component";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
     imports: [
-        CommonModule,
-        MatTableModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatCheckboxModule,
-        MatSlideToggleModule,
-        TableComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatGridListModule,
-        MatGridListModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        TimeSelectorComponent,
-        MatTooltipModule
-    ],
+    CommonModule,
+    MatTableModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    TableComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    TimeSelectorComponent,
+    MatTooltipModule,
+    PageHeaderComponent
+],
     providers: [UsersService]
 })
 export class UsersComponent {

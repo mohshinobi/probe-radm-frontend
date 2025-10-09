@@ -49,7 +49,7 @@ export class ProtocolGraphService {
       backgroundColor: '#1F1F1F',
       yAxisLabel: 'Requests',
       data: data,
-      lineColor: '#fff73f',
+      lineColor: 'var(--radm-lightblue)',
       height: 415
     };
   }
@@ -71,7 +71,7 @@ export class ProtocolGraphService {
       title: undefined,
       label: 'Alerts',
       data: data,
-      colors: ['#8BC34A', '#9C27B0', '#ffa78f', '#fff73f', '#f89200', '#ec72eb', '#9999ff', '#45efa9', '#FFC107', '#03A9F4', '#E5E5EA', '#2196F3', '#F7DC6F'],
+      colors: ['#8BC34A', '#9C27B0', '#ffa78f', 'var(--radm-lightblue)', '#f89200', '#ec72eb', '#9999ff', '#45efa9', '#FFC107', '#03A9F4', '#E5E5EA', '#2196F3', '#F7DC6F'],
       height: 415
     };
   }

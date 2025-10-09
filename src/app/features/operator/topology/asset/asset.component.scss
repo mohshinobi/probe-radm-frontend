@@ -299,7 +299,14 @@ h1.title {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ajoute une ombre légère pour un effet de profondeur */
   }
 }
-
+.card{
+  
+}
+.card-stats{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
 .card-stats:hover .icon-stats {
   transform: scale(1.4); /* Stronger zoom effect */
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transition for both zoom and color */
@@ -319,29 +326,29 @@ h1.title {
 
 
 .bg-total {
-  background : rgba(251, 253, 109, 0.8);
+  background :  var(--radm-yellow);
 }
 .bg-offline {
-  background: #F44949;
+  background: var(--radm-red);
 }
 .bg-connected {
-  background: #2E8B57;
+  background: var(--radm-green);
 }
 
 .txt-connected {
-  color: #2E8B57;
+  color: var(--radm-green);
 }
 
 .txt-offline {
-  color: #F44949;
+  color:  var(--radm-red);
 }
 
 .text-black {
-  color: #1F1F1F;
+  color:  var(--radm-black);
 }
 
 .bg-new{
-  background: rgb(134, 200, 255);
+  background:  var(--radm-lightblue);
 }
 
 .icon-stats{
@@ -363,7 +370,7 @@ h1.title {
 
 .icon-shape {
   display: inline-flex;
-  padding: 12px;
+ 
   text-align: center;
   border-radius: 50%;
   align-items: center;
@@ -443,7 +450,7 @@ h1.title {
 }
 
 .live-separator {
-  margin: 0 7px;
+  margin: 0 1rem;
 }
 
 // this week

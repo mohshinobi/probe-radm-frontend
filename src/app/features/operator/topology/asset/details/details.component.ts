@@ -1,5 +1,4 @@
-import { HighchartsChartModule } from 'highcharts-angular';
-import { style } from '@angular/animations';
+import { HighchartsChartModule } from 'highcharts-angular'; 
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
@@ -14,20 +13,21 @@ import Highcharts, { Point, Series } from 'highcharts';
 import { PieComponent } from "../../../../../shared/components/graphs/pie/pie.component";
 import { PieChartInterface } from '@core/interfaces';
 import { DateAgoPipe } from '@shared/pipes/date-ago.pipe';
+import { PageHeaderComponent } from "@layout/header/page-header.component";
 
 
 @Component({
     selector: 'app-asset-details',
     imports: [CommonModule, MatChipsModule, MatTable,
-        MatColumnDef,
-        MatCell,
-        MatCellDef,
-        MatRowDef,
-        MatRow,
-        DateAgoPipe,
-        MatCardModule,
-        HighchartsChartModule,
-        SkeletonComponent, PieComponent],
+    MatColumnDef,
+    MatCell,
+    MatCellDef,
+    MatRowDef,
+    MatRow,
+    DateAgoPipe,
+    MatCardModule,
+    HighchartsChartModule,
+    SkeletonComponent, PieComponent, PageHeaderComponent],
     providers: [DateAgoPipe],
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss'

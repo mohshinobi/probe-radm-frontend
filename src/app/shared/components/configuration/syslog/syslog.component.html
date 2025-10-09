@@ -1,11 +1,13 @@
-<div class="title-syslog">
-  <h2 class="title-section title-tooltip">Configuration Syslog<mat-icon matTooltip="Specifies settings for logging system and alerts events.">help_outline</mat-icon></h2>
-  @if(configurationSyslog().length  < 2 && isAdmin) {
-    <button mat-raised-button (click)="openDialog('', 'New Syslog Configuration', 'add_syslog', 'syslog')" class="btn btn-white" style="max-width: 100px;" matTooltip="Add new Syslog Configuration">
-      <mat-icon class="btn-icon">add</mat-icon>
-    </button>
-  }
-</div>
+<section>
+  <div class="title-syslog">
+    <h2 class="title-section title-tooltip">Configuration Syslog<mat-icon matTooltip="Specifies settings for logging system and alerts events.">help_outline</mat-icon></h2>
+    @if(configurationSyslog().length  < 2 && isAdmin) {
+      <button mat-raised-button (click)="openDialog('', 'New Syslog Configuration', 'add_syslog', 'syslog')" class="btn btn-white" style="max-width: 100px;" matTooltip="Add new Syslog Configuration">
+        <mat-icon class="btn-icon">add</mat-icon>
+      </button>
+    }
+  </div>
+</section>
 
 
 <section class="mg-0" style="align-items: stretch">

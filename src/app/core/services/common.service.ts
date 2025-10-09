@@ -10,7 +10,7 @@ export class CommonService {
   // COLORS
   sevColors = ['#F44949', '#94da30', '#F89200', '#FFC080','#019c76','#526aff', '#9C27B0','#33FFBD', '#ec7063', '#a569bd' ];
   chartsColors = [ '#FFC107', '#8BC34A',  '#9C27B0','#03A9F4', '#E5E5EA', '#FF9800',  '#4CAF50', '#673AB7',  '#2196F3',  '#F7DC6F'];
-  areaChartColor = '#FFF73F';
+  areaChartColor = 'var(--radm-lightblue)';
   barChartColor = '#FFC107';
   sourceColor = '#33FFBD';
   destinationColor = '#FFBD33';

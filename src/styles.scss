@@ -24,15 +24,42 @@ $compact-theme: mat.define-theme(
   @include mat.all-component-themes($default-theme);
   @include mat.form-field-density($compact-theme); 
 }
-
 :root {
-  --mdc-circular-progress-active-indicator-color:#FFF73F;
+  --mdc-circular-progress-active-indicator-color:var(--radm-lightblue);
   --navbar-height: 64px;
   --footer-height: 5rem;
   --mat-card-border-radius: 8px; 
 }
 :root{
-    .radm-card{
+    .w-100{
+      width: 100%;
+    }
+    .w-50{
+      width: 50%;
+    }
+    .w-25{
+      width: 25%;
+    }
+    .w-10{
+      width: 10%;
+    }
+  .flex{
+    display: flex;
+    flex-wrap: wrap;
+    flex: auto;
+    &.f-col{
+      flex-direction: column;
+    }
+    &.f-row{
+      flex-direction: row;
+    }
+
+  }
+  .card-border{
+    border: 1px solid var(--radm-border-gray);
+    border-radius: var(--mat-card-border-radius) !important;
+  }
+  .radm-card{
     background-color: var(--radm-black);
     border-radius: var(--mat-card-border-radius) !important;
     min-height: 5em; 
@@ -104,7 +131,7 @@ body { margin: 0; font-family: BebasNeue, "Helvetica Neue", sans-serif; overflow
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #FFF73F;
+  background-color: var(--radm-lightblue);
   color: #000;
   border-radius: 10px;
   padding: 8px;
@@ -115,7 +142,7 @@ body { margin: 0; font-family: BebasNeue, "Helvetica Neue", sans-serif; overflow
   gap: 3px;
   &:hover {
     background-color: #27293d;
-    color: #FFF73F;
+    color: var(--radm-lightblue);
   }
 
 }
@@ -129,12 +156,12 @@ body { margin: 0; font-family: BebasNeue, "Helvetica Neue", sans-serif; overflow
   }
   ::-webkit-scrollbar-thumb {
   border-radius: 4px !important;
-  background-color: #FFF73F !important;
+  background-color: var(--radm-lightblue)!important;
   }
 
   .mat-mdc-optgroup-label{
     color: #000 !important;
-    background-color: #FFF73F;
+    background-color: var(--radm-lightblue);
   }
 
 
@@ -202,7 +229,7 @@ $sev-colors: ('#F44949', '#FF6633', '#F89200', '#FFC080');
 // }
 
 .g-bubble__active {
-  background-color: yellow;
+  background-color: var(--radm-lightblue);
   color: black !important;
   border: 1px solid yellow ;
 }
@@ -219,7 +246,7 @@ $sev-colors: ('#F44949', '#FF6633', '#F89200', '#FFC080');
 .highcharts-legend-item{
   text{
     &:hover{
-      fill:#FFF73F !important;
+      fill:var(--radm-lightblue)!important;
     }
   }
 }

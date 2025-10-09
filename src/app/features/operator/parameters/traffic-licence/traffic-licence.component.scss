@@ -26,7 +26,7 @@
 .value, .unit {
     font-family: 'Sesame';
     font-weight: bold;
-    color: #FFF73F;
+    color: var(--radm-lightblue);
 }
 
 .value {
@@ -117,7 +117,7 @@ section {
 }
 
 .icon-warning {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
   font-size: 42px;
   width: 42px;
   height: 42px;
@@ -135,7 +135,7 @@ section {
   justify-content: center;
   gap: 5px;
   .main-number, .title {
-    color: #FFF73F;
+    color: var(--radm-lightblue);
   }
 }
 

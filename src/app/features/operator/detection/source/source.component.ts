@@ -373,7 +373,7 @@ export class SourceComponent implements OnInit{
     title: '',
     height:'300',
     color: '#FF0000',
-    hoverColor: '#FFF73F',
+    hoverColor: 'var(--radm-lightblue)',
     label: 'Requests',
     data: this.topSourceMap(),
   }));

@@ -29,7 +29,7 @@ export class StackedBarComponent {
 
   private loadGraph(options: StackedColumnInterface) {
     const defaultColors = [
-        '#FF975C', '#9242F5', '#FFF73F', '#FF85FA', '#FF3FB2',
+        '#FF975C', '#9242F5', 'var(--radm-lightblue)', '#FF85FA', '#FF3FB2',
         '#FF3E6C', '#85E2FF', '#5960FF', '#77FFD6', '#FF8585',
         '#96FF85', '#858AFF', '#F6C039',
     ];

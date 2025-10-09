@@ -1,56 +1,62 @@
  
 <page-header [title]="'Discovery'"/> 
 
-<section >
-  <div class="column-100 radm-card" >
-    <h3 class="card-title">
-      Assets Stats   
-      <mat-icon matTooltip="Assets Stats" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
-    </h3>
-    <div class="cards-container">  
-      @for (card of itStats()  ; track card){ 
-        @if(card.key != "Down") {
-          <div class="card card-stats">
-            <div class="card-body">
-              <div class="col">
-                <h5 class="card-title">{{card.key | uppercase}}</h5>
-                <span class="count">{{card.value}}</span>
-              </div>
-              <div [ngClass]="'icon icon-shape text-white rounded-circle shadow bg-' + card.key | lowercase">
-                <i class="icon-stats fa-solid"
-                    [ngClass]="{
-                      'fa-laptop': card.key === 'Total',
-                      'fa-plug-circle-xmark': card.key === 'Offline',
-                      'fa-plug': card.key === 'Connected',
-                      'fa-plus': card.key === 'New'
-                    }"></i>
-              </div>
-            </div>
-          </div>
+<section>
+  <mat-card class="radm-card w-100">
+    <mat-card-header>
+       <h3 class="card-title">
+        Assets Stats
+        <mat-icon matTooltip="Assets Stats" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
+      </h3>  
+    </mat-card-header>
+    <mat-card-content>
+      <div class="cards-container">  
+        @for (card of itStats()  ; track card){ 
+          @if(card.key != "Down") {
+            <mat-card  >
+              <mat-card-content class="flex f-row card-border">
+                <div class="col">
+                  <h5 class="card-title">{{card.key | uppercase}}</h5>
+                  <span class="count">{{card.value}}</span>
+                </div>
+                <div [ngClass]="'icon icon-shape text-white rounded-circle shadow bg-' + card.key | lowercase">
+                  <i class="icon-stats fa-solid"
+                      [ngClass]="{
+                        'fa-laptop': card.key === 'Total',
+                        'fa-plug-circle-xmark': card.key === 'Offline',
+                        'fa-plug': card.key === 'Connected',
+                        'fa-plus': card.key === 'New'
+                      }"></i>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
         }
-      }
     </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
+ 
 </section>
 
-<section class="column-100 live-section">
-  <div class="chips-live">
-    <span class="live-dot"></span>
-    <span>Last New Assets</span>
-  </div>
-  <div class="live-container">
-  <span class="news-title">
-    @if (lastNew()) {
-      @for (asset of lastNew();track $index) {
-        <div [ngClass]="'item-live ' + (asset.devPresentLastScan == 1 ? 'txt-connected' : 'txt-offline')" (click)="redirectToDetails(asset)">
-          <span [innerHTML]="asset.devIcon | base64"></span>
-          <span>{{ asset.devName }}</span>
-        </div>
-        <span class="live-separator">&#8226;</span>
-      }
-    }
-  </span>
-  </div>
+<section >
+  <mat-card class="radm-card w-100">
+    <mat-card-content>
+      <mat-card-header><h3 class="card-title">Last New Assets</h3></mat-card-header>    
+      <span class="news-title">
+        @if (lastNew()) {
+          @for (asset of lastNew();track $index) {
+            <div [ngClass]="'item-live ' + (asset.devPresentLastScan == 1 ? 'txt-connected' : 'txt-offline')" (click)="redirectToDetails(asset)">
+              <span [innerHTML]="asset.devIcon | base64"></span>
+              <span>{{ asset.devName }}</span>
+            </div>
+            <span class="live-separator"> </span>
+          }
+        }
+      </span>
+ 
+    </mat-card-content>
+  </mat-card>
+
 </section>
 
 <section>
@@ -93,8 +99,8 @@
 
 </section>
 
-<section>
-  <div class="asset-table-container column-100">
+ 
+  <div class="asset-table-container mt-10">
     <app-table
       #tableComponent
       [tableDataResponse]="assetsGraph()"
@@ -110,5 +116,4 @@
       (cellDatas)="getCellDatas($event)"
       [seeMore]="false"
     />
-  </div>
-</section>
+  </div> 

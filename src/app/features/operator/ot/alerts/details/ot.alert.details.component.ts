@@ -56,7 +56,7 @@ export class OtAlertDetailsComponent implements AfterViewInit, OnDestroy {
   private _router = inject(Router);
   infos = signal<{ asset_src: OtAsset|undefined ; asset_dst: OtAsset|undefined} >({ asset_src: undefined, asset_dst: undefined });
   @ViewChild('graphConversation', { static: true }) graphConversation!:ElementRef<HTMLCanvasElement>;
-  linkColor:string = '#FFF73F';
+  linkColor:string = 'var(--radm-lightblue)';
   viewBox: string = '';
   @ViewChild('svg') svgEl!: ElementRef<SVGElement>;
   @ViewChild('source') sourceEl!: ElementRef<HTMLElement>;

@@ -1,17 +1,17 @@
 .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
-    --mdc-tab-indicator-active-indicator-color: #FFF73F;
+    --mdc-tab-indicator-active-indicator-color: var(--radm-lightblue);
     --mat-tab-header-disabled-ripple-color: rgb(255, 255, 255);
     --mat-tab-header-pagination-icon-color: white;
     --mat-tab-header-inactive-label-text-color: rgb(255, 255, 255);
-    --mat-tab-header-active-label-text-color: #FFF73F;
-    --mat-tab-header-active-ripple-color: #FFF73F;
-    --mat-tab-header-inactive-ripple-color: #FFF73F;
+    --mat-tab-header-active-label-text-color: var(--radm-lightblue);
+    --mat-tab-header-active-ripple-color: var(--radm-lightblue);
+    --mat-tab-header-inactive-ripple-color: var(--radm-lightblue);
     --mat-tab-header-inactive-focus-label-text-color: rgba(255, 255, 255, 0.6);
     --mat-tab-header-inactive-hover-label-text-color: rgba(255, 255, 255, 0.6);
-    --mat-tab-header-active-focus-label-text-color: #FFF73F;
-    --mat-tab-header-active-hover-label-text-color: #FFF73F;
-    --mat-tab-header-active-focus-indicator-color: #FFF73F;
-    --mat-tab-header-active-hover-indicator-color: #FFF73F;
+    --mat-tab-header-active-focus-label-text-color: var(--radm-lightblue);
+    --mat-tab-header-active-hover-label-text-color: var(--radm-lightblue);
+    --mat-tab-header-active-focus-indicator-color: var(--radm-lightblue);
+    --mat-tab-header-active-hover-indicator-color: var(--radm-lightblue);
 }
 
 .title {

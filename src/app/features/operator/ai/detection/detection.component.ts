@@ -298,7 +298,7 @@ export class DetectionComponent {
     data: this.alertArea(),
     title: undefined,
     yAxisLabel: 'AI Alerts',
-    lineColor: '#fff73f',
+    lineColor: 'var(--radm-lightblue)',
     height: 180,
     backgroundColor: '#1F1F1F',
     labelColor: '#C5C4BE',

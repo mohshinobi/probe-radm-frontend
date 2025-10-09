@@ -10,7 +10,9 @@
   --radm-orange:#ff7c0a;
   --radm-orange-rgb:255, 124, 10;
 
-  --radm-green:#aad372;
+  --ramd-palgreen: #aad372;
+  --radm-green:#00ff98;
+  --radm-darkgreen: #33937f;
   --radm-green-rgb:170, 211, 114;
 
   --radm-lightblue:#3fc7eb;
@@ -45,5 +47,5 @@
   color: var(--radm-orange);
 }
 .yellow {
-  color: var(--radm-yellow);
+  color: var(--radm-lightblue);
 }

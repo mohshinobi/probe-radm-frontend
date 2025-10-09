@@ -39,7 +39,7 @@
       <!-- Contenu principal de la table -->
       <div class="table-container" #tableContainer>
         <div style="width: 100%; max-height: 800px;  display: flex; justify-content: space-between; align-items: center; overflow: hidden;">
-          <div class="chip-container" style="max-width: 100%; padding-left: 1rem; overflow-x:scroll;" >
+          <div class="chip-container">
             <mat-chip-set aria-label="Enter template form keywords">
               @for (keyword of chipFilterData(); track keyword) {
                 <mat-chip
@@ -56,11 +56,12 @@
           </div>
 
           <div style="padding: 10px;">
-            <ng-content select="[slot=delete-button]"></ng-content>
-            <button mat-button class="button-action" (click)="drawerFilter.toggle()"> <mat-icon>tune</mat-icon> Filters</button>
-            <button mat-button class="button-action" (click)="drawerColumn.toggle()"> <mat-icon>view_column</mat-icon> Select Columns</button>
+            <ng-content class="slot-button-table" select="[slot=delete-button]">
+              <button mat-button class="button-action" (click)="drawerFilter.toggle()"> <mat-icon>tune</mat-icon> Filters</button>
+              <button mat-button class="button-action" (click)="drawerColumn.toggle()"> <mat-icon>view_column</mat-icon> Select Columns</button>
+            </ng-content>
             @if (seeMore){
-              <button mat-button style="border: 1px solid #1e1e1e; background-color: yellow; color: #1e1e1e; border-radius: 8px; margin: 8px;" (click)="gotToSeeMore()">See More</button>
+              <button mat-button style="border: 1px solid #1e1e1e; background-color: var(--radm-lightblue); color: #1e1e1e; border-radius: 8px; margin: 8px;" (click)="gotToSeeMore()">See More</button>
             }
           </div>
         </div>

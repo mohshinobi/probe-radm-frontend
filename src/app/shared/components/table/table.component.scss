@@ -16,7 +16,9 @@ section {
   padding: 0;
   border-left: 1px solid #454443;
 }
-
+.slot-button-table{
+  display: flex;
+}
 .table-container {
   // Dimensions et positionnement
   min-height: 100%;
@@ -62,7 +64,7 @@ section {
 }
 
 // thead {
-//   background-color: #FFF73F !important;
+//   background-color: var(--radm-lightblue)!important;
 //   color: #000 !important;
 // }
 
@@ -161,10 +163,10 @@ button {
   margin-left: 20px;
 }
 
-.chip-container {
-  max-width: 1000px;
-  overflow-x: auto;
+.chip-container {  
   white-space: nowrap;
+  max-width: 100%; 
+  padding-left: 1rem;  
 }
 
 ::ng-deep .green-background {

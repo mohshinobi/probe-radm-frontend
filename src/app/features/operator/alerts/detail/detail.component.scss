@@ -64,7 +64,7 @@
 
 h1 {
   margin: 1%;
-  color: #FFF73F;
+  color: var(--radm-lightblue);
   font-size: 24px;
 }
 
@@ -207,7 +207,7 @@ a {
   -webkit-transition-timing-function: cubic-bezier(.75,0,.25,1.00);
   -o-transition-timing-function: cubic-bezier(.75,0,.25,1.00);
   transition-timing-function: cubic-bezier(.75,0,.25,1.00);
-  color: #FFF73F;
+  color: var(--radm-lightblue);
 }
 
 @-webkit-keyframes Arrow-Right-Animation {
@@ -348,7 +348,7 @@ a {
 }
 
 .score-yellow {
-  color: yellow;
+  color: var(--radm-lightblue);
 }
 
 .score-orange {
@@ -521,7 +521,7 @@ a {
   }
 
   .chat-icon {
-    color: #fff73f;
+    color: var(--radm-lightblue);
     transition: color 0.2s ease;
 
     &:hover {

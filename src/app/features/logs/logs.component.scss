@@ -173,7 +173,7 @@
   }
 
   .view:hover, .download:hover {
-    color: #FFF73F;
+    color: var(--radm-lightblue);
 
   }
 
@@ -275,13 +275,13 @@
   flex-direction: column; /* Alignement vertical (colonne) */
   justify-content: center; /* Centre horizontalement */
   align-items: center; /* Centre verticalement */
-  color: #FFF73F; /* Couleur du texte et du spinner */
+  color: var(--radm-lightblue); /* Couleur du texte et du spinner */
   z-index: 1000; /* Assure que le spinner est au-dessus */
   stroke: "";
 }
 
 .loading-state mat-spinner {
-  color: #FFF73F !important; /* Forcer la couleur jaune */
+  color: var(--radm-lightblue)!important; /* Forcer la couleur jaune */
 }
 
 
@@ -308,7 +308,7 @@ mat-card-content {
 
 
 .label {
-  color: #FFF73F;
+  color: var(--radm-lightblue);
   font-size: 16px;
   font-weight: 700;
 }
@@ -323,13 +323,13 @@ mat-card-content {
     .cta {
       cursor: pointer;
     &:hover {
-      color: #FFF73F;
+      color: var(--radm-lightblue);
     }
     }
   }
   .title {
     font-size: 16px;
-    color: #FFF73F;
+    color: var(--radm-lightblue);
     font-weight: 700;
   }
 }
