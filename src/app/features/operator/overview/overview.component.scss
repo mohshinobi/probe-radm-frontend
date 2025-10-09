@@ -57,7 +57,7 @@ section {
   width: 19.7%;
   height: 100%;
   padding: 20px;
-  border-radius: var(--mat-card-border-radius);;
+  border-radius: var(--mat-card-border-radius);
 }
 
 .card-content {
@@ -66,6 +66,7 @@ section {
 
 .card-insights{
   padding: 1rem;
+  border: 1px solid var(--radm-border-gray);
   .content-wrapper{
       display: flex;
       flex-direction: row;

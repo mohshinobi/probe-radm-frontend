@@ -169,7 +169,7 @@ interface LoginInterface {
     <!-- Logo et version -->
     <h1>Welcome to</h1>
     <div class="logo">
-      <img src="assets/images/logo-jizo-white.png" alt="logo" />
+      <img src="assets/images/logo-radm-white.png" alt="logo" />
       <span class="version">V {{version().full_version}}</span>
     </div>
     

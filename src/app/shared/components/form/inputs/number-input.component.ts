@@ -3,9 +3,9 @@ import { BaseInputComponent } from './base-input.component';
 import { BaseInputModule } from './base-input.module';
 
 @Component({
-    selector: 'jizo-number',
+    selector: 'radm-number',
     template: `
-    <mat-form-field [formGroup]="form" class="field" jizoearance="outline">
+    <mat-form-field [formGroup]="form" class="field" radmearance="outline">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
       <input
         matInput

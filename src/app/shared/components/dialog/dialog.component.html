@@ -5,7 +5,7 @@
           @for (field of data().fields; track $index) {
             @if(field.key=="label") {
               <div class="label">
-                <jizo-form [form]="data().form" [field]="field" ></jizo-form>
+                <radm-form [form]="data().form" [field]="field" ></radm-form>
               </div>
             }
 
@@ -13,7 +13,7 @@
               <div class="valid">
                 <h3>VALID</h3>
                   @if(field.key !="label") {
-                  <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                  <radm-form [form]="data().form" [field]="field"></radm-form>
                   }
 
               </div>
@@ -23,7 +23,7 @@
               <div class="except">
                 <h3>EXCEPTION</h3>
                   @if(field.key !="label") {
-                  <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                  <radm-form [form]="data().form" [field]="field"></radm-form>
                   }
               </div>
             }
@@ -38,7 +38,7 @@
         @for (field of data().fields; track $index) {
           @if(field.key=="label") {
             <div class="label">
-              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+              <radm-form [form]="data().form" [field]="field"></radm-form>
             </div>
           }
 
@@ -46,7 +46,7 @@
             <div class="valid">
               <h3>VALID</h3>
                 @if(field.key !="label") {
-                <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                <radm-form [form]="data().form" [field]="field"></radm-form>
                 }
             </div>
 
@@ -55,7 +55,7 @@
             <div class="except">
               <h3>EXCEPTION</h3>
                 @if(field.key !="label") {
-                <jizo-form [form]="data().form" [field]="field"></jizo-form>
+                <radm-form [form]="data().form" [field]="field"></radm-form>
                 }
             </div>
           }
@@ -84,7 +84,7 @@
       <p>Please select the configuration you want to delete </p>
       <div class="delete_input">
         @for (field of data().fields; track $index) {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
       </div>
       <button mat-raised-button class="btn-color" (click)="deleteMultiConfig(data().section, data().form.value)" style="margin-right: 20px;">Yes</button>
@@ -98,27 +98,27 @@
           @for (field of data().fields; track $index) {
             @if(field.key=='client_private_key') {
               @if(data().form.value.tls) {
-                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+                <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
               }
             }
             @else if(field.key=='server_certificate') {
               @if(data().form.value.tls) {
-                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+                <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
               }
             } 
             @else if(field.key=='client_certificate') {
               @if(data().form.value.tls) {
-                <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+                <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
               }
             } 
             @else if (field.key=='tls') {
-              <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+              <radm-form [form]="data().form" [field]="field" (click)="changeTls()"></radm-form>
             }
             @else if (field.key=='protocol') {
-              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+              <radm-form [form]="data().form" [field]="field"></radm-form>
             }
             @else {
-              <jizo-form [form]="data().form" [field]="field"></jizo-form>
+              <radm-form [form]="data().form" [field]="field"></radm-form>
             }
           }
         <!-- Boutons pour submit -->
@@ -132,27 +132,27 @@
       @for (field of data().fields; track $index) {
         @if(field.key=='client_private_key') {
           @if(data().form.value.tls) {
-              <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)" ></jizo-form>
+              <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)" ></radm-form>
           }
         }
         @else if(field.key=='server_certificate') {
           @if(data().form.value.tls) {
-            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
           }
         } 
         @else if(field.key=='client_certificate') {
           @if(data().form.value.tls) {
-            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
           }
         } 
         @else if (field.key=='tls') {
-          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+          <radm-form [form]="data().form" [field]="field" (click)="changeTls()"></radm-form>
         }
         @else if (field.key=='template') {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
         @else {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
       }
     <!-- Boutons pour submit -->
@@ -204,7 +204,7 @@
   @else if (data().type == "update_severity") {
       <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_severity">
         @for (field of data().fields; track $index) {
-            <jizo-form [form]="data().form" [field]="field"></jizo-form>
+            <radm-form [form]="data().form" [field]="field"></radm-form>
         }
       <!-- Boutons pour submit -->
       <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update Severity</button>
@@ -215,7 +215,7 @@
   @else if (data().type == "update_pcap") {
     <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_pcap">
       @for (field of data().fields; track $index) {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
       }
     <!-- Boutons pour submit -->
     <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update</button>
@@ -226,7 +226,7 @@
 @else if (data().type == "update_sftp_files" || data().type == "update_sftp_remote") {
   <form [formGroup]="data().form" (ngSubmit)="submitForm(data().type)" name="update_pcap">
     @for (field of data().fields; track $index) {
-        <jizo-form [form]="data().form" [field]="field"></jizo-form>
+        <radm-form [form]="data().form" [field]="field"></radm-form>
     }
   <!-- Boutons pour submit -->
   <button type="submit" mat-raised-button class="btn-color" style="margin-right: 20px;" [disabled]="data().form.invalid">Update</button>
@@ -239,24 +239,24 @@
       @for (field of data().fields; track $index) {
         @if(field.key=='certificate') {
           @if(data().form.value.tls) {
-            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
             <span class="info">Username and password are required to test the connection before saving.</span>
 
           }
         }
 
         @else if (field.key=='tls') {
-          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+          <radm-form [form]="data().form" [field]="field" (click)="changeTls()"></radm-form>
           @if(!data().form.value.tls) {
           <span class="info">Username and password are required to test the connection before saving.</span>
           }
         }
         
         @else if (field.key != 'username' && field.key != 'password') {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
         @else {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
       }
     <!-- Boutons pour submit -->
@@ -287,24 +287,24 @@
       @for (field of data().fields; track $index) {
         @if(field.key=='certificate') {
           @if(data().form.value.tls) {
-            <jizo-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></jizo-form>
+            <radm-form [form]="data().form" [field]="field" (files)="getFile(field.key,$event)"></radm-form>
             <span class="info">Username and password are required to test the connection before saving.</span>
 
           }
         }
 
         @else if (field.key=='tls') {
-          <jizo-form [form]="data().form" [field]="field" (click)="changeTls()"></jizo-form>
+          <radm-form [form]="data().form" [field]="field" (click)="changeTls()"></radm-form>
           @if(!data().form.value.tls) {
           <span class="info">Username and password are required to test the connection before saving.</span>
           }
         }
         
         @else if (field.key != 'username' && field.key != 'password') {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
         @else {
-          <jizo-form [form]="data().form" [field]="field"></jizo-form>
+          <radm-form [form]="data().form" [field]="field"></radm-form>
         }
       }
     <!-- Boutons pour submit -->

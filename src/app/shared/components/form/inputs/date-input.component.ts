@@ -6,9 +6,9 @@ import { BaseInputComponent } from './base-input.component';
 import {CommonService} from "@core/services";
 
 @Component({
-    selector: 'jizo-date',
+    selector: 'radm-date',
     template: `
-    <mat-form-field [formGroup]="form" class="field" jizoearance="outline">
+    <mat-form-field [formGroup]="form" class="field" radmearance="outline">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
       <input
         type="datetime-local"

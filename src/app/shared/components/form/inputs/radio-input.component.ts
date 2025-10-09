@@ -4,7 +4,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BaseInputComponent } from './base-input.component';
 
 @Component({
-    selector: 'jizo-radio',
+    selector: 'radm-radio',
     template: `
     <mat-radio-group [formGroup]="form" [id]="field.key" [formControlName]="field.key" [attr.aria-label]="field.label">
       @if (field.options) {

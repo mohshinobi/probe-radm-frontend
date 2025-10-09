@@ -1,84 +1,75 @@
  <div class="time-selector">
-    @if(condition){
+  @if(condition){
     <ng-content></ng-content>
   }
-<div>
-    <div class="time-selector-content">
-      <div [ngClass]="'selected-dates '+ (showDates ? 'show' : 'd-none')">
-        <div class="date-range">
-          <span class="label-date">Start Date : </span>
-          <!-- {{beginDate}} -->
-          @if (beginDate.toString() != 'Invalid Date') {
-            <span class="txt-dates">{{beginDate|date: 'yyyy-MM-dd HH:mm' }}</span>
-          }
+ 
+  <div class="time-selector-content">
+        <div [ngClass]="'selected-dates '+ (showDates ? 'show' : 'd-none')">
+            <div class="date-range"><span class="label-date">Start Date : </span>
+              @if (beginDate.toString() != 'Invalid Date') {
+                <span class="txt-dates">{{beginDate|date: 'yyyy-MM-dd HH:mm' }}</span>
+              }
+            </div>
+            <div class="date-range"><span class="label-date">End Date : </span>
+              @if (endDate.toString() != 'Invalid Date') {
+                <span class="txt-dates">{{endDate|date: 'yyyy-MM-dd HH:mm'}}</span>
+              }
+            </div>
         </div>
-        <div class="date-range">
-          <span class="label-date">End Date : </span>
-          @if (endDate.toString() != 'Invalid Date') {
-            <span class="txt-dates">{{endDate|date: 'yyyy-MM-dd HH:mm'}}</span>
-          }
-        </div>
-      </div>
-      <div class="flex flex-row">
-        @if(showCustomForm) {
-          <div class="flex flex-row collapse" id="time-input">
-            <mat-form-field class="input-dates">
-              <mat-label>Start</mat-label>
-              <mat-select class="filter-category dates" [(ngModel)]="beginDateSelect" (change)="onDateChange(typeTime.DateBegin, $event)">
-                <mat-option></mat-option>
-                @for(day of getFilteredBeginDays(); track day.name) {
-                  <mat-option [value]="day.name">{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="input-hours"> 
-              <mat-label>Hour</mat-label>
-              <mat-select class="filter-category" [(ngModel)]="beginHourSelect" (change)="onDateChange(typeTime.HourBegin,$event)">   
-                <mat-option></mat-option>            
-                @for(hour of getFilteredBeginHours(); track $index) {
-                  <mat-option [value]="hour.name">{{hour.value}}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field  class="input-dates">
-              <mat-label>End</mat-label>
-              <mat-select class="filter-category dates" [(ngModel)]="endDateSelect" (change)="onDateChange(typeTime.DateEnd, $event)">
-                <mat-option></mat-option>
-                @for(day of getFilteredEndDays(); track day.name) {
-                  <mat-option [value]="day.name" >{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field  class="input-hours">   
-              <mat-label>Hour</mat-label>           
-              <mat-select class="filter-category hours" [(ngModel)]="endHourSelect" (change)="onDateChange(typeTime.HourEnd, $event)">
-                <mat-option></mat-option>
-                @for(hour of getFilteredEndHours(); track $index) {
-                  <mat-option [value]="hour.name">{{hour.value}}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field> 
-          </div>
-        }
-        @if(options){
-          <mat-button-toggle-group [ngClass]="'custom-toggle-group'+ (showCustomForm ? ' custom-show' : '')" (change)="onTimeChange($event.value)" hideSingleSelectionIndicator="true">
-            <mat-button-toggle
-              class="custom-toggle"
-              *ngFor="let option of options"
-              [value]="option.value"
-              [checked]="option.value === selectedTime"
-              (click)="option.value === 'Custom' ? showCustomForm = !showCustomForm : null">
-              {{ option.label }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        }
-
-      </div>
-    </div>
   </div>
+ 
+  @if(showCustomForm) {
+    <div class="flex collapse" id="time-input">
+      <mat-form-field class="input-dates">
+        <mat-label>Start</mat-label>
+        <mat-select class="filter-category dates" [(ngModel)]="beginDateSelect" (change)="onDateChange(typeTime.DateBegin, $event)">
+          <mat-option></mat-option>
+          @for(day of getFilteredBeginDays(); track day.name) {
+            <mat-option [value]="day.name">{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="input-hours"> 
+        <mat-label>Hour</mat-label>
+        <mat-select class="filter-category" [(ngModel)]="beginHourSelect" (change)="onDateChange(typeTime.HourBegin,$event)">   
+          <mat-option></mat-option>            
+          @for(hour of getFilteredBeginHours(); track $index) {
+            <mat-option [value]="hour.name">{{hour.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  class="input-dates">
+        <mat-label>End</mat-label>
+        <mat-select class="filter-category dates" [(ngModel)]="endDateSelect" (change)="onDateChange(typeTime.DateEnd, $event)">
+          <mat-option></mat-option>
+          @for(day of getFilteredEndDays(); track day.name) {
+            <mat-option [value]="day.name" >{{day.value|date: 'yyyy-MM-dd' }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  class="input-hours">   
+        <mat-label>Hour</mat-label>           
+        <mat-select class="filter-category hours" [(ngModel)]="endHourSelect" (change)="onDateChange(typeTime.HourEnd, $event)">
+          <mat-option></mat-option>
+          @for(hour of getFilteredEndHours(); track $index) {
+            <mat-option [value]="hour.name">{{hour.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field> 
+    </div>
+  }
+  @if(options){
+    <mat-button-toggle-group [ngClass]="'custom-toggle-group'+ (showCustomForm ? ' custom-show' : '')" (change)="onTimeChange($event.value)" hideSingleSelectionIndicator="true">
+      <mat-button-toggle
+        class="custom-toggle"
+        *ngFor="let option of options"
+        [value]="option.value"
+        [checked]="option.value === selectedTime"
+        (click)="option.value === 'Custom' ? showCustomForm = !showCustomForm : null">
+        {{ option.label }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  }
 </div>
  
-
-
-
-
+ 

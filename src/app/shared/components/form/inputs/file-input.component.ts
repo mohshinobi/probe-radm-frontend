@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
 import { BaseInputModule } from './base-input.module';
 import { BaseInputComponent } from './base-input.component';
 @Component({
-    selector: 'jizo-file',
+    selector: 'radm-file',
     template: `
 
 
-    <mat-form-field [formGroup]="form" class="field" jizoearance="outline">
+    <mat-form-field [formGroup]="form" class="field" radmearance="outline">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
       <!-- Display the selected file name in a text input -->
       <input type="text" matInput

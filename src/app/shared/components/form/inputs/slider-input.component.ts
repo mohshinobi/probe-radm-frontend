@@ -5,7 +5,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NumberInput } from '@angular/cdk/coercion';
 
 @Component({
-    selector: 'jizo-slider',
+    selector: 'radm-slider',
     template: `
     <div [formGroup]="form" >
       <mat-slider>

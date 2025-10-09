@@ -10,7 +10,7 @@
           <form [formGroup]="form" (ngSubmit)="onFilter()">
             <!-- Boucle pour afficher dynamiquement les champs de filtrage -->
             @for (field of fields; track $index) {
-              <jizo-form [form]="form" [field]="field"></jizo-form>
+              <radm-form [form]="form" [field]="field"></radm-form>
             }
             <!-- Boutons pour appliquer le filtre ou réinitialiser les filtres -->
             <button type="submit" mat-raised-button color="primary" style="margin: 10px;">Filter</button>

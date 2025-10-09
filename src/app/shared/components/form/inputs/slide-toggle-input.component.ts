@@ -4,7 +4,7 @@ import { BaseInputComponent } from './base-input.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'; // Import MatSlideToggleModule
 
 @Component({
-    selector: 'jizo-slide-toggle',
+    selector: 'radm-slide-toggle',
     template: `
     <div [formGroup]="form" class="field" style="margin-bottom:20px;">
       <mat-slide-toggle [id]="field.key" [formControlName]="field.key" class="field">

@@ -71,12 +71,16 @@ mat-button-toggle.mat-button-toggle-checked {
 }
 
 .input-hours,
-.input-dates{
-  width: 7rem;
+.input-dates{ 
   margin: 0 0.5rem;
   padding: 0;
 }
- 
+.input-dates{
+  width: 10rem;
+}
+.input-hours{
+  width: 5rem;
+}
 .collapse {
   background: transparent;
   font-size: 12px;
@@ -107,7 +111,7 @@ mat-button-toggle.mat-button-toggle-checked {
       margin: 0;
     } 
     .txt-dates{
-      color: var(--radm-lightgray);
+      color: var(--radm-lightblue);
     }
   }
 

@@ -10,14 +10,10 @@ import { Location, LocationStrategy } from '@angular/common';
       <div class="footer" style="height: 50px;">
         <div class="footer-content">
           <div class="footer-links">
-            <img src="../../assets/images/logo-jizo-white.png" alt="logo" class="img-fluid img-logo"/>
-            <span class="navbar-version">V {{ version }}</span>
-            <a class="link" href="http://{{ baseUrl }}:8015" target="_blank">
-              <mat-icon>live_help</mat-icon>
-              Help</a>
-            <a class="link" href="https://sesame-it.zendesk.com" target="_blank">
-              <mat-icon>perm_phone_msg</mat-icon>
-              Contact Us</a>
+            <img src="../../assets/images/radm-logo-navbar.png" alt="logo" style="margin:0 1rem;" class="img-fluid img-logo"/>
+            <span>V {{ version }}</span>
+            <a class="link" href="http://{{ baseUrl }}:8015" target="_blank"><mat-icon>live_help</mat-icon>Help</a>
+            <a class="link"  target="_blank"><mat-icon>perm_phone_msg</mat-icon>Contact Us</a>
           </div>
         </div>
       </div>

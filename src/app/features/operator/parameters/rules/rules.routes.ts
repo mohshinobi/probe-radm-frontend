@@ -22,10 +22,6 @@ export const rulesRoutes: Route =
           loadComponent: () => import('./flow/edit/edit.component').then(c => c.RuleFlowEditComponent)
         }
       ]
-    },
-    {
-      path: 'rule-set-generator',
-      loadComponent: () => import('@features/operator/parameters/rules/rule-set-generator/rule-set-generator.component').then(c => c.RuleSetGeneratorComponent)
-    },
+    } 
   ]
 };

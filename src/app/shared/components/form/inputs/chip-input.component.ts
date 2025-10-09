@@ -5,9 +5,9 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-    selector: 'jizo-text',
+    selector: 'radm-text',
     template: `
-    <mat-form-field [formGroup]="form" class="field" jizoearance="outline">
+    <mat-form-field [formGroup]="form" class="field" radmearance="outline">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
       <mat-chip-grid #reactiveChipGrid aria-label="Enter reactive form keywords" [formControlName]="field.key" >
         @for (keyword of reactiveKeywords(); track keyword) {

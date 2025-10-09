@@ -4,9 +4,9 @@ import { BaseInputModule } from './base-input.module';
 import { BaseInputComponent } from './base-input.component';
 
 @Component({
-    selector: 'jizo-select',
+    selector: 'radm-select',
     template: `
-    <mat-form-field [formGroup]="form" class="field" jizoearance="outline">
+    <mat-form-field [formGroup]="form" class="field" radmearance="outline">
       <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
       <mat-select [id]="field.key" [formControlName]="field.key">
         @for (opt of field.options; track opt) {

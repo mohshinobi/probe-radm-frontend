@@ -17,7 +17,7 @@ import { InputBuilder } from './input.builder';
 import { FormInputType } from '@core/enums';
 
 @Component({
-    selector: 'jizo-form',
+    selector: 'radm-form',
     imports: [DynamicFieldDirective],
     template: `<ng-template dynamicField></ng-template>`,
     changeDetection: ChangeDetectionStrategy.OnPush

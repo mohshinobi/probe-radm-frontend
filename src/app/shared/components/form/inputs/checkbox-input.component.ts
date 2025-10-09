@@ -4,7 +4,7 @@ import { BaseInputModule } from './base-input.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-    selector: 'jizo-checkbox',
+    selector: 'radm-checkbox',
     template: `
     <div [formGroup]="form" >
         <mat-checkbox [id]="field.key" [formControlName]="field.key" class="field" >{{ field.label }}</mat-checkbox>
