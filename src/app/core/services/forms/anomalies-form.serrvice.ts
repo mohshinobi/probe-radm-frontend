@@ -19,7 +19,7 @@ export class AnomaliesFormService {
             new SelectField({
                 key: 'type',
                 label: 'Type',
-                options: [{key: 'ZEEKNOTICE', value: 'Notice'},{key: 'zeek-weird', value: 'Weird'}]
+                options: [{key: 'zeek-notice', value: 'Notice'},{key: 'zeek-weird', value: 'Weird'}]
             }),
             new TextField({
                 key: 'src_ip',

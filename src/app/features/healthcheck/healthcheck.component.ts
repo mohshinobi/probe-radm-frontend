@@ -42,9 +42,9 @@ export class HealthcheckComponent {
 
   private _healthService = inject(HealthService);
   private _commonService = inject(CommonService);
-  private _hardwareService = inject(HardwareService);
-
+  private _hardwareService = inject(HardwareService); 
   stats: any = toSignal(this._healthService.getStats());
+  dockerStats: any = toSignal(this._healthService.getDockerStats());
   readonly uptime = computed(() => this.stats()?.stats.uptime ?? 'N/A');
   readonly lastReload = computed(() => this.stats()?.stats?.detect?.engines?.[0]?.last_reload ?? 'N/A');
   readonly kernelDrops = computed(() => this.stats()?.stats?.capture?.kernel_drops ?? 'N/A');

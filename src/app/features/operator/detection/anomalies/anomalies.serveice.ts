@@ -46,7 +46,7 @@ export class AnomaliesService {
         'conn_count'
     ];
 
-    weirdQueryParams  = signal<AnomalyQueryParamsInterface>({display_col: this.requestColumns, orderBy: 'desc', sortedBy: 'ts', size: 10, type: 'ZEEKNOTICE'});
+    weirdQueryParams  = signal<AnomalyQueryParamsInterface>({display_col: this.requestColumns, orderBy: 'desc', sortedBy: 'ts', size: 10, type: 'zeek-notice'});
 
     anomalies = toSignal(
         toObservable(this.weirdQueryParams).pipe(
@@ -57,12 +57,12 @@ export class AnomaliesService {
                 map(response => {
                     this.length.set(response.total);
                     response.data.map((ano: AnomalyInterface) => {
-                        if(ano.type === 'ZEEKNOTICE'){
+                        if(ano.type === 'zeek-notice'){
                             ano.addl = (ano.msg ?? "") +" "+ (ano?.sub);
                             ano.name =  ano?.note || ano?.name;
                         }
                         ano.ts = (ano.ts ?? 0) * 1000;
-                        ano.type = ano.type === 'ZEEKNOTICE' ? 'N' : 'W'
+                        ano.type = ano.type === 'zeek-notice' ? 'N' : 'W'
                     })
                     return response.data;
                 }));

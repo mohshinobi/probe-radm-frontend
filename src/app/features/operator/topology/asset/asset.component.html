@@ -7,8 +7,8 @@
       Assets Stats   
       <mat-icon matTooltip="Assets Stats" matTooltipPosition="above" matTooltipDelay="500">help_outline</mat-icon>
     </h3>
-    <div class="cards-container">
-      @for (card of itStats(); track card){
+    <div class="cards-container">  
+      @for (card of itStats()  ; track card){ 
         @if(card.key != "Down") {
           <div class="card card-stats">
             <div class="card-body">

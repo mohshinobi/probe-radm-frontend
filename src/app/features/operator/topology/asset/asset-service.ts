@@ -115,9 +115,9 @@ export class AssetService {
     .pipe(
       map((res: any) => {
         res['page'] = params.page || 1;
-        res['total'] = res.devices.count || 0;
+        res['total'] = res.data.devices.count || 0;
         res['size'] = params.size || 10;
-        res['data'] = res.devices.devices || [];
+        res['data'] = res.data.devices.devices || [];
         delete res.devices; 
         return res;
       })
@@ -176,7 +176,7 @@ export class AssetService {
     return this._http.post(_discoveryApi+'/graphql', body)
     .pipe(
       map((res: any) => {
-        return res.devices.devices[0];
+        return res.data.devices.devices[0];
       })
     );
    
@@ -235,7 +235,7 @@ export class AssetService {
     return this._http.post(_discoveryApi+'/graphql', body)
     .pipe(
       map((res: any) => {
-        return res.devices.devices[0];
+        return res.data.devices.devices[0];
       })
     );
   };
@@ -267,7 +267,7 @@ export class AssetService {
     return this._http.post(_discoveryApi+'/graphql', body)
      .pipe(
       map((response: any) => {
-        const devices = response.devices.devices || [];
+        const devices = response.data.devices.devices || [];
         // Formatter les dates sans les heures, minutes et secondes
         const datesOnly: string[] = devices.map((device:any) => {
           // Extraire la date sans l'heure
@@ -335,7 +335,7 @@ export class AssetService {
   
     return this._http.post(_discoveryApi+'/graphql', body).pipe(
       map((response: any) => {
-        const devices = response.devices.devices || [];
+        const devices = response.data.devices.devices || [];
   
         const now = new Date();
         const thirtyDaysAgo = new Date();
@@ -423,7 +423,7 @@ export class AssetService {
   
     return this._http.post(_discoveryApi+'/graphql', body).pipe(
       map((response: any) => {
-        const devices = response.devices.devices || [];
+        const devices = response.data.devices.devices || [];
 
   
         const now = new Date();
@@ -516,8 +516,8 @@ export class AssetService {
     };
   
     return this._http.post(_discoveryApi+'/graphql', body).pipe(
-      map((res: any) => {
-        return res.devices.devices;
+      map((res: any) => { 
+        return res.data.devices.devices;
       })
     );
   }

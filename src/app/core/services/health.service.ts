@@ -10,6 +10,23 @@ export interface LineFieldResponse {
   total: any;
 }
 
+
+export type dockerStatus = 'healthy' |  'up' |  'down' |  'restarting' |  'pending' |  'error' |  'paused';
+
+export interface dockerStats  {
+  timestamp: string;
+  id: string;
+  name: string;
+  status: dockerStatus;
+  cpu_percent: Number;
+  memory_percent: Number;
+  net_input_bytes: Number;
+  net_output_bytes: Number;
+  block_input_bytes: Number;
+  block_output_bytes: Number;
+  pid: Number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +38,11 @@ export class HealthService {
   getStats(): Observable<HeatlthcheckStats[]> {
     return this._http.get<HeatlthcheckStats[]>(_webApi+`/documents?index=${this._index}&page=1&size=1&displayedField[]=stats.uptime,stats.capture.kernel_drops,stats.decoder.pkts,stats.tcp.invalid_checksum,stats.tcp.memuse,stats.memcap_pressure,stats.detect.engines.rules_loaded,stats.detect.engines.rules_failed,stats.detect.engines.rules_skipped,stats.detect.engines.last_reload,stats.detect.alert,stats.detect.alerts_suppressed,stats.tcp.syn,stats.tcp.synack,stats.tcp.rst,stats.tcp.overlap,stats.app_layer.error.tls.parser,stats.app_layer.error.http.parser,stats.app_layer.error.rdp.parser,stats.app_layer.error.ssh.parser,stats.tcp.memuse,stats.ftp.memuse,stats.http.memuse&sortedBy=timestamp&orderBy=desc`)
     .pipe(map((response: any) => response.data[0] as HeatlthcheckStats[]));
+  }
+
+  getDockerStats(): Observable<dockerStats[]> {
+    return this._http.get<dockerStats[]>(_webApi+`/documents?index=logstash-hw-dockerstats-*&page=1&size=100&sortedBy=timestamp&orderBy=asc`)
+    .pipe(map((response: any) => response.data as dockerStats[]));
   }
 
   getLineData(interval:number, field:string){

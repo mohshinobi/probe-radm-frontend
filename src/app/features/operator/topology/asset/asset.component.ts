@@ -169,11 +169,11 @@ export class AssetComponent {
 
   // Signaux pour les données
   assetsByStatusData = computed(() => {
-    const stats: any[] = this.stats(); // Récupère les stats sous forme de tableau d'objets avec le type Stat
+    const stats: any[] = this.stats(); // Récupère les stats sous forme de tableau d'objets avec le type Stat 
     // Filtrage et transformation
     return stats.map(stat => ({
       name: stat.key,    // Utilisation de 'key' au lieu de 'name'
-      y: stat.value.count // Accès à 'count' dans 'value'
+      y: stat.value // Accès à 'count' dans 'value'
     }));
   });
 
@@ -251,7 +251,7 @@ export class AssetComponent {
   }
 
   readonly assetByStatus = computed<PieChartInterface>(() => {
-      const data = this.assetsByStatusData();
+    const data = this.assetsByStatusData();
       const processedData = data.reduce<{ name: string; y: number }[]>((acc, { name, y }) => {
         if (name === "Connected") {
           acc.push({ name, y });
@@ -383,31 +383,43 @@ fetchAndSetDetails(data: any): void {
 
 
 
-    stats = toSignal(
-      this._assetsService.getItStats().pipe(
-        map(stats =>
-          Object.entries(stats).map(([key, value]) => ({ key, value }))
-        )
-      ),
-      { initialValue: [] } // Valeur initiale pour éviter les erreurs avant le chargement
-    );
+  stats = toSignal(
+    this._assetsService.getItStats().pipe(
+      map(stats => {
+        // Vérifie que stats.data existe avant de le parcourir
+        if (!stats?.data) return [];
+        // Transforme l'objet en tableau { key, value }
+        return Object.entries(stats.data).map(([key, value]: [string, any]) => ({
+          key,
+          value: value?.count ?? 0
+        }));
+      })
+    ),
+    { initialValue: [] } // Valeur initiale pour éviter les erreurs avant le chargement
+  );
 
-    itStats = toSignal(
-      this._assetsService.getItStats().pipe(
-        map(stats =>
-          Object.entries(stats).map(([key, value]) => {
-            let result = { key, value: (value as { count: number }).count ?? 0 };
-            // Check if the key is 'down' or 'offline' and merge them
-            if (key === 'down' || key === 'offline') {
-              const downValue = stats['down']?.count ?? 0;
-              const offlineValue = stats['offline']?.count ?? 0;
-              result.value = downValue + offlineValue;
-            }
-            return result;
+
+  itStats = toSignal(
+    this._assetsService.getItStats().pipe(
+      map((stats:any) =>{
+        stats = stats?.data;  
+
+        return Object.entries(stats).map((item: any) => { 
+          const key : string = item?.[0];
+          const value: number = item?.[1]?.count || 0; 
+            return   { key, value };
           })
+       }
         )
       ),
-      { initialValue: [] } // Valeur initiale pour éviter les erreurs avant le chargement
+    {
+      initialValue: [
+        { key: 'Connected', value: 0 },
+        { key: 'Down', value: 0 },
+        { key: 'New', value: 0 },
+        { key: 'Offline', value: 0 },
+        { key: 'Total', value: 0 },
+      ] } // Valeur initiale pour éviter les erreurs avant le chargement
     );
 
     graphDisplayedColumns = [

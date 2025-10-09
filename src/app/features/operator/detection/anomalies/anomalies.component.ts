@@ -83,7 +83,7 @@ export class AnomaliesComponent {
     { value: 'Custom', label: 'Custom' },
   ];
 
-  anomalieType: string = "ZEEKNOTICE";
+  anomalieType: string = "zeek-notice";
 
   constructor() {
     this.fields = this._anomaliesFormService.getFormFields();

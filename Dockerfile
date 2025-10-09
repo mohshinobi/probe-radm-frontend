@@ -74,7 +74,7 @@ RUN a2enmod proxy_http
 RUN mkdir -p /var/www/html/frontend
 
 # copy only the compiled project
-COPY ./dist/jizo-front/browser /var/www/html/frontend
+COPY ./dist/radm-frontend/browser /var/www/html/frontend
 COPY ./maxmind/* /usr/share/GeoIP/*
 
 #Donner les droits à apache 2
