@@ -50,7 +50,7 @@ export class WorldMapMarkerComponent {
         text: undefined,
         style: {
           color: 'white',
-          fontFamily: 'Sesame'
+          fontFamily: 'BebasNeue'
         },
         align: 'left'
       },

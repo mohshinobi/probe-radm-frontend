@@ -43,7 +43,7 @@ export class ColumnComponent {
           text: options.title,
           style:{
             color: 'white',
-            fontFamily: 'Sesame'
+            fontFamily: 'BebasNeue'
           }
       },
       xAxis: {
@@ -52,7 +52,7 @@ export class ColumnComponent {
         labels: {
           style: {
             fontSize: '13px',
-            fontFamily: 'Sesame',
+            fontFamily: 'BebasNeue',
             color: options.xLabelColor || '#C5C4BE'
           }
         },
@@ -107,7 +107,7 @@ export class ColumnComponent {
             y: 10,
             style: {
                 fontSize: '13px',
-                fontFamily: 'Sesame'
+                fontFamily: 'BebasNeue'
             },
             color: 'white'
         },

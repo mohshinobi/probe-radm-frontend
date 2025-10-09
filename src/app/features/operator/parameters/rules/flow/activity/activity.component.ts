@@ -136,7 +136,7 @@ export class RuleFlowActivityComponent {
         align: 'left',
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         }
       },
       legend: {

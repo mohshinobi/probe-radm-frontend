@@ -41,7 +41,7 @@ export class BarComponent {
         text: options.title,
         style:{
           color: 'white',
-          fontFamily: 'Sesame'
+          fontFamily: 'BebasNeue'
         }
       },
       xAxis: {
@@ -50,7 +50,7 @@ export class BarComponent {
           autoRotation: [-45, -90],
           style: {
             fontSize: '13px',
-            fontFamily: 'Sesame',
+            fontFamily: 'BebasNeue',
             color: options.xLabelColor || '#C5C4BE'
           }
         },
@@ -116,7 +116,7 @@ export class BarComponent {
           y: 0,
           style: {
             fontSize: '12px',
-            fontFamily: 'Sesame',
+            fontFamily: 'BebasNeue',
             color: 'white'
           }
         }

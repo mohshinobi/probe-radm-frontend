@@ -43,7 +43,7 @@ export class SolidgaugeComponent {
         text: options.showTitle ? options.title : '',
         style:{
           color: 'white',
-          fontFamily: 'Sesame'
+          fontFamily: 'BebasNeue'
         }
       },
       responsive: {

@@ -35,7 +35,7 @@ export const usecasesNew: NewUsecase[] = [
   {
     usecase: {
       timestamp: "2025-02-01 10:10:12",
-      name: "HOSHI_CobaltStrike_Beacon",
+      name: "CobaltStrike_Beacon",
       tags: ["Cobalt Strike", "Beacon", "C2"],
       timespan: 2,
       progress: 0,

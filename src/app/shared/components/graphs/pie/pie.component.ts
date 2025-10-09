@@ -106,7 +106,7 @@ export class PieComponent {
         text: options.showTitle ? options.title : '',
         style: {
           color: 'white',
-          fontFamily: 'Sesame'
+          fontFamily: 'BebasNeue'
         }
       },
       subtitle: options.subtitle,

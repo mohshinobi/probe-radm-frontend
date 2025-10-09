@@ -29,7 +29,7 @@ export const alertsUc: any[] = [
     "@timestamp": "2025-04-18T07:33:10.285000Z",
     "starting_date": "2025-04-18T07:33:09.636000+00:00",
     "ends_at": "2025-04-18T09:33:09.636000+00:00",
-    "usecase_alert_ID": "UCseif_1",
+    "usecase_alert_ID": "UC_Test_25_1",
     "usecase_name": "UC_1",
     "timespan": 2,
     "steps_alerts": {
@@ -42,7 +42,7 @@ export const alertsUc: any[] = [
         },
         "alert.signature_id(2009512)": {
           "tool_name": "usecase",
-          "usecase_name": "UCseif",
+          "usecase_name": "UC_Test_25",
           "alert_count": 872,
           "oldest_timestamp": "2025-04-18T07:33:09.636Z"
         }
@@ -56,7 +56,7 @@ export const alertsUc: any[] = [
         },
         "alert.signature_id(2009512)": {
           "tool_name": "usecase",
-          "usecase_name": "UCseif",
+          "usecase_name": "UC_Test_25",
           "alert_count": 872,
           "oldest_timestamp": "2025-04-18T07:33:09.636Z"
         }
@@ -69,7 +69,7 @@ export const alertsUc: any[] = [
     "@timestamp": "2025-04-18T07:33:10.285000Z",
     "starting_date": "2025-04-18T07:33:09.636000+00:00",
     "ends_at": "2025-04-18T09:33:09.636000+00:00",
-    "usecase_alert_ID": "UCseif_2",
+    "usecase_alert_ID": "UC_Test_25_2",
     "usecase_name": "UC_2",
     "timespan": 2,
     "steps_alerts": {
@@ -82,7 +82,7 @@ export const alertsUc: any[] = [
         },
         "alert.signature_id(2009512)": {
           "tool_name": "usecase",
-          "usecase_name": "UCseif",
+          "usecase_name": "UC_Test_25",
           "alert_count": 872,
           "oldest_timestamp": "2025-04-18T07:33:09.636Z"
         }
@@ -96,7 +96,7 @@ export const alertsUc: any[] = [
         },
         "alert.signature_id(2009512)": {
           "tool_name": "usecase",
-          "usecase_name": "UCseif",
+          "usecase_name": "UC_Test_25",
           "alert_count": 872,
           "oldest_timestamp": "2025-04-18T07:33:09.636Z"
         }
@@ -109,8 +109,8 @@ export const alertsUc: any[] = [
     "@timestamp": "2025-04-18T07:33:10.285000Z",
     "starting_date": "2025-04-18T07:33:09.636000+00:00",
     "ends_at": "2025-04-18T09:33:09.636000+00:00",
-    "usecase_alert_ID": "UCseif_3",
-    "usecase_name": "UCseif",
+    "usecase_alert_ID": "UC_Test_25_3",
+    "usecase_name": "UC_Test_25",
     "timespan": 2,
     "steps_alerts": {
       "Step 1": {

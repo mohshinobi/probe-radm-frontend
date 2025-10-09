@@ -56,7 +56,7 @@ export class AreasplineComponent {
         align: 'center',
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         },
       },
       credits: {

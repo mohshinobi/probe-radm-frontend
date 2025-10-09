@@ -30,7 +30,7 @@ export class NetworkComponent {
         type: 'networkgraph',
         backgroundColor: 'transparent',
         style: {
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         },
         zooming: {
           type: 'xy',
@@ -41,7 +41,7 @@ export class NetworkComponent {
         text: options.title || ' ',
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
           fontSize: '24px',
         },
         align: 'center',
@@ -58,7 +58,7 @@ export class NetworkComponent {
           dataLabels: {
             enabled: true,
             style: {
-              // fontFamily: 'Sesame',
+              // fontFamily: 'BebasNeue',
               fontSize: '0.8rem',
               color: 'white',
               textAlign: 'center',

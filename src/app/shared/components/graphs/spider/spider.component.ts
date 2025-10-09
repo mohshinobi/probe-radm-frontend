@@ -30,7 +30,7 @@ export class SpiderComponent {
         text: this.graphOptions.title,
         style: {
           color: 'white',
-          fontFamily: 'Sesame'
+          fontFamily: 'BebasNeue'
         }
       },
     

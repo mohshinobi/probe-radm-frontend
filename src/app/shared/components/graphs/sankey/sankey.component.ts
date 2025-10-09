@@ -35,7 +35,7 @@ export class SankeyComponent {
         text: options.title,
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         },
       },
       chart: {

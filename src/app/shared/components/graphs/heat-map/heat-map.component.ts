@@ -50,7 +50,7 @@ export class HeatMapComponent {
         text: options.title,
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         },
       },
       credits: {

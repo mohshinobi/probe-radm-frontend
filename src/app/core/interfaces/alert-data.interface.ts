@@ -91,8 +91,7 @@ export interface AlertTimelineResponse {
 
 
 export interface AlertDataInterface {
-    _id: string;
-    sesame_flow_id: string;
+    _id: string; 
     dest_asn: {
         ip: string;
         as: ASN;

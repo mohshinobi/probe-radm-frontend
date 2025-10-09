@@ -36,7 +36,7 @@ export class AreaComponent {
         text: options.showTitle ? options.title : '',
         style: {
           color: 'white',
-          fontFamily: 'Sesame',
+          fontFamily: 'BebasNeue',
         },
       },
       chart: {

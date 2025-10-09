@@ -55,8 +55,8 @@ RUN a2enmod ssl
 # Générer les certificats
 RUN   echo "Generating self-signed certificate..."
 RUN   openssl req -x509 -newkey rsa:4096 -nodes \
-        -out "/etc/ssl/certs/sesame-it-frontend-selfsigned.crt" \
-        -keyout "/etc/ssl/certs/sesame-it-frontend-selfsigned.key" \
+        -out "/etc/ssl/certs/radm-frontent.crt" \
+        -keyout "/etc/ssl/certs/radm-frontent.key" \
         -subj "/CN=172.25.0.6"
 
 # update certificates
